@@ -835,7 +835,7 @@ body {
 .filter-tab:hover,
 .filter-tab.active {
   background: var(--color-blue);
-  color: #ffffff;
+  color: var(--color-btn-text, #ffffff);
   border-color: var(--color-blue);
 }
 
