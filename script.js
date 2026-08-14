@@ -1,9 +1,9 @@
 /**
- * cRs011 Portfolio — Interactive Features & Canvas Background
+ * cRs011 Portfolio — Interactive Features, Canvas Background & Multi-Platform Adaptation
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Canvas Background Particle Mesh
+  // 1. Canvas Background Particle Mesh (performance-aware)
   initCanvas();
 
   // 2. Typewriter Effect
@@ -15,10 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Project Filters
   initProjectFilters();
 
-  // 5. One-Click Copy Email
+  // 5. One-Click Copy Email (with fallback for legacy/restricted web views)
   initCopyEmail();
 
-  // 6. Navigation Scroll Spy
+  // 6. Navigation Scroll Spy & Mobile Drawer
   initNavSpy();
 });
 
@@ -38,26 +38,40 @@ function initCanvas() {
     height = canvas.height = window.innerHeight;
   }
   resize();
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', resize, { passive: true });
 
   window.addEventListener('mousemove', (e) => {
-    mouse.x = e.x;
-    mouse.y = e.y;
-  });
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  }, { passive: true });
 
   window.addEventListener('mouseout', () => {
     mouse.x = null;
     mouse.y = null;
   });
 
-  const particleCount = Math.min(Math.floor((window.innerWidth * window.innerHeight) / 16000), 75);
+  // Touch move support for phones/tablets
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+      mouse.x = e.touches[0].clientX;
+      mouse.y = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchend', () => {
+    mouse.x = null;
+    mouse.y = null;
+  });
+
+  const isMobile = window.innerWidth < 768;
+  const particleCount = isMobile ? 30 : Math.min(Math.floor((window.innerWidth * window.innerHeight) / 18000), 65);
 
   class Particle {
     constructor() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.vx = (Math.random() - 0.5) * 0.4;
-      this.vy = (Math.random() - 0.5) * 0.4;
+      this.vx = (Math.random() - 0.5) * 0.35;
+      this.vy = (Math.random() - 0.5) * 0.35;
       this.radius = Math.random() * 1.5 + 0.8;
     }
 
@@ -68,15 +82,15 @@ function initCanvas() {
       if (this.x < 0 || this.x > width) this.vx *= -1;
       if (this.y < 0 || this.y > height) this.vy *= -1;
 
-      // Mouse repulsion
+      // Mouse/Touch interaction
       if (mouse.x !== null && mouse.y !== null) {
         let dx = mouse.x - this.x;
         let dy = mouse.y - this.y;
         let dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < mouse.radius) {
           let force = (mouse.radius - dist) / mouse.radius;
-          this.x -= (dx / dist) * force * 2;
-          this.y -= (dy / dist) * force * 2;
+          this.x -= (dx / dist) * force * 1.8;
+          this.y -= (dy / dist) * force * 1.8;
         }
       }
     }
@@ -105,11 +119,11 @@ function initCanvas() {
         let dy = particles[i].y - particles[j].y;
         let dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 120) {
+        if (dist < 110) {
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(37, 99, 235, ${0.18 * (1 - dist / 120)})`;
+          ctx.strokeStyle = `rgba(37, 99, 235, ${0.16 * (1 - dist / 110)})`;
           ctx.lineWidth = 0.8;
           ctx.stroke();
         }
@@ -154,11 +168,11 @@ function initTypewriter() {
 
     if (!isDeleting && charIndex === currentWord.length) {
       isDeleting = true;
-      typingSpeed = 1800; // Pause at end
+      typingSpeed = 1800; // Pause at end of phrase
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
       wordIndex = (wordIndex + 1) % words.length;
-      typingSpeed = 400; // Pause before typing new word
+      typingSpeed = 400; // Pause before new phrase
     }
 
     setTimeout(type, typingSpeed);
@@ -167,10 +181,15 @@ function initTypewriter() {
 }
 
 /* =========================================================================
-   3. Scroll Reveal
+   3. Scroll Reveal Animations
    ========================================================================= */
 function initScrollReveal() {
   const reveals = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    reveals.forEach(el => el.classList.add('visible'));
+    return;
+  }
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -178,8 +197,8 @@ function initScrollReveal() {
       }
     });
   }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.08,
+    rootMargin: '0px 0px -30px 0px'
   });
 
   reveals.forEach(el => observer.observe(el));
@@ -201,7 +220,10 @@ function initProjectFilters() {
       projectCards.forEach(card => {
         if (filter === 'all' || card.dataset.category === filter) {
           card.style.display = 'flex';
-          setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'scale(1)'; }, 10);
+          setTimeout(() => { 
+            card.style.opacity = '1'; 
+            card.style.transform = 'scale(1)'; 
+          }, 10);
         } else {
           card.style.opacity = '0';
           card.style.transform = 'scale(0.95)';
@@ -213,7 +235,7 @@ function initProjectFilters() {
 }
 
 /* =========================================================================
-   5. One-Click Copy Email
+   5. One-Click Copy Email (with Safari/PlayStation Clipboard Fallback)
    ========================================================================= */
 function initCopyEmail() {
   const btn = document.getElementById('copy-email-btn');
@@ -223,19 +245,42 @@ function initCopyEmail() {
   if (!btn || !tooltip) return;
 
   btn.addEventListener('click', () => {
-    navigator.clipboard.writeText(email).then(() => {
-      tooltip.textContent = "Copiat!";
-      tooltip.style.background = "#2563eb";
-      setTimeout(() => {
-        tooltip.textContent = "Copy Email";
-        tooltip.style.background = "#0f172a";
-      }, 2000);
-    });
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(email).then(showCopied, fallbackCopy);
+    } else {
+      fallbackCopy();
+    }
   });
+
+  function fallbackCopy() {
+    const textArea = document.createElement("textarea");
+    textArea.value = email;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-999999px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      showCopied();
+    } catch (err) {
+      console.error('Fallback copy failed', err);
+    }
+    document.body.removeChild(textArea);
+  }
+
+  function showCopied() {
+    tooltip.textContent = "Copiat!";
+    tooltip.style.background = "#2563eb";
+    setTimeout(() => {
+      tooltip.textContent = "Copy Email";
+      tooltip.style.background = "#0f172a";
+    }, 2000);
+  }
 }
 
 /* =========================================================================
-   6. Navigation Scroll Spy & Mobile Toggle
+   6. Navigation Scroll Spy & Mobile Drawer
    ========================================================================= */
 function initNavSpy() {
   const sections = document.querySelectorAll('section[id]');
@@ -247,7 +292,7 @@ function initNavSpy() {
 
     sections.forEach(section => {
       const sectionHeight = section.offsetHeight;
-      const sectionTop = section.offsetTop - 150;
+      const sectionTop = section.offsetTop - 160;
       if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
         current = section.getAttribute('id');
       }
@@ -259,25 +304,40 @@ function initNavSpy() {
         link.classList.add('active');
       }
     });
-  });
+  }, { passive: true });
 
-  // Mobile Toggle
+  // Mobile Drawer Toggle
   const mobileToggle = document.getElementById('mobile-toggle');
-  const navLinksList = document.querySelector('.nav-links');
-  if (mobileToggle && navLinksList) {
-    mobileToggle.addEventListener('click', () => {
-      const isVisible = navLinksList.style.display === 'flex';
-      navLinksList.style.display = isVisible ? 'none' : 'flex';
-      if (!isVisible) {
-        navLinksList.style.flexDirection = 'column';
-        navLinksList.style.position = 'absolute';
-        navLinksList.style.top = '60px';
-        navLinksList.style.left = '20px';
-        navLinksList.style.right = '20px';
-        navLinksList.style.background = 'rgba(3, 7, 18, 0.95)';
-        navLinksList.style.padding = '20px';
-        navLinksList.style.borderRadius = '16px';
-        navLinksList.style.border = '1px solid rgba(59, 130, 246, 0.2)';
+  const mobileOverlay = document.getElementById('mobile-menu-overlay');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+  if (mobileToggle && mobileOverlay) {
+    function toggleMenu() {
+      const isOpen = mobileOverlay.classList.contains('open');
+      if (isOpen) {
+        mobileOverlay.classList.remove('open');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      } else {
+        mobileOverlay.classList.add('open');
+        mobileToggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    mobileToggle.addEventListener('click', toggleMenu);
+
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileOverlay.classList.remove('open');
+        mobileToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    mobileOverlay.addEventListener('click', (e) => {
+      if (e.target === mobileOverlay) {
+        toggleMenu();
       }
     });
   }
