@@ -573,13 +573,16 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--text-body);
   background: #121826;
   border: 1px solid var(--border-card);
-  padding: 5px 12px;
+  padding: 5px 14px;
   border-radius: 999px;
   margin-bottom: 20px;
+  line-height: 1.4;
+  text-align: center;
+  max-width: 100%;
 }
 
 .status-indicator {
@@ -588,6 +591,21 @@ body {
   border-radius: 50%;
   background: #10b981;
   box-shadow: 0 0 8px #10b981;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .status-pill {
+    font-size: 0.68rem;
+    padding: 4px 10px;
+    gap: 6px;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+  .status-indicator {
+    width: 6px;
+    height: 6px;
+  }
 }
 
 .hero-heading {
