@@ -31,12 +31,13 @@
   --bg-card: #080808;
   --bg-card-hover: #101010;
   --border-card: rgba(255, 255, 255, 0.12);
-  --border-focus: rgba(255, 255, 255, 0.35);
+  --border-focus: rgba(255, 255, 255, 0.45);
   
   --color-blue: #ffffff;
   --color-blue-hover: #e2e8f0;
   --color-blue-light: #38bdf8;
   --color-blue-glow: rgba(255, 255, 255, 0.15);
+  --color-btn-text: #000000;
   
   --text-white: #ffffff;
   --text-heading: #ffffff;
@@ -52,7 +53,34 @@
 
 [data-theme="minimalist"] .btn-primary:hover {
   background: #e2e8f0;
+  color: #000000;
   box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="minimalist"] .filter-tab.active,
+[data-theme="minimalist"] .filter-tab:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: #ffffff !important;
+  font-weight: 700;
+}
+
+[data-theme="minimalist"] .badge-label,
+[data-theme="minimalist"] .status-badge {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="minimalist"] .chip.chip-focus {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="minimalist"] .tree-dot.current {
+  background: #ffffff;
+  border-color: #ffffff;
 }
 
 [data-theme="minimalist"] .status-indicator {
