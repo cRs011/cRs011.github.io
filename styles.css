@@ -1,8 +1,8 @@
 :root {
+  /* Default: Executive Dark */
   --bg-main: #0a0d14;
   --bg-card: #111622;
   --bg-card-hover: #161c2d;
-  
   --border-card: rgba(255, 255, 255, 0.08);
   --border-focus: rgba(59, 130, 246, 0.5);
   
@@ -20,6 +20,93 @@
   --font-mono: 'JetBrains Mono', monospace;
   
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --card-radius: 14px;
+}
+
+/* =========================================================================
+   THEME 2: MINIMALIST (Vercel / Swiss Grid Monochrome)
+   ========================================================================= */
+[data-theme="minimalist"] {
+  --bg-main: #000000;
+  --bg-card: #080808;
+  --bg-card-hover: #101010;
+  --border-card: rgba(255, 255, 255, 0.12);
+  --border-focus: rgba(255, 255, 255, 0.35);
+  
+  --color-blue: #ffffff;
+  --color-blue-hover: #e2e8f0;
+  --color-blue-light: #38bdf8;
+  --color-blue-glow: rgba(255, 255, 255, 0.15);
+  
+  --text-white: #ffffff;
+  --text-heading: #ffffff;
+  --text-body: #a1a1aa;
+  --text-muted: #71717a;
+  --card-radius: 8px;
+}
+
+[data-theme="minimalist"] .btn-primary {
+  background: #ffffff;
+  color: #000000;
+}
+
+[data-theme="minimalist"] .btn-primary:hover {
+  background: #e2e8f0;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="minimalist"] .status-indicator {
+  background: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
+}
+
+[data-theme="minimalist"] .ambient-aura {
+  display: none;
+}
+
+[data-theme="minimalist"] .photo-card {
+  border-radius: 12px;
+  background: #18181b;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="minimalist"] .photo-img {
+  border-radius: 8px;
+}
+
+/* =========================================================================
+   THEME 3: BENTO GRID (Apple / Modern Tech Modular)
+   ========================================================================= */
+[data-theme="bento"] {
+  --bg-main: #07090e;
+  --bg-card: #0f1420;
+  --bg-card-hover: #161e30;
+  --border-card: rgba(59, 130, 246, 0.16);
+  --border-focus: rgba(96, 165, 250, 0.6);
+  
+  --color-blue: #3b82f6;
+  --color-blue-hover: #2563eb;
+  --color-blue-light: #93c5fd;
+  --color-blue-glow: rgba(59, 130, 246, 0.35);
+  
+  --text-white: #ffffff;
+  --text-heading: #f8fafc;
+  --text-body: #94a3b8;
+  --text-muted: #64748b;
+  --card-radius: 20px;
+}
+
+[data-theme="bento"] .box-card {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="bento"] .photo-card {
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(30, 64, 175, 0.2));
+}
+
+[data-theme="bento"] .photo-img {
+  border-radius: 20px;
 }
 
 /* Reset & Base */
@@ -37,6 +124,7 @@ html {
   color: var(--text-body);
   line-height: 1.6;
   font-size: 16px;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
 }
 
 body {
@@ -140,9 +228,9 @@ body {
 .box-card {
   background: var(--bg-card);
   border: 1px solid var(--border-card);
-  border-radius: 14px;
+  border-radius: var(--card-radius);
   padding: 26px;
-  transition: transform 0.25s var(--ease), border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  transition: transform 0.25s var(--ease), border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), background 0.3s;
 }
 
 .box-card:hover {
@@ -241,7 +329,7 @@ body {
   transform: translateX(-50%) translateY(0);
 }
 
-/* NAVBAR */
+/* NAVBAR & THEME CONTROLS */
 .navbar-wrapper {
   position: fixed;
   top: 16px;
@@ -257,14 +345,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 28px;
-  background: rgba(10, 13, 20, 0.9);
+  gap: 20px;
+  background: rgba(10, 13, 20, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-card);
   border-radius: 999px;
-  padding: 8px 20px;
-  max-width: 900px;
+  padding: 7px 18px;
+  max-width: 980px;
   width: 100%;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
@@ -285,7 +373,7 @@ body {
   display: flex;
   align-items: center;
   list-style: none;
-  gap: 22px;
+  gap: 20px;
 }
 
 .nav-item {
@@ -299,6 +387,54 @@ body {
 .nav-item:hover,
 .nav-item.active {
   color: var(--text-white);
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* THEME SWITCHER PILL */
+.theme-switcher {
+  display: inline-flex;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-card);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.theme-pill {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+
+.theme-pill:hover {
+  color: var(--text-white);
+}
+
+.theme-pill.active {
+  background: var(--bg-card-hover);
+  color: var(--text-white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="minimalist"] .theme-pill.active {
+  background: #ffffff;
+  color: #000000;
+}
+
+[data-theme="bento"] .theme-pill.active {
+  background: var(--color-blue);
+  color: #ffffff;
 }
 
 .btn-cv {
@@ -349,8 +485,8 @@ body {
   display: none;
 }
 
-@media (max-width: 768px) {
-  .nav-menu, .nav-cta {
+@media (max-width: 820px) {
+  .nav-menu, .nav-controls {
     display: none;
   }
   .menu-toggle {
@@ -383,6 +519,20 @@ body {
     max-width: 320px;
     margin: 0 auto;
     text-align: center;
+  }
+  
+  .mobile-theme-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  
+  .mobile-theme-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
   }
   
   .mobile-menu {
@@ -523,6 +673,7 @@ body {
   padding: 5px;
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(255, 255, 255, 0.1));
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  transition: border-radius 0.3s, background 0.3s;
 }
 
 .photo-img {
@@ -531,6 +682,7 @@ body {
   border-radius: 50%;
   object-fit: cover;
   object-position: center top;
+  transition: border-radius 0.3s;
 }
 
 /* METRICS STRIP */
@@ -547,9 +699,10 @@ body {
 .metric-box {
   background: var(--bg-card);
   border: 1px solid var(--border-card);
-  border-radius: 12px;
+  border-radius: var(--card-radius);
   padding: 18px 14px;
   text-align: center;
+  transition: all 0.3s;
 }
 
 .metric-num {

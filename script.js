@@ -1,14 +1,58 @@
 /**
- * cRs011 Portfolio — High Performance Lightweight Engine
+ * cRs011 Portfolio — Multi-Theme Engine & High Performance Controller
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initThemeEngine();
   initTypewriter();
   initProjectFilters();
   initCopyEmail();
   initMobileDrawer();
   initLightCanvas();
 });
+
+/* =========================================================================
+   0. Dynamic Multi-Theme Engine (Executive / Minimalist / Bento)
+   ========================================================================= */
+function initThemeEngine() {
+  const root = document.documentElement;
+  const pills = document.querySelectorAll('.theme-pill');
+
+  function setTheme(themeName) {
+    root.setAttribute('data-theme', themeName);
+    localStorage.setItem('crs_theme', themeName);
+
+    // Update active pill state across desktop & mobile
+    pills.forEach(p => {
+      if (p.getAttribute('data-set-theme') === themeName) {
+        p.classList.add('active');
+      } else {
+        p.classList.remove('active');
+      }
+    });
+
+    // Theme color meta tag update
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+      if (themeName === 'minimalist') metaTheme.setAttribute('content', '#000000');
+      else if (themeName === 'bento') metaTheme.setAttribute('content', '#07090e');
+      else metaTheme.setAttribute('content', '#0a0d14');
+    }
+  }
+
+  const savedTheme = localStorage.getItem('crs_theme') || 'executive';
+  setTheme(savedTheme);
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', (e) => {
+      e.preventDefault();
+      const theme = pill.getAttribute('data-set-theme');
+      if (theme) {
+        setTheme(theme);
+      }
+    });
+  });
+}
 
 /* =========================================================================
    1. Ultra-Lightweight Canvas (30 particles max, locked 60/120fps)
