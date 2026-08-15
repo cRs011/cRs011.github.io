@@ -616,10 +616,24 @@ body {
 }
 
 .hero-layout {
-  display: grid;
-  grid-template-columns: 1.35fr 0.65fr;
-  align-items: start;
-  gap: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+}
+
+.hero-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 640px;
+}
+
+.hero-image-pane {
+  flex: 0 0 280px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: auto;
 }
 
 .status-pill {
@@ -689,23 +703,20 @@ body {
 }
 
 .hero-typing {
-  font-size: clamp(1.15rem, 2.7vw, 1.5rem);
+  font-size: clamp(1.1rem, 2.4vw, 1.45rem);
   font-weight: 600;
   color: var(--text-body);
   margin-bottom: 18px;
   font-family: var(--font-mono);
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 10px;
-  min-height: 2.2em;
-  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 2.2em;
+  line-height: 2.2em;
+  display: block;
 }
 
 .typing-lead {
   color: var(--text-body);
-  white-space: nowrap;
-  flex-shrink: 0;
 }
 
 .typing-dynamic {
@@ -762,15 +773,6 @@ body {
 }
 
 /* HERO PHOTO — 100% Rock-Solid Pinned (Zero Movement) */
-.hero-image-pane {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-self: start;
-  margin-top: 15px;
-  position: relative;
-}
-
 .photo-card {
   width: 270px;
   height: 270px;
@@ -1121,56 +1123,76 @@ body {
   border-radius: 5px;
 }
 
-/* TECH STACK */
+/* TECH STACK & COMPETENCIES — Apple Glass & Floating Spotlight */
 .stack-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  gap: 22px;
 }
 
 .chip-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
+  gap: 8px;
+  margin-top: 14px;
 }
 
 .chip {
-  font-size: 0.82rem;
+  font-size: 0.83rem;
   font-weight: 600;
-  padding: 5px 10px;
-  border-radius: 7px;
-  background: #182030;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
   color: var(--text-body);
   border: 1px solid var(--border-card);
+  transition: transform 0.25s var(--ease), background 0.25s var(--ease), color 0.25s var(--ease), box-shadow 0.25s var(--ease), border-color 0.25s var(--ease);
+  cursor: default;
+}
+
+.chip:hover {
+  transform: translateY(-2px);
+  background: rgba(59, 130, 246, 0.18);
+  color: #ffffff;
+  border-color: rgba(96, 165, 250, 0.5);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
 }
 
 .chip.chip-focus {
   background: rgba(37, 99, 235, 0.12);
   color: #bfdbfe;
-  border-color: rgba(59, 130, 246, 0.25);
+  border-color: rgba(59, 130, 246, 0.3);
 }
 
-/* TIMELINE */
+.chip.chip-focus:hover {
+  background: rgba(37, 99, 235, 0.28);
+  color: #ffffff;
+  border-color: #60a5fa;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+}
+
+/* TIMELINE — Apple Precision Laser Stem & Multi-Ring Pulse */
 .timeline-tree {
-  max-width: 760px;
+  max-width: 780px;
   margin: 0 auto;
   position: relative;
-  padding-left: 28px;
+  padding-left: 34px;
 }
 
 .timeline-tree::before {
   content: '';
   position: absolute;
-  left: 6px;
-  top: 12px;
-  bottom: 12px;
+  left: 7px;
+  top: 16px;
+  bottom: 16px;
   width: 2px;
-  background: rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, #3b82f6 0%, rgba(96, 165, 250, 0.4) 50%, rgba(255, 255, 255, 0.06) 100%);
+  border-radius: 999px;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
 }
 
 .timeline-row {
   position: relative;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .timeline-row:last-child {
@@ -1179,19 +1201,52 @@ body {
 
 .tree-dot {
   position: absolute;
-  left: -28px;
-  top: 22px;
-  width: 14px;
-  height: 14px;
+  left: -34px;
+  top: 24px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: #0a0d14;
   border: 2px solid var(--border-card);
   z-index: 2;
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
 
 .tree-dot.current {
-  border-color: var(--color-blue);
-  background: var(--color-blue);
+  border-color: #60a5fa;
+  background: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25), 0 0 16px rgba(96, 165, 250, 0.6);
+  animation: applePulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes applePulse {
+  0%, 100% {
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25), 0 0 16px rgba(96, 165, 250, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.1), 0 0 24px rgba(96, 165, 250, 0.85);
+  }
+}
+
+.timeline-card {
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.timeline-card:hover {
+  transform: translateX(4px) translateY(-2px);
+  border-color: rgba(96, 165, 250, 0.4);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.65), 0 0 20px -5px rgba(59, 130, 246, 0.2);
+}
+
+.timeline-row:hover .tree-dot:not(.current) {
+  border-color: #60a5fa;
+  background: rgba(59, 130, 246, 0.4);
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(96, 165, 250, 0.5);
 }
 
 .row-header {
