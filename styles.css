@@ -1285,6 +1285,52 @@ body {
   margin-bottom: 10px;
 }
 
+/* TIMELINE SCROLL-ACTIVATED PROGRESS LINE */
+.timeline-progress-line {
+  position: absolute;
+  left: 7px;
+  top: 16px;
+  width: 2px;
+  height: 0%;
+  background: linear-gradient(180deg, #3b82f6, #60a5fa);
+  border-radius: 999px;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.6), 0 0 24px rgba(96, 165, 250, 0.3);
+  z-index: 1;
+  transition: height 0.15s linear;
+}
+
+/* TIMELINE ROWS — start hidden, slide in on scroll */
+.timeline-row {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.timeline-row.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timeline-row:nth-child(2) { transition-delay: 0.1s; }
+.timeline-row:nth-child(3) { transition-delay: 0.2s; }
+.timeline-row:nth-child(4) { transition-delay: 0.3s; }
+
+/* STACK CARDS — start hidden, stagger in on scroll */
+.stack-grid .box-card {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stack-grid .box-card.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stack-grid .box-card:nth-child(1) { transition-delay: 0s; }
+.stack-grid .box-card:nth-child(2) { transition-delay: 0.12s; }
+.stack-grid .box-card:nth-child(3) { transition-delay: 0.24s; }
+
 /* CONTACT CTA */
 .contact-cta {
   text-align: center;
@@ -1352,12 +1398,17 @@ body {
 /* RESPONSIVE */
 @media (max-width: 860px) {
   .hero-layout {
-    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .hero-text {
+    max-width: 100%;
     text-align: center;
   }
   .hero-image-pane {
-    order: -1;
-    margin-bottom: 10px;
+    position: relative;
+    right: auto;
+    top: auto;
+    margin: 0 auto 20px;
   }
   .hero-bio {
     margin: 0 auto 24px;
