@@ -21,9 +21,10 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="assets/cristi_portrait.jpg?v=3" as="image">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="styles.css?v=20260815v2">
+  <link rel="stylesheet" href="styles.css?v=20260815v3">
 </head>
 <body>
   <!-- Ambient Background Aura -->
@@ -141,7 +142,7 @@
         </div>
         <div class="hero-image-pane">
           <div class="photo-card">
-            <img src="assets/cristi_portrait.jpg?v=2" alt="Cristian Lăcătuș" class="photo-img" width="280" height="280" loading="eager">
+            <img src="assets/cristi_portrait.jpg?v=3" alt="Cristian Lăcătuș" class="photo-img" width="270" height="270" loading="eager" decoding="async" fetchpriority="high">
           </div>
         </div>
       </div>
@@ -456,6 +457,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20260815v2"></script>
+  <script src="script.js?v=20260815v3" defer></script>
 </body>
 </html>
