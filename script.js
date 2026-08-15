@@ -59,14 +59,16 @@ function initThemeEngine() {
 }
 
 /* =========================================================================
-   1. Ultra-Lightweight Canvas (30 particles max, locked 60/120fps)
+   1. Ultra-Lightweight Canvas (18 particles, auto-pauses during scroll for zero lag)
    ========================================================================= */
 function initLightCanvas() {
   const canvas = document.getElementById('bg-canvas');
   if (!canvas) return;
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { alpha: true });
   let width, height;
   let particles = [];
+  let isScrolling = false;
+  let scrollTimeout;
 
   function resize() {
     width = canvas.width = window.innerWidth;
@@ -75,47 +77,55 @@ function initLightCanvas() {
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
-  const count = window.innerWidth < 768 ? 15 : 28;
+  window.addEventListener('scroll', () => {
+    isScrolling = true;
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => { isScrolling = false; }, 120);
+  }, { passive: true });
+
+  const count = window.innerWidth < 768 ? 8 : 18;
 
   for (let i = 0; i < count; i++) {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.25,
-      vy: (Math.random() - 0.5) * 0.25,
+      vx: (Math.random() - 0.5) * 0.2,
+      vy: (Math.random() - 0.5) * 0.2,
       r: Math.random() * 1.2 + 0.8
     });
   }
 
   function frame() {
-    ctx.clearRect(0, 0, width, height);
+    if (!isScrolling) {
+      ctx.clearRect(0, 0, width, height);
 
-    for (let i = 0; i < particles.length; i++) {
-      let p = particles[i];
-      p.x += p.vx;
-      p.y += p.vy;
+      for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
 
-      if (p.x < 0 || p.x > width) p.vx *= -1;
-      if (p.y < 0 || p.y > height) p.vy *= -1;
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(96, 165, 250, 0.3)';
-      ctx.fill();
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(96, 165, 250, 0.25)';
+        ctx.fill();
 
-      for (let j = i + 1; j < particles.length; j++) {
-        let p2 = particles[j];
-        let dx = p.x - p2.x;
-        let dy = p.y - p2.y;
-        let dist = Math.sqrt(dx * dx + dy * dy);
+        for (let j = i + 1; j < particles.length; j++) {
+          let p2 = particles[j];
+          let dx = p.x - p2.x;
+          let dy = p.y - p2.y;
+          let dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 130) {
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = `rgba(59, 130, 246, ${0.12 * (1 - dist / 130)})`;
-          ctx.lineWidth = 0.6;
-          ctx.stroke();
+          if (dist < 110) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(59, 130, 246, ${0.1 * (1 - dist / 110)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
         }
       }
     }
@@ -431,23 +441,31 @@ function initAppleScrollAndMetrics() {
 }
 
 /* =========================================================================
-   7. Apple-Inspired Card Spotlight Mouse-Tracking
+   7. Apple-Inspired Card Spotlight Mouse-Tracking (RAF Throttled)
    ========================================================================= */
 function initCardSpotlights() {
   const cards = document.querySelectorAll('.project-card, .metric-box, .skill-card, .bento-item, .contact-card, .about-card, .timeline-card');
+  let ticking = false;
+
   cards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-    });
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
   });
 }
 
 /* =========================================================================
-   8. Apple Timeline Interactive Laser Scroll Animation
+   8. Apple Timeline Interactive Laser Scroll Animation (RAF Throttled)
    ========================================================================= */
 function initAppleTimelineScroll() {
   const tree = document.querySelector('.timeline-tree');
@@ -463,6 +481,8 @@ function initAppleTimelineScroll() {
     tree.appendChild(progressBar);
   }
 
+  let scrollTicking = false;
+
   function updateTimeline() {
     const rect = tree.getBoundingClientRect();
     const windowH = window.innerHeight;
@@ -473,7 +493,7 @@ function initAppleTimelineScroll() {
       progressBar.style.height = `${progress * 100}%`;
     }
 
-    rows.forEach((row, i) => {
+    rows.forEach((row) => {
       const rowRect = row.getBoundingClientRect();
       if (rowRect.top < windowH * 0.85) {
         row.classList.add('active');
@@ -485,12 +505,21 @@ function initAppleTimelineScroll() {
       if (cardRect.top < windowH * 0.88) {
         setTimeout(() => {
           card.classList.add('active');
-        }, idx * 120);
+        }, idx * 80);
       }
     });
+
+    scrollTicking = false;
   }
 
-  window.addEventListener('scroll', updateTimeline, { passive: true });
-  window.addEventListener('resize', updateTimeline, { passive: true });
+  function onScroll() {
+    if (!scrollTicking) {
+      requestAnimationFrame(updateTimeline);
+      scrollTicking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
   setTimeout(updateTimeline, 100);
 }

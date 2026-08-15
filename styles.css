@@ -164,31 +164,29 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Ambient Subtle Background Auras */
+/* Ambient Subtle Background Auras — Pure GPU Radial-Gradient (Zero Blur Lag) */
 .ambient-aura {
   position: fixed;
   border-radius: 50%;
   pointer-events: none;
   z-index: -2;
-  filter: blur(80px);
-  -webkit-filter: blur(80px);
-  opacity: 0.15;
+  opacity: 0.18;
 }
 
 .aura-1 {
   top: -100px;
   right: -100px;
-  width: 500px;
-  height: 500px;
-  background: #1e40af;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(30, 64, 175, 0.5) 0%, rgba(30, 64, 175, 0) 70%);
 }
 
 .aura-2 {
   bottom: 10%;
   left: -150px;
-  width: 450px;
-  height: 450px;
-  background: #1e3a8a;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(30, 58, 138, 0.45) 0%, rgba(30, 58, 138, 0) 70%);
 }
 
 #bg-canvas {
@@ -615,18 +613,21 @@ body {
 
 .hero-layout {
   position: relative;
-  min-height: 300px;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
 }
 
 .hero-text {
-  max-width: calc(100% - 300px);
+  max-width: calc(100% - 330px);
   width: 100%;
 }
 
 .hero-image-pane {
   position: absolute;
-  right: 0;
-  top: 10px;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
   width: 270px;
   height: 270px;
   display: flex;
