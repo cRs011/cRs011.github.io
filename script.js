@@ -132,9 +132,9 @@ function initTypewriter() {
 
   const words = [
     "Automation & Multi-Agent Bridges.",
-    "Python ETL Pipelines & Cloud APIs.",
+    "Python ETL & Google Cloud APIs.",
     "Unix Daemons & Atomic File Locks.",
-    "2D Tactical Game Engines & AI Systems."
+    "2D Tactical Combat & Enemy AI."
   ];
 
   let wordIndex = 0;

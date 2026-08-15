@@ -617,8 +617,8 @@ body {
 
 .hero-layout {
   display: grid;
-  grid-template-columns: 1.25fr 0.75fr;
-  align-items: center;
+  grid-template-columns: 1.35fr 0.65fr;
+  align-items: start;
   gap: 40px;
 }
 
@@ -685,19 +685,27 @@ body {
   letter-spacing: -0.04em;
   line-height: 1.1;
   color: var(--text-white);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .hero-typing {
-  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+  font-size: clamp(1.15rem, 2.7vw, 1.5rem);
   font-weight: 600;
   color: var(--text-body);
   margin-bottom: 18px;
   font-family: var(--font-mono);
-  min-height: 56px;
   display: flex;
-  align-items: center;
-  line-height: 1.3;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 2.2em;
+  line-height: 1.4;
+}
+
+.typing-lead {
+  color: var(--text-body);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .typing-dynamic {
@@ -707,6 +715,7 @@ body {
 .cursor {
   animation: blink 1s infinite;
   color: var(--color-blue-light);
+  margin-left: 2px;
 }
 
 @keyframes blink {
@@ -752,18 +761,19 @@ body {
   color: var(--text-white);
 }
 
-/* HERO PHOTO — Rock-Solid Static */
+/* HERO PHOTO — 100% Rock-Solid Pinned (Zero Movement) */
 .hero-image-pane {
   display: flex;
   justify-content: center;
   align-items: center;
-  align-self: center;
+  align-self: start;
+  margin-top: 15px;
   position: relative;
 }
 
 .photo-card {
-  width: 260px;
-  height: 260px;
+  width: 270px;
+  height: 270px;
   border-radius: 50%;
   padding: 6px;
   background: linear-gradient(135deg, rgba(59, 130, 246, 0.45), rgba(255, 255, 255, 0.12));
@@ -771,6 +781,7 @@ body {
   position: relative;
   overflow: hidden;
   transform: none !important;
+  transition: none !important;
 }
 
 .photo-img {
@@ -783,6 +794,7 @@ body {
   pointer-events: none;
   user-select: none;
   transform: none !important;
+  transition: none !important;
 }
 
 /* APPLE-INSPIRED SCROLL REVEAL & SPOTLIGHTS */
