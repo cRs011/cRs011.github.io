@@ -904,61 +904,93 @@ body {
   transform: translateY(-1px);
 }
 
-/* PROJECT MEDIA SHOWCASE */
+.btn-reel-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.btn-reel-toggle.playing svg {
+  stroke: #10b981;
+}
+
+/* PROJECT MEDIA SHOWCASE — AUTHENTIC 16:9 RATIO */
 .project-media {
   width: 100%;
-  height: 185px;
+  aspect-ratio: 16 / 9;
   border-radius: 9px;
   overflow: hidden;
   margin-bottom: 12px;
-  background: #080c14;
+  background: #050711;
   border: 1px solid var(--border-card);
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .project-media img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s var(--ease), opacity 0.2s ease;
+  object-fit: contain;
+  background: #050711;
+  transition: transform 0.3s var(--ease), opacity 0.25s ease;
 }
 
 .project-entry:hover .project-media img {
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
 .media-badge {
   position: absolute;
-  bottom: 8px;
-  left: 8px;
-  background: rgba(10, 13, 20, 0.85);
+  bottom: 10px;
+  left: 10px;
+  background: rgba(10, 13, 20, 0.88);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border-card);
   color: #ffffff;
   font-size: 0.72rem;
   font-weight: 600;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 6px;
   pointer-events: none;
+  z-index: 2;
+}
+
+.reel-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, #2563eb, #60a5fa);
+  z-index: 3;
+  transition: width 3s linear;
+}
+
+.reel-indicator.active {
+  width: 100%;
 }
 
 .project-gallery-thumbs {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  gap: 8px;
   margin-bottom: 16px;
 }
 
 .gallery-thumb {
-  height: 44px;
+  aspect-ratio: 16 / 9;
+  height: auto;
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid var(--border-card);
-  background: #111622;
+  background: #080c14;
   cursor: pointer;
   padding: 0;
-  opacity: 0.65;
+  opacity: 0.6;
   transition: all 0.2s var(--ease);
 }
 
@@ -967,6 +999,7 @@ body {
   opacity: 1;
   border-color: var(--color-blue-light);
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+  transform: translateY(-1px);
 }
 
 [data-theme="minimalist"] .gallery-thumb.active,

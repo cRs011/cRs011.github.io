@@ -191,32 +191,87 @@ function initProjectFilters() {
 }
 
 /* =========================================================================
-   3.1 BetterTanks Interactive Gallery
+   3.1 BetterTanks Interactive Gallery & Clip Reel
    ========================================================================= */
 function initBetterTanksGallery() {
   const thumbs = document.querySelectorAll('.gallery-thumb');
   const mainImg = document.getElementById('bettertanks-main-img');
   const caption = document.getElementById('bettertanks-caption');
+  const reelBtn = document.getElementById('bettertanks-reel-btn');
+  const reelBar = document.getElementById('bettertanks-reel-bar');
 
   if (!mainImg || !thumbs.length) return;
 
-  thumbs.forEach(thumb => {
+  let currentIndex = 0;
+  let isPlaying = true;
+  let timer = null;
+
+  function setSlide(index) {
+    currentIndex = index % thumbs.length;
+    thumbs.forEach((t, i) => {
+      if (i === currentIndex) t.classList.add('active');
+      else t.classList.remove('active');
+    });
+
+    const activeThumb = thumbs[currentIndex];
+    const newSrc = activeThumb.getAttribute('data-src');
+    const newCaption = activeThumb.getAttribute('data-caption');
+
+    mainImg.style.opacity = '0.3';
+    setTimeout(() => {
+      mainImg.src = newSrc;
+      if (caption && newCaption) caption.textContent = newCaption;
+      mainImg.style.opacity = '1';
+    }, 150);
+
+    if (reelBar) {
+      reelBar.style.transition = 'none';
+      reelBar.style.width = '0%';
+      setTimeout(() => {
+        reelBar.style.transition = 'width 3.2s linear';
+        reelBar.style.width = '100%';
+      }, 50);
+    }
+  }
+
+  function startReel() {
+    isPlaying = true;
+    if (reelBtn) reelBtn.classList.add('playing');
+    setSlide(currentIndex);
+    clearInterval(timer);
+    timer = setInterval(() => {
+      setSlide(currentIndex + 1);
+    }, 3400);
+  }
+
+  function stopReel() {
+    isPlaying = false;
+    if (reelBtn) reelBtn.classList.remove('playing');
+    clearInterval(timer);
+    if (reelBar) {
+      reelBar.style.transition = 'none';
+      reelBar.style.width = '0%';
+    }
+  }
+
+  // Start auto-play reel
+  startReel();
+
+  thumbs.forEach((thumb, i) => {
     thumb.addEventListener('click', (e) => {
       e.preventDefault();
-      thumbs.forEach(t => t.classList.remove('active'));
-      thumb.classList.add('active');
-
-      const newSrc = thumb.getAttribute('data-src');
-      const newCaption = thumb.getAttribute('data-caption');
-
-      mainImg.style.opacity = '0.3';
-      setTimeout(() => {
-        mainImg.src = newSrc;
-        if (caption && newCaption) caption.textContent = newCaption;
-        mainImg.style.opacity = '1';
-      }, 150);
+      stopReel();
+      setSlide(i);
     });
   });
+
+  if (reelBtn) {
+    reelBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (isPlaying) stopReel();
+      else startReel();
+    });
+  }
 }
 
 /* =========================================================================
