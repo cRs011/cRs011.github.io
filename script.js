@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initCopyEmail();
   initMobileDrawer();
   initLightCanvas();
+  initAppleScrollAndMetrics();
+  initCardSpotlights();
 });
 
 /* =========================================================================
@@ -344,6 +346,101 @@ function initMobileDrawer() {
       drawer.classList.remove('open');
       document.body.style.overflow = '';
       toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
+/* =========================================================================
+   6. Apple-Inspired Scroll Reveal & Dynamic Metric Counters
+   ========================================================================= */
+function initAppleScrollAndMetrics() {
+  const elementsToReveal = document.querySelectorAll(
+    '.section-title-wrap, .project-entry, .project-card, .metric-box, .skill-card, .tree-node, .contact-card, .bento-item, .about-card'
+  );
+
+  elementsToReveal.forEach((el, index) => {
+    el.classList.add('apple-reveal');
+    const delayClass = `apple-delay-${(index % 4) + 1}`;
+    el.classList.add(delayClass);
+  });
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.apple-reveal').forEach(el => observer.observe(el));
+
+  // Dynamic Metric Number Counters
+  const metricBoxes = document.querySelectorAll('.metric-box');
+  let metricsAnimated = false;
+
+  const metricsObserver = new IntersectionObserver((entries) => {
+    if (entries.some(e => e.isIntersecting) && !metricsAnimated) {
+      metricsAnimated = true;
+      animateMetrics();
+    }
+  }, { threshold: 0.3 });
+
+  const metricsStrip = document.querySelector('.metrics-strip');
+  if (metricsStrip) metricsObserver.observe(metricsStrip);
+
+  function animateMetrics() {
+    const targets = [
+      { id: 0, val: 87.4, decimals: 1, suffix: 'h' },
+      { id: 1, val: 10, decimals: 0, suffix: '+' },
+      { id: 2, val: 4, decimals: 0, suffix: '-State' },
+      { id: 3, val: 2027, decimals: 0, suffix: '' }
+    ];
+
+    metricBoxes.forEach((box, i) => {
+      const numEl = box.querySelector('.metric-num');
+      if (!numEl || !targets[i]) return;
+      const t = targets[i];
+      const duration = 1400;
+      const startTime = performance.now();
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Apple ease-out curve
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const currentVal = t.decimals > 0 
+          ? (easeProgress * t.val).toFixed(t.decimals) 
+          : Math.floor(easeProgress * t.val);
+
+        numEl.innerHTML = `${currentVal}<span class="metric-sub">${t.suffix}</span>`;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          numEl.innerHTML = `${t.val}<span class="metric-sub">${t.suffix}</span>`;
+        }
+      }
+      requestAnimationFrame(update);
+    });
+  }
+}
+
+/* =========================================================================
+   7. Apple-Inspired Card Spotlight Mouse-Tracking
+   ========================================================================= */
+function initCardSpotlights() {
+  const cards = document.querySelectorAll('.project-card, .metric-box, .skill-card, .bento-item, .contact-card, .about-card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
     });
   });
 }
