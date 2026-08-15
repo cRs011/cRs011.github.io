@@ -606,34 +606,33 @@ body {
   }
 }
 
-/* HERO SECTION */
+/* HERO SECTION — Fully Anchored (Zero Viewport Bouncing) */
 .hero-section {
-  min-height: 90vh;
-  padding-top: 130px;
-  padding-bottom: 50px;
-  display: flex;
-  align-items: center;
+  padding-top: 135px;
+  padding-bottom: 60px;
+  display: block;
+  position: relative;
 }
 
 .hero-layout {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 50px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  align-items: start;
+  gap: 40px;
 }
 
 .hero-text {
-  flex: 1 1 auto;
   min-width: 0;
-  max-width: 640px;
 }
 
 .hero-image-pane {
-  flex: 0 0 280px;
+  width: 280px;
+  height: 280px;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
-  margin-left: auto;
+  align-items: flex-start;
+  position: relative;
+  margin-top: 10px;
 }
 
 .status-pill {
@@ -703,30 +702,37 @@ body {
 }
 
 .hero-typing {
-  font-size: clamp(1.1rem, 2.4vw, 1.45rem);
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
   font-weight: 600;
   color: var(--text-body);
   margin-bottom: 18px;
   font-family: var(--font-mono);
   white-space: nowrap;
-  overflow: hidden;
-  height: 2.2em;
-  line-height: 2.2em;
-  display: block;
+  height: 32px;
+  line-height: 32px;
+  display: flex;
+  align-items: center;
 }
 
 .typing-lead {
   color: var(--text-body);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .typing-dynamic {
   color: var(--color-blue-light);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .cursor {
+  display: inline-block;
   animation: blink 1s infinite;
   color: var(--color-blue-light);
   margin-left: 2px;
+  flex-shrink: 0;
+  font-weight: 300;
 }
 
 @keyframes blink {
