@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="styles.css?v=20260815e">
+  <link rel="stylesheet" href="styles.css?v=20260815f">
 </head>
 <body>
   <!-- Ambient Background Aura -->
@@ -249,21 +249,48 @@
           <article class="project-entry box-card" data-category="game">
             <div class="project-top">
               <span class="status-badge">Academic Practice · Team</span>
-              <a href="https://github.com/cRs011/proiectul-Unity-2D" target="_blank" rel="noopener noreferrer" class="link-icon" title="GitHub Repository" aria-label="View Unity Project Repository">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-              </a>
+              <div class="project-actions">
+                <a href="https://ninjastyler4.github.io/UnityTest/" target="_blank" rel="noopener noreferrer" class="link-icon" title="Play Live WebGL Demo" aria-label="Play Live Demo">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </a>
+                <a href="https://github.com/cRs011/proiectul-Unity-2D" target="_blank" rel="noopener noreferrer" class="link-icon" title="GitHub Repository" aria-label="View Unity Project Repository">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                </a>
+              </div>
             </div>
-            <h3 class="entry-title">2D Tactical Combat Engine & Enemy AI</h3>
+
+            <!-- Featured Showcase Image with Live Thumbnails -->
+            <div class="project-media">
+              <img id="bettertanks-main-img" src="assets/bettertanks/bettertanks_5.webp" alt="BetterTanks Unity 2D Gameplay" loading="lazy">
+              <span class="media-badge" id="bettertanks-caption">Combat & Raycast LOS</span>
+            </div>
+
+            <div class="project-gallery-thumbs" aria-label="BetterTanks Screenshots">
+              <button class="gallery-thumb active" data-src="assets/bettertanks/bettertanks_5.webp" data-caption="Combat & Raycast LOS" title="Combat Gameplay">
+                <img src="assets/bettertanks/bettertanks_5.webp" alt="Combat Gameplay">
+              </button>
+              <button class="gallery-thumb" data-src="assets/bettertanks/bettertanks_8.webp" data-caption="Winter Wave Defense" title="Winter Wave Defense">
+                <img src="assets/bettertanks/bettertanks_8.webp" alt="Winter Wave Defense">
+              </button>
+              <button class="gallery-thumb" data-src="assets/bettertanks/bettertanks_6.webp" data-caption="Desert Theme Combat" title="Desert Theme">
+                <img src="assets/bettertanks/bettertanks_6.webp" alt="Desert Theme">
+              </button>
+              <button class="gallery-thumb" data-src="assets/bettertanks/bettertanks_11.webp" data-caption="Local Multiplayer" title="Multiplayer Mode">
+                <img src="assets/bettertanks/bettertanks_11.webp" alt="Multiplayer Mode">
+              </button>
+            </div>
+
+            <h3 class="entry-title">BetterTanks — 2D Tactical Combat & Enemy AI</h3>
             <p class="entry-desc">
-              Architected an autonomous 4-state Finite State Machine (Patrol, Chase, Raycast2D LOS Shooting, Low-HP Dynamic Cover/Flee) with aggro mechanics. Engineered an orbit-based cover avoidance algorithm from <code>Collider2D.bounds</code> and decoupled subsystems with Object Pooling. Logged ~87.4h across 10+ Jira epics under Git Flow.
+              Architected an autonomous 4-state Finite State Machine (Patrol, Chase, Raycast2D LOS Shooting, Low-HP Dynamic Cover/Flee) with aggro mechanics in Unity 2D / C#. Engineered an orbit-based cover avoidance algorithm from <code>Collider2D.bounds</code> and decoupled subsystems with Object Pooling. Logged ~87.4h across 10+ Jira epics.
             </p>
             <div class="entry-tags">
               <span class="pill-tag">Unity 2D</span>
               <span class="pill-tag">C# (.NET)</span>
               <span class="pill-tag">FSM Enemy AI</span>
               <span class="pill-tag">Physics2D</span>
+              <span class="pill-tag">WebGL</span>
               <span class="pill-tag">Jira Agile</span>
-              <span class="pill-tag">Git Flow</span>
             </div>
           </article>
 
@@ -430,6 +457,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20260815b"></script>
+  <script src="script.js?v=20260815f"></script>
 </body>
 </html>

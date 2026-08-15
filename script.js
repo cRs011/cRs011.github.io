@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initThemeEngine();
   initTypewriter();
   initProjectFilters();
+  initBetterTanksGallery();
   initCopyEmail();
   initMobileDrawer();
   initLightCanvas();
@@ -185,6 +186,35 @@ function initProjectFilters() {
           entry.style.display = 'none';
         }
       });
+    });
+  });
+}
+
+/* =========================================================================
+   3.1 BetterTanks Interactive Gallery
+   ========================================================================= */
+function initBetterTanksGallery() {
+  const thumbs = document.querySelectorAll('.gallery-thumb');
+  const mainImg = document.getElementById('bettertanks-main-img');
+  const caption = document.getElementById('bettertanks-caption');
+
+  if (!mainImg || !thumbs.length) return;
+
+  thumbs.forEach(thumb => {
+    thumb.addEventListener('click', (e) => {
+      e.preventDefault();
+      thumbs.forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+
+      const newSrc = thumb.getAttribute('data-src');
+      const newCaption = thumb.getAttribute('data-caption');
+
+      mainImg.style.opacity = '0.3';
+      setTimeout(() => {
+        mainImg.src = newSrc;
+        if (caption && newCaption) caption.textContent = newCaption;
+        mainImg.style.opacity = '1';
+      }, 150);
     });
   });
 }
