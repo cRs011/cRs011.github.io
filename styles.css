@@ -610,29 +610,28 @@ body {
 .hero-section {
   padding-top: 135px;
   padding-bottom: 60px;
-  display: block;
   position: relative;
 }
 
 .hero-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  align-items: start;
-  gap: 40px;
+  position: relative;
+  min-height: 300px;
 }
 
 .hero-text {
-  min-width: 0;
+  max-width: calc(100% - 320px);
+  width: 100%;
 }
 
 .hero-image-pane {
-  width: 280px;
-  height: 280px;
+  position: absolute;
+  right: 0;
+  top: 10px;
+  width: 270px;
+  height: 270px;
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  position: relative;
-  margin-top: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .status-pill {
@@ -702,37 +701,29 @@ body {
 }
 
 .hero-typing {
-  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  font-size: clamp(1.1rem, 2.3vw, 1.45rem);
   font-weight: 600;
   color: var(--text-body);
   margin-bottom: 18px;
   font-family: var(--font-mono);
   white-space: nowrap;
-  height: 32px;
-  line-height: 32px;
-  display: flex;
-  align-items: center;
+  overflow: hidden;
+  height: 36px;
+  line-height: 36px;
+  display: block;
 }
 
-.typing-lead {
-  color: var(--text-body);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.typing-dynamic {
+.hero-typing .typing-dynamic {
   color: var(--color-blue-light);
-  white-space: nowrap;
-  flex-shrink: 0;
+  display: inline;
 }
 
-.cursor {
-  display: inline-block;
+.hero-typing .cursor {
+  display: inline;
+  color: var(--color-blue-light);
   animation: blink 1s infinite;
-  color: var(--color-blue-light);
-  margin-left: 2px;
-  flex-shrink: 0;
   font-weight: 300;
+  margin-left: 2px;
 }
 
 @keyframes blink {

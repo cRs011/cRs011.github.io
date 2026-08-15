@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLightCanvas();
   initAppleScrollAndMetrics();
   initCardSpotlights();
+  initAppleTimelineScroll();
 });
 
 /* =========================================================================
@@ -433,7 +434,7 @@ function initAppleScrollAndMetrics() {
    7. Apple-Inspired Card Spotlight Mouse-Tracking
    ========================================================================= */
 function initCardSpotlights() {
-  const cards = document.querySelectorAll('.project-card, .metric-box, .skill-card, .bento-item, .contact-card, .about-card');
+  const cards = document.querySelectorAll('.project-card, .metric-box, .skill-card, .bento-item, .contact-card, .about-card, .timeline-card');
   cards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
@@ -443,4 +444,53 @@ function initCardSpotlights() {
       card.style.setProperty('--mouse-y', `${y}px`);
     });
   });
+}
+
+/* =========================================================================
+   8. Apple Timeline Interactive Laser Scroll Animation
+   ========================================================================= */
+function initAppleTimelineScroll() {
+  const tree = document.querySelector('.timeline-tree');
+  const rows = document.querySelectorAll('.timeline-row');
+  const stackCards = document.querySelectorAll('.stack-grid .box-card');
+
+  if (!tree) return;
+
+  let progressBar = tree.querySelector('.timeline-progress-line');
+  if (!progressBar) {
+    progressBar = document.createElement('div');
+    progressBar.className = 'timeline-progress-line';
+    tree.appendChild(progressBar);
+  }
+
+  function updateTimeline() {
+    const rect = tree.getBoundingClientRect();
+    const windowH = window.innerHeight;
+    const scrollPoint = windowH * 0.78;
+    const progress = Math.min(Math.max((scrollPoint - rect.top) / rect.height, 0), 1);
+
+    if (progressBar) {
+      progressBar.style.height = `${progress * 100}%`;
+    }
+
+    rows.forEach((row, i) => {
+      const rowRect = row.getBoundingClientRect();
+      if (rowRect.top < windowH * 0.85) {
+        row.classList.add('active');
+      }
+    });
+
+    stackCards.forEach((card, idx) => {
+      const cardRect = card.getBoundingClientRect();
+      if (cardRect.top < windowH * 0.88) {
+        setTimeout(() => {
+          card.classList.add('active');
+        }, idx * 120);
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateTimeline, { passive: true });
+  window.addEventListener('resize', updateTimeline, { passive: true });
+  setTimeout(updateTimeline, 100);
 }
