@@ -217,18 +217,18 @@ function initBetterTanksGallery() {
     const newSrc = activeThumb.getAttribute('data-src');
     const newCaption = activeThumb.getAttribute('data-caption');
 
-    mainImg.style.opacity = '0.3';
+    mainImg.style.opacity = '0.2';
     setTimeout(() => {
       mainImg.src = newSrc;
       if (caption && newCaption) caption.textContent = newCaption;
       mainImg.style.opacity = '1';
-    }, 150);
+    }, 200);
 
     if (reelBar) {
       reelBar.style.transition = 'none';
       reelBar.style.width = '0%';
       setTimeout(() => {
-        reelBar.style.transition = 'width 3.2s linear';
+        reelBar.style.transition = 'width 6.4s linear';
         reelBar.style.width = '100%';
       }, 50);
     }
@@ -241,7 +241,7 @@ function initBetterTanksGallery() {
     clearInterval(timer);
     timer = setInterval(() => {
       setSlide(currentIndex + 1);
-    }, 3400);
+    }, 6500);
   }
 
   function stopReel() {

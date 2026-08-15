@@ -933,9 +933,10 @@ body {
 .project-media img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
   background: #050711;
-  transition: transform 0.3s var(--ease), opacity 0.25s ease;
+  transition: transform 0.3s var(--ease), opacity 0.35s ease;
 }
 
 .project-entry:hover .project-media img {
