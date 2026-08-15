@@ -6,10 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initThemeEngine();
   initTypewriter();
   initProjectFilters();
-  initBetterTanksGallery();
+  initProjectMediaTouch();
   initCopyEmail();
   initMobileDrawer();
   initLightCanvas();
+  initSmartMediaCulling();
   initAppleScrollAndMetrics();
   initCardSpotlights();
   initAppleTimelineScroll();
@@ -83,6 +84,11 @@ function initLightCanvas() {
     scrollTimeout = setTimeout(() => { isScrolling = false; }, 120);
   }, { passive: true });
 
+  let isTabVisible = !document.hidden;
+  document.addEventListener('visibilitychange', () => {
+    isTabVisible = !document.hidden;
+  }, { passive: true });
+
   const count = window.innerWidth < 768 ? 8 : 18;
 
   for (let i = 0; i < count; i++) {
@@ -95,14 +101,20 @@ function initLightCanvas() {
     });
   }
 
-  function frame() {
-    if (!isScrolling) {
+  let lastTime = performance.now();
+
+  function frame(currentTime) {
+    if (!currentTime) currentTime = performance.now();
+    const dt = Math.min((currentTime - lastTime) / 16.666, 2.0);
+    lastTime = currentTime;
+
+    if (!isScrolling && isTabVisible) {
       ctx.clearRect(0, 0, width, height);
 
       for (let i = 0; i < particles.length; i++) {
         let p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
 
         if (p.x < 0 || p.x > width) p.vx *= -1;
         if (p.y < 0 || p.y > height) p.vy *= -1;
@@ -142,10 +154,10 @@ function initTypewriter() {
   if (!el) return;
 
   const words = [
-    "Automation & Multi-Agent Bridges.",
-    "Python ETL & Google Cloud APIs.",
-    "Unix Daemons & Atomic File Locks.",
-    "2D Tactical Combat & Enemy AI."
+    "Autonomous Agent Bridges.",
+    "Python ETL & Cloud APIs.",
+    "Unix Daemons & Atomic Locks.",
+    "Tactical Combat & Enemy AI."
   ];
 
   let wordIndex = 0;
@@ -192,9 +204,15 @@ function initProjectFilters() {
       tab.classList.add('active');
 
       const filter = tab.dataset.filter;
+      let visibleCount = 0;
       projectEntries.forEach(entry => {
         if (filter === 'all' || entry.dataset.category === filter) {
           entry.style.display = 'flex';
+          entry.classList.remove('revealed');
+          setTimeout(() => {
+            entry.classList.add('revealed');
+          }, visibleCount * 60 + 20);
+          visibleCount++;
         } else {
           entry.style.display = 'none';
         }
@@ -203,101 +221,20 @@ function initProjectFilters() {
   });
 }
 
-/* =========================================================================
-   3.1 BetterTanks Interactive Gallery & Clip Reel
-   ========================================================================= */
-function initBetterTanksGallery() {
-  const thumbs = document.querySelectorAll('.gallery-thumb');
-  const mainImg = document.getElementById('bettertanks-main-img');
-  const caption = document.getElementById('bettertanks-caption');
-  const reelBtn = document.getElementById('bettertanks-reel-btn');
-  const reelBar = document.getElementById('bettertanks-reel-bar');
 
-  if (!mainImg || !thumbs.length) return;
-
-  let currentIndex = 0;
-  let isPlaying = true;
-  let timer = null;
-
-  function setSlide(index) {
-    currentIndex = index % thumbs.length;
-    thumbs.forEach((t, i) => {
-      if (i === currentIndex) t.classList.add('active');
-      else t.classList.remove('active');
-    });
-
-    const activeThumb = thumbs[currentIndex];
-    const newSrc = activeThumb.getAttribute('data-src');
-    const newCaption = activeThumb.getAttribute('data-caption');
-
-    mainImg.style.opacity = '0.2';
-    setTimeout(() => {
-      mainImg.src = newSrc;
-      if (caption && newCaption) caption.textContent = newCaption;
-      mainImg.style.opacity = '1';
-    }, 200);
-
-    if (reelBar) {
-      reelBar.style.transition = 'none';
-      reelBar.style.width = '0%';
-      setTimeout(() => {
-        reelBar.style.transition = 'width 6.4s linear';
-        reelBar.style.width = '100%';
-      }, 50);
-    }
-  }
-
-  function startReel() {
-    isPlaying = true;
-    if (reelBtn) reelBtn.classList.add('playing');
-    setSlide(currentIndex);
-    clearInterval(timer);
-    timer = setInterval(() => {
-      setSlide(currentIndex + 1);
-    }, 6500);
-  }
-
-  function stopReel() {
-    isPlaying = false;
-    if (reelBtn) reelBtn.classList.remove('playing');
-    clearInterval(timer);
-    if (reelBar) {
-      reelBar.style.transition = 'none';
-      reelBar.style.width = '0%';
-    }
-  }
-
-  // Start auto-play reel
-  startReel();
-
-  thumbs.forEach((thumb, i) => {
-    thumb.addEventListener('click', (e) => {
-      e.preventDefault();
-      stopReel();
-      setSlide(i);
-    });
-  });
-
-  if (reelBtn) {
-    reelBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (isPlaying) stopReel();
-      else startReel();
-    });
-  }
-}
 
 /* =========================================================================
    4. One-Click Copy Email
    ========================================================================= */
 function initCopyEmail() {
   const btn = document.getElementById('copy-email-btn');
-  const tooltip = document.getElementById('email-tooltip');
+  const label = document.getElementById('email-label');
   const email = "lacatuscristian8@gmail.com";
 
-  if (!btn || !tooltip) return;
+  if (!btn) return;
 
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(email).then(showCopied, fallback);
     } else {
@@ -320,12 +257,15 @@ function initCopyEmail() {
   }
 
   function showCopied() {
-    tooltip.textContent = "Copiat!";
-    tooltip.style.background = "#2563eb";
-    setTimeout(() => {
-      tooltip.textContent = "Copy Email";
-      tooltip.style.background = "#0f172a";
-    }, 2000);
+    if (label) {
+      const originalText = label.textContent;
+      label.textContent = "✓ Copied to clipboard!";
+      label.style.color = "#38bdf8";
+      setTimeout(() => {
+        label.textContent = originalText;
+        label.style.color = "";
+      }, 2200);
+    }
   }
 }
 
@@ -339,26 +279,113 @@ function initMobileDrawer() {
 
   if (!toggle || !drawer) return;
 
-  toggle.addEventListener('click', () => {
-    const isOpen = drawer.classList.contains('open');
-    if (isOpen) {
-      drawer.classList.remove('open');
-      document.body.style.overflow = '';
-      toggle.setAttribute('aria-expanded', 'false');
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    toggle.classList.remove('open');
+    document.body.style.overflow = '';
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  function openDrawer() {
+    drawer.classList.add('open');
+    toggle.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    toggle.setAttribute('aria-expanded', 'true');
+  }
+
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (drawer.classList.contains('open')) {
+      closeDrawer();
     } else {
-      drawer.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      toggle.setAttribute('aria-expanded', 'true');
+      openDrawer();
     }
   });
 
   links.forEach(l => {
     l.addEventListener('click', () => {
-      drawer.classList.remove('open');
-      document.body.style.overflow = '';
-      toggle.setAttribute('aria-expanded', 'false');
+      closeDrawer();
     });
   });
+
+  drawer.addEventListener('click', (e) => {
+    if (!e.target.closest('.mobile-drawer-inner')) {
+      closeDrawer();
+    }
+  });
+}
+
+/* =========================================================================
+   5.1 Project Media Mobile Touch Toggle (16:9 <-> 1:1 Square)
+   ========================================================================= */
+function initProjectMediaTouch() {
+  const projectCards = document.querySelectorAll('.project-entry');
+  if (!projectCards.length) return;
+
+  // 1. Explicit Tap Toggle on the entire card
+  projectCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      // Allow outbound link clicks (e.g. GitHub/Overview icon) to open normally
+      if (e.target.closest('a')) return;
+
+      const media = card.querySelector('.project-media');
+      if (!media) return;
+
+      e.stopPropagation();
+      const isCurrentlyExpanded = media.classList.contains('is-expanded');
+      
+      if (isCurrentlyExpanded) {
+        // User explicitly collapses the card back to default 16:9
+        media.classList.remove('is-expanded');
+        media.dataset.userCollapsed = "true";
+      } else {
+        // User explicitly expands the card to 1:1 Square
+        document.querySelectorAll('.project-media').forEach(m => {
+          m.classList.remove('is-expanded');
+        });
+        media.classList.add('is-expanded');
+        media.dataset.userCollapsed = "false";
+      }
+    });
+  });
+
+  // Tap anywhere outside collapses any open cards
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.project-entry')) {
+      document.querySelectorAll('.project-media').forEach(m => {
+        m.classList.remove('is-expanded');
+      });
+    }
+  });
+
+  // 2. Mobile Scroll Auto-Expansion (Respects manual user collapse)
+  if ('IntersectionObserver' in window) {
+    const scrollObserver = new IntersectionObserver((entries) => {
+      if (window.innerWidth >= 860) return;
+      entries.forEach(entry => {
+        const media = entry.target.querySelector('.project-media');
+        if (!media) return;
+        
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.55) {
+          // Only auto-expand if the user hasn't explicitly collapsed it while in view
+          if (media.dataset.userCollapsed !== "true") {
+            media.classList.add('is-expanded');
+          }
+        } else if (!entry.isIntersecting || entry.intersectionRatio < 0.20) {
+          media.classList.remove('is-expanded');
+          // Reset manual override once the card leaves the viewport completely
+          media.dataset.userCollapsed = "false";
+        }
+      });
+    }, {
+      threshold: [0.20, 0.55, 0.85],
+      rootMargin: '-10% 0px -10% 0px'
+    });
+
+    projectCards.forEach(card => {
+      scrollObserver.observe(card);
+    });
+  }
 }
 
 /* =========================================================================
@@ -522,4 +549,45 @@ function initAppleTimelineScroll() {
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
   setTimeout(updateTimeline, 100);
+}
+
+/* =========================================================================
+   8. Smart Media & Video Occlusion Culling (Auto-pause off-screen videos)
+   ========================================================================= */
+function initSmartMediaCulling() {
+  const videos = document.querySelectorAll('.project-media video');
+  if (!videos.length || !('IntersectionObserver' in window)) return;
+
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const video = entry.target;
+      if (entry.isIntersecting) {
+        if (video.paused) {
+          video.play().catch(() => {});
+        }
+      } else {
+        if (!video.paused) {
+          video.pause();
+        }
+      }
+    });
+  }, {
+    threshold: 0.05,
+    rootMargin: '120px 0px 120px 0px'
+  });
+
+  videos.forEach(v => videoObserver.observe(v));
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      videos.forEach(v => v.pause());
+    } else {
+      videos.forEach(v => {
+        const rect = v.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          v.play().catch(() => {});
+        }
+      });
+    }
+  }, { passive: true });
 }

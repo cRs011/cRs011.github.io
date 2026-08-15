@@ -19,12 +19,17 @@
   <meta property="og:url" content="https://crs011.github.io">
   <meta property="og:image" content="https://crs011.github.io/assets/cristi_portrait.jpg">
   
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cristian Lăcătuș — Software & Automation Engineer">
+  <meta name="twitter:description" content="Autonomous AI Agent Bridges, Python Automation Pipelines, Unix Daemons & Game Systems Architecture.">
+  <meta name="twitter:image" content="https://crs011.github.io/assets/cristi_portrait.jpg">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="assets/cristi_portrait.jpg?v=3" as="image">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="styles.css?v=20260815v5">
+  <link rel="stylesheet" href="styles.css?v=20260816v1">
 </head>
 <body>
   <!-- Ambient Background Aura -->
@@ -68,14 +73,6 @@
   <!-- Mobile Drawer -->
   <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
     <div class="mobile-drawer-inner">
-      <div class="mobile-theme-wrap">
-        <span class="mobile-theme-label">Style:</span>
-        <div class="theme-switcher mobile-theme-switcher">
-          <button class="theme-pill active" data-set-theme="executive">Executive</button>
-          <button class="theme-pill" data-set-theme="minimalist">Minimalist</button>
-          <button class="theme-pill" data-set-theme="bento">Bento</button>
-        </div>
-      </div>
       <ul class="mobile-menu">
         <li><a href="#about" class="mobile-item">About</a></li>
         <li><a href="#projects" class="mobile-item">Projects</a></li>
@@ -120,10 +117,6 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               Download CV
             </a>
-            <button class="btn btn-icon" id="copy-email-btn" title="Copy Email" aria-label="Copy Email">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              <span class="tooltip" id="email-tooltip">Copy Email</span>
-            </button>
           </div>
           <div class="hero-links">
             <a href="https://github.com/cRs011" target="_blank" rel="noopener noreferrer" class="link-item" aria-label="GitHub Profile">
@@ -134,10 +127,10 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
               <span>LinkedIn</span>
             </a>
-            <a href="mailto:lacatuscristian8@gmail.com" class="link-item" aria-label="Send Email">
+            <button class="link-item btn-copy-link" id="copy-email-btn" title="Click to copy email" aria-label="Copy Email">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              <span>lacatuscristian8@gmail.com</span>
-            </a>
+              <span id="email-label">lacatuscristian8@gmail.com</span>
+            </button>
           </div>
         </div>
         <div class="hero-image-pane">
@@ -227,34 +220,15 @@
           <article class="project-entry box-card" data-category="automation">
             <div class="project-top">
               <span class="status-badge">Production · Active</span>
-              <a href="https://github.com/cRs011" target="_blank" rel="noopener noreferrer" class="link-icon" title="Source Code" aria-label="View Source on GitHub">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-              </a>
             </div>
 
-            <!-- Second Brain Knowledge Graph Animated Showcase (Apple / Linear Showcase Style) -->
-            <div class="project-media showcase-container">
-              <div class="window-chrome">
-                <div class="window-traffic-lights" aria-hidden="true">
-                  <span class="dot dot-close"></span>
-                  <span class="dot dot-min"></span>
-                  <span class="dot dot-max"></span>
-                </div>
-                <div class="window-title">obsidian · second-brain</div>
-                <div class="window-badge">
-                  <span class="live-pulse-dot"></span>
-                  <span>LIVE GRAPH</span>
-                </div>
-              </div>
-              <div class="media-viewport">
-                <video autoplay loop muted playsinline preload="auto" poster="assets/obsidian_graph_interactive.webp" class="showcase-media" width="960" height="540">
-                  <source src="assets/obsidian_graph_interactive.mp4" type="video/mp4">
-                  <source src="assets/obsidian_graph_interactive.webp" type="image/webp">
-                  <img src="assets/obsidian_graph_interactive.gif" alt="Obsidian Knowledge Graph Interactive View" loading="lazy" width="960" height="540">
-                </video>
-                <div class="showcase-glow-backlight"></div>
-                <div class="loop-progress-stem"></div>
-              </div>
+            <!-- Second Brain Knowledge Graph Video Representation (Clean 16:9) -->
+            <div class="project-media">
+              <video autoplay loop muted playsinline preload="auto" poster="assets/obsidian_graph_interactive.webp" width="960" height="540">
+                <source src="assets/obsidian_graph_interactive.mp4" type="video/mp4">
+                <source src="assets/obsidian_graph_interactive.webp" type="image/webp">
+                <img src="assets/obsidian_graph_interactive.gif" alt="Obsidian Knowledge Graph" loading="lazy" width="960" height="540">
+              </video>
             </div>
 
             <h3 class="entry-title">Autonomous Multi-Agent Bridge & Second Brain</h3>
@@ -275,36 +249,18 @@
           <article class="project-entry box-card" data-category="game">
             <div class="project-top">
               <span class="status-badge">Academic Practice · Unity 2D</span>
-              <div class="project-actions">
-                <button class="link-icon btn-reel-toggle playing" id="bettertanks-reel-btn" title="Toggle Auto-Play Clip Reel" aria-label="Toggle Clip Reel">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                </button>
-                <a href="https://github.com/cRs011/proiectul-Unity-2D" target="_blank" rel="noopener noreferrer" class="link-icon" title="GitHub Repository" aria-label="View Unity Project Repository">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                </a>
-              </div>
+              <a href="https://github.com/cRs011/proiectul-Unity-2D" target="_blank" rel="noopener noreferrer" class="link-icon" title="GitHub Repository" aria-label="View Unity Project Repository">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              </a>
             </div>
 
-            <!-- Featured Showcase: Live Animated Gameplay Battle Reel & 16:9 Action Stills -->
+            <!-- Featured Showcase: Live Gameplay Reel (Clean 16:9) -->
             <div class="project-media">
-              <img id="bettertanks-main-img" src="assets/bettertanks/unity_tank_battle_action_v2026.webp?v=tank_fresh_1" alt="BetterTanks Live Gameplay Action" loading="eager">
-              <span class="media-badge" id="bettertanks-caption">🎬 Live Battle Reel & FSM AI</span>
-              <div class="reel-indicator" id="bettertanks-reel-bar" title="Auto-Play Active"></div>
-            </div>
-
-            <div class="project-gallery-thumbs" aria-label="BetterTanks Gameplay Footage">
-              <button class="gallery-thumb active" data-src="assets/bettertanks/unity_tank_battle_action_v2026.webp?v=tank_fresh_1" data-caption="🎬 Live Battle Reel & FSM AI" title="Animated Gameplay Battle Reel">
-                <img src="assets/bettertanks/unity_tank_battle_action_v2026.webp?v=tank_fresh_1" alt="Battle Reel">
-              </button>
-              <button class="gallery-thumb" data-src="assets/bettertanks/tank_combat_raycast_v2026.webp?v=tank_fresh_1" data-caption="🎯 Raycast2D LOS & Maneuvers" title="Raycast LOS Combat">
-                <img src="assets/bettertanks/tank_combat_raycast_v2026.webp?v=tank_fresh_1" alt="Raycast LOS Combat">
-              </button>
-              <button class="gallery-thumb" data-src="assets/bettertanks/tank_desert_assault_v2026.webp?v=tank_fresh_1" data-caption="💥 Desert Cannon Fire & Sparks" title="Cannon Fire">
-                <img src="assets/bettertanks/tank_desert_assault_v2026.webp?v=tank_fresh_1" alt="Cannon Fire">
-              </button>
-              <button class="gallery-thumb" data-src="assets/bettertanks/tank_winter_defense_v2026.webp?v=tank_fresh_1" data-caption="❄️ Winter Wave Defense & FSM" title="Winter Wave Defense">
-                <img src="assets/bettertanks/tank_winter_defense_v2026.webp?v=tank_fresh_1" alt="Winter Wave Defense">
-              </button>
+              <video autoplay loop muted playsinline preload="auto" poster="assets/bettertanks/bettertanks_gameplay_live.webp" width="960" height="540">
+                <source src="assets/bettertanks/bettertanks_gameplay_live.mp4" type="video/mp4">
+                <source src="assets/bettertanks/bettertanks_gameplay_live.webp" type="image/webp">
+                <img src="assets/bettertanks/bettertanks_gameplay_live.gif" alt="BetterTanks Gameplay Reel" loading="lazy" width="960" height="540">
+              </video>
             </div>
 
             <h3 class="entry-title">BetterTanks — 2D Tactical Combat & Enemy AI</h3>
@@ -324,10 +280,18 @@
           <!-- Project 3: Cloud & Browser Automations -->
           <article class="project-entry box-card" data-category="automation">
             <div class="project-top">
-              <span class="status-badge">Internal Infrastructure</span>
               <a href="https://github.com/cRs011" target="_blank" rel="noopener noreferrer" class="link-icon" title="Overview" aria-label="View Automation Overview">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
               </a>
+            </div>
+
+            <!-- Featured Showcase: Live Terminal CLI Daemon Stream (Clean 16:9 -> 1:1 Hover) -->
+            <div class="project-media terminal-media">
+              <video autoplay loop muted playsinline preload="auto" poster="assets/automations/cloud_etl_cdp_stream.webp" width="960" height="540">
+                <source src="assets/automations/cloud_etl_cdp_stream.mp4" type="video/mp4">
+                <source src="assets/automations/cloud_etl_cdp_stream.webp" type="image/webp">
+                <img src="assets/automations/cloud_etl_cdp_stream.gif" alt="Cloud ETL Daemon Live Stream" loading="lazy" width="960" height="540">
+              </video>
             </div>
             <h3 class="entry-title">Cloud ETL Pipelines & Browser CDP Engine</h3>
             <p class="entry-desc">
@@ -484,6 +448,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20260815v5" defer></script>
+  <script src="script.js?v=20260816v1" defer></script>
 </body>
 </html>
