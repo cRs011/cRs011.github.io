@@ -1025,6 +1025,12 @@ body {
   justify-content: center;
 }
 
+.project-media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .project-media img {
   width: 100%;
   height: 100%;
