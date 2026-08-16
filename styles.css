@@ -1742,7 +1742,7 @@ body {
   }
 
   .hero-image-pane {
-    margin: 21px auto 32px;
+    margin: 23px auto 32px;
     width: min(210px, 56vw);
     aspect-ratio: 1 / 1;
     height: auto;
@@ -1754,7 +1754,7 @@ body {
   }
 
   .live-activity-bar {
-    margin-top: -3px;
+    margin-top: 0;
     margin-bottom: 4px;
   }
 
