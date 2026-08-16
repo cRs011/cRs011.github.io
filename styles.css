@@ -1660,26 +1660,60 @@ body {
 
   .hero-layout {
     min-height: auto;
+    display: flex;
     flex-direction: column;
+    align-items: center;
     text-align: center;
   }
 
   .hero-text {
-    max-width: 100%;
-    text-align: center;
+    display: contents;
+  }
+
+  .status-pill {
+    order: 1;
+    margin: 0 auto 20px;
+  }
+
+  .hero-image-pane {
+    order: 2;
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    margin: 0 auto 22px;
+    width: 150px;
+    height: 150px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-heading {
+    order: 3;
+    width: 100%;
+  }
+
+  .hero-typing {
+    order: 4;
+    width: 100%;
   }
 
   .hero-bio {
+    order: 5;
     margin: 0 auto 24px;
     max-width: 580px;
   }
 
   .hero-buttons {
+    order: 6;
     display: flex;
     gap: 12px;
     justify-content: center;
     max-width: 420px;
     margin: 0 auto 20px;
+    width: 100%;
   }
 
   .hero-buttons .btn {
@@ -1689,28 +1723,15 @@ body {
   }
 
   .hero-links {
+    order: 7;
     justify-content: center;
     gap: 16px;
     margin-bottom: 8px;
   }
 
   .live-activity-bar {
+    order: 8;
     margin-top: 0;
-  }
-
-  .hero-image-pane {
-    order: -1;
-    position: relative;
-    right: auto;
-    top: auto;
-    transform: none;
-    margin: 0 auto 20px;
-    width: 125px;
-    height: 125px;
-    aspect-ratio: 1 / 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
   .metrics-flex {
@@ -1749,31 +1770,41 @@ body {
     padding-bottom: calc(35px + env(safe-area-inset-bottom, 0px));
   }
 
+  .status-pill {
+    order: 1;
+    max-width: 100%;
+    margin-bottom: 18px;
+  }
+
+  .hero-image-pane {
+    order: 2;
+    margin: 0 auto 20px;
+    width: 140px;
+    height: 140px;
+    aspect-ratio: 1 / 1;
+  }
+
   .hero-heading {
+    order: 3;
     font-size: clamp(2.0rem, 7.5vw, 2.7rem);
     letter-spacing: -0.03em;
   }
 
   .hero-typing {
+    order: 4;
     font-size: clamp(0.88rem, 3.8vw, 1.15rem);
     letter-spacing: -0.01em;
     margin-bottom: 16px;
   }
 
-  .hero-image-pane {
-    order: -1;
-    margin: 0 auto 18px;
-    width: 120px;
-    height: 120px;
-    aspect-ratio: 1 / 1;
-  }
-
   .hero-links {
+    order: 7;
     margin-bottom: 4px;
     gap: 14px;
   }
 
   .live-activity-bar {
+    order: 8;
     margin-top: 0;
     margin-bottom: 4px;
   }
