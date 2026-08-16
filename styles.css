@@ -871,7 +871,6 @@ body {
   cursor: pointer;
   padding: 3px 0;
 }
-
 /* LIVE ACTIVITY TELEMETRY BAR */
 .live-activity-bar {
   margin-top: 20px;
@@ -891,9 +890,9 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 14px;
+  padding: 5px 12px;
   background: rgba(16, 185, 129, 0.04);
-  border: 1px solid rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(16, 185, 129, 0.16);
   border-radius: 999px;
   text-decoration: none;
   font-size: 0.76rem;
@@ -901,14 +900,15 @@ body {
   color: var(--text-muted);
   white-space: nowrap;
   transition: all 0.25s var(--ease);
+  max-width: 100%;
 }
 
 .live-activity-link:hover {
   background: rgba(16, 185, 129, 0.08);
-  border-color: rgba(16, 185, 129, 0.38);
+  border-color: rgba(16, 185, 129, 0.35);
   color: var(--text-white);
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px -4px rgba(16, 185, 129, 0.25);
+  box-shadow: 0 4px 14px -4px rgba(16, 185, 129, 0.2);
 }
 
 .live-pulse {
@@ -937,26 +937,37 @@ body {
   color: #10b981;
   font-weight: 600;
   font-size: 0.72rem;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  white-space: nowrap;
 }
 
 .live-repo {
   color: var(--color-blue-light);
   font-weight: 500;
-  white-space: nowrap;
 }
 
 .live-sep {
   color: var(--text-dim);
-  opacity: 0.6;
+}
+
+.live-msg {
+  color: var(--text-body);
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .live-time {
   color: var(--text-dim);
   font-size: 0.72rem;
-  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .live-msg,
+  .live-sep {
+    display: none;
+  }
 }
 
 /* HERO PHOTO — 100% Rock-Solid 1:1 True Circle with Smooth Theme Morphing */
