@@ -1699,14 +1699,15 @@ body {
   }
 
   .hero-image-pane {
+    order: -1;
     position: relative;
     right: auto;
     top: auto;
     transform: none;
-    margin: 28px auto 0;
-    width: min(240px, 60vw);
+    margin: 0 auto 20px;
+    width: 125px;
+    height: 125px;
     aspect-ratio: 1 / 1;
-    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1760,10 +1761,11 @@ body {
   }
 
   .hero-image-pane {
-    margin: 23px auto 32px;
-    width: min(210px, 56vw);
+    order: -1;
+    margin: 0 auto 18px;
+    width: 120px;
+    height: 120px;
     aspect-ratio: 1 / 1;
-    height: auto;
   }
 
   .hero-links {
