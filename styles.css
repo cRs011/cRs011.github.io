@@ -899,6 +899,7 @@ body {
   font-size: 0.76rem;
   font-family: var(--font-mono);
   color: var(--text-muted);
+  line-height: 1;
   white-space: nowrap;
   transition: all 0.25s var(--ease);
   max-width: 100%;
