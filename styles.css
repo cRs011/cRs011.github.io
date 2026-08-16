@@ -975,7 +975,11 @@ body {
   }
 
   .live-activity-bar {
-    margin-top: 10px;
+    margin-top: 2px;
+  }
+
+  .live-activity-bar.visible {
+    transform: translateY(-8px);
   }
 
   .live-activity-link {
