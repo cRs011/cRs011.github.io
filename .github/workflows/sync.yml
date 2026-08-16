@@ -21,20 +21,21 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Run GitHub Activity Sync
+      - name: Run GitHub Activity Sync & Production Build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python3 scripts/sync_github.py
+          python3 scripts/build_prod.py
 
-      - name: Commit and Push Updated Data
+      - name: Commit and Push Updated Data & Bundles
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          if [ -n "$(git status --porcelain data/activity.json)" ]; then
-            git add data/activity.json
-            git commit -m "chore(sync): automated nightly github activity update [skip ci]"
+          if [ -n "$(git status --porcelain data/ styles.min.css script.min.js)" ]; then
+            git add data/ styles.min.css script.min.js
+            git commit -m "chore(sync): automated nightly github activity & bundle update [skip ci]"
             git push origin main
           else
-            echo "No activity changes to commit."
+            echo "No changes to commit."
           fi
