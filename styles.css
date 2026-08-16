@@ -874,8 +874,8 @@ body {
 
 /* LIVE ACTIVITY TELEMETRY BAR */
 .live-activity-bar {
-  margin-top: 18px;
-  margin-left: -3px;
+  margin-top: 20px;
+  margin-left: -4px;
   margin-bottom: 0;
   display: inline-flex;
   align-items: center;
