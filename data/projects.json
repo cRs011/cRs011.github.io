@@ -1,0 +1,82 @@
+[
+  {
+    "id": "second-brain",
+    "title": "Autonomous Multi-Agent Bridge & Second Brain",
+    "category": "Automation & AI",
+    "category_id": "automation",
+    "status": "Production · Active",
+    "media": {
+      "type": "video",
+      "mp4": "assets/obsidian_graph_interactive.mp4",
+      "poster": "assets/obsidian_graph_interactive.webp",
+      "fallback_gif": "assets/obsidian_graph_interactive.gif",
+      "alt": "Obsidian Knowledge Graph"
+    },
+    "description": "Engineered a Human-in-the-Loop bridge daemon connecting autonomous AI coding harnesses with Telegram & Apple Watch push triggers, live action streaming, and a persistent FIFO task queue. Integrated with an Obsidian Second Brain knowledge graph (Three-Spaces model) and an OS-level atomic file locking daemon (<code>fcntl.flock</code>) to guarantee transactional safety.",
+    "tags": [
+      "Python 3",
+      "Unix Daemons",
+      "fcntl.flock",
+      "Telegram API",
+      "Obsidian Vault",
+      "Knowledge Graph"
+    ],
+    "links": {
+      "github": "https://github.com/cRs011"
+    },
+    "order": 1
+  },
+  {
+    "id": "bettertanks",
+    "title": "BetterTanks — 2D Tactical Combat & Enemy AI",
+    "category": "Game AI & C#",
+    "category_id": "game",
+    "status": "Academic Practice · Unity 2D",
+    "media": {
+      "type": "video",
+      "mp4": "assets/bettertanks/bettertanks_gameplay_live.mp4",
+      "poster": "assets/bettertanks/bettertanks_gameplay_live.webp",
+      "fallback_gif": "assets/bettertanks/bettertanks_gameplay_live.gif",
+      "alt": "BetterTanks Gameplay Reel"
+    },
+    "description": "Architected an autonomous 4-state Finite State Machine (Patrol, Chase, Raycast2D LOS Shooting, Low-HP Dynamic Cover/Flee) with aggro mechanics in Unity 2D / C#. Engineered an orbit-based cover avoidance algorithm from <code>Collider2D.bounds</code> and decoupled subsystems with Object Pooling. Logged ~87.4h across 10+ Jira epics.",
+    "tags": [
+      "Unity 2D",
+      "C# (.NET)",
+      "FSM Enemy AI",
+      "Physics2D",
+      "WebGL",
+      "Jira Agile"
+    ],
+    "links": {
+      "github": "https://github.com/cRs011/proiectul-Unity-2D"
+    },
+    "order": 2
+  },
+  {
+    "id": "cloud-etl-cdp",
+    "title": "Cloud ETL Pipelines & Browser CDP Engine",
+    "category": "Automation & AI",
+    "category_id": "automation",
+    "status": "Production · Active",
+    "media": {
+      "type": "video",
+      "mp4": "assets/automations/cloud_etl_cdp_stream.mp4",
+      "poster": "assets/automations/cloud_etl_cdp_stream.webp",
+      "fallback_gif": "assets/automations/cloud_etl_cdp_stream.gif",
+      "alt": "Cloud ETL Daemon Live Stream"
+    },
+    "description": "Developed automated Python synchronization pipelines connecting Google Drive (real-time XLSX trackers), Sheets, and Gmail APIs with scheduled macOS <code>launchd</code> daemons. Built an autonomous browser automation controller using Playwright CDP to manipulate modern rich-text DOMs with zero manual friction.",
+    "tags": [
+      "Python",
+      "Google Cloud APIs",
+      "Playwright CDP",
+      "macOS launchd",
+      "ETL Pipelines"
+    ],
+    "links": {
+      "github": "https://github.com/cRs011"
+    },
+    "order": 3
+  }
+]

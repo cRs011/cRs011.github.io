@@ -217,33 +217,76 @@ function initTypewriter() {
 }
 
 /* =========================================================================
-   3. Project Filters
+   3. Dynamic Project Filters & Data-Driven Category Engine
    ========================================================================= */
-function initProjectFilters() {
-  const filterTabs = document.querySelectorAll('.filter-tab');
-  const projectEntries = document.querySelectorAll('.project-entry');
+async function initProjectFilters() {
+  const filterPillsContainer = document.querySelector('.filter-pills');
+  let filterTabs = document.querySelectorAll('.filter-tab');
+  let projectEntries = document.querySelectorAll('.project-entry');
 
-  filterTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      filterTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+  // Auto-sync categories dynamically from data/projects.json if available
+  try {
+    const res = await fetch('data/projects.json?v=' + Date.now());
+    if (res.ok) {
+      const projects = await res.json();
+      if (Array.isArray(projects) && filterPillsContainer) {
+        // Extract unique categories map { category_id: category_name }
+        const categoriesMap = new Map();
+        categoriesMap.set('all', 'All Systems');
 
-      const filter = tab.dataset.filter;
-      let visibleCount = 0;
-      projectEntries.forEach(entry => {
-        if (filter === 'all' || entry.dataset.category === filter) {
-          entry.style.display = 'flex';
-          entry.classList.remove('revealed');
-          setTimeout(() => {
-            entry.classList.add('revealed');
-          }, visibleCount * 60 + 20);
-          visibleCount++;
-        } else {
-          entry.style.display = 'none';
-        }
+        projects.forEach(p => {
+          if (p.category_id && p.category) {
+            categoriesMap.set(p.category_id, p.category);
+          }
+        });
+
+        // Re-generate filter tabs dynamically from unique data categories
+        const currentActiveFilter = document.querySelector('.filter-tab.active')?.dataset.filter || 'all';
+        filterPillsContainer.innerHTML = '';
+
+        categoriesMap.forEach((name, id) => {
+          const btn = document.createElement('button');
+          btn.className = `filter-tab ${id === currentActiveFilter ? 'active' : ''}`;
+          btn.dataset.filter = id;
+          btn.textContent = name;
+          btn.setAttribute('aria-label', `Filter by ${name}`);
+          filterPillsContainer.appendChild(btn);
+        });
+
+        // Re-query fresh tabs
+        filterTabs = document.querySelectorAll('.filter-tab');
+      }
+    }
+  } catch (e) {
+    // Graceful fallback to existing DOM tabs
+  }
+
+  // Bind filtering logic
+  function bindFilters() {
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        filterTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const filter = tab.dataset.filter;
+        let visibleCount = 0;
+        projectEntries.forEach(entry => {
+          if (filter === 'all' || entry.dataset.category === filter) {
+            entry.style.display = 'flex';
+            entry.classList.remove('revealed');
+            setTimeout(() => {
+              entry.classList.add('revealed');
+            }, visibleCount * 60 + 20);
+            visibleCount++;
+          } else {
+            entry.style.display = 'none';
+          }
+        });
       });
     });
-  });
+  }
+
+  bindFilters();
 }
 
 
