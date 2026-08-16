@@ -1668,15 +1668,7 @@ body {
   .hero-links {
     justify-content: center;
     gap: 16px;
-    margin-bottom: 36px;
-  }
-
-  .live-activity-bar {
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    max-width: 100%;
-    transform: translateY(-10px);
+    margin-bottom: 16px;
   }
 
   .hero-image-pane {
@@ -1750,14 +1742,6 @@ body {
   .hero-links {
     margin-bottom: 14px;
     gap: 14px;
-  }
-
-  .live-activity-bar {
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    max-width: 100%;
-    transform: translateY(-10px);
   }
 
   .status-pill {
