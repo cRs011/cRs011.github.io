@@ -620,7 +620,7 @@ async function initLiveTelemetry() {
     if (act.repo_url) link.href = act.repo_url;
 
     // Smooth reveal
-    bar.style.display = 'inline-flex';
+    bar.style.display = 'flex';
     requestAnimationFrame(() => {
       bar.classList.add('visible');
     });
