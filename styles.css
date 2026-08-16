@@ -1749,7 +1749,7 @@ body {
   }
 
   .hero-links {
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     gap: 14px;
   }
 
@@ -1758,7 +1758,7 @@ body {
   }
 
   .live-activity-bar.visible {
-    transform: translateY(-8px);
+    transform: translateY(-14px);
   }
 
   .live-activity-link {
