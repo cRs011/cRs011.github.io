@@ -979,7 +979,7 @@ body {
   }
 
   .live-activity-bar.visible {
-    transform: translateY(-8px);
+    transform: translateY(-11px);
   }
 
   .live-activity-link {
