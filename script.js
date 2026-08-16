@@ -3,6 +3,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initConsoleEasterEgg();
   initThemeEngine();
   initTypewriter();
   initProjectFilters();
@@ -17,6 +18,26 @@ document.addEventListener('DOMContentLoaded', () => {
   initLiveTelemetry();
   initSmartNavbar();
 });
+
+/* =========================================================================
+   Console Easter Egg & Tech Branding
+   ========================================================================= */
+function initConsoleEasterEgg() {
+  const brandStyle = "background: #2563eb; color: #ffffff; font-weight: 800; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 12px;";
+  const titleStyle = "background: #111622; color: #60a5fa; font-weight: 600; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 12px;";
+  const bodyStyle = "color: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11px; line-height: 1.6;";
+  const linkStyle = "color: #38bdf8; font-weight: 600; font-family: monospace; font-size: 11px;";
+
+  console.log(
+    `%c cRs.dev %c Cristian Lăcătuș — Software & Automation Engineer \n\n` +
+    `%c⚡ Systems Architecture: Autonomous Agent Bridges, Unix Daemons & Game AI.\n` +
+    `🚀 Looking for high-leverage engineering? Connect: %clacatuscristian8@gmail.com\n`,
+    brandStyle,
+    titleStyle,
+    bodyStyle,
+    linkStyle
+  );
+}
 
 /* =========================================================================
    0. Dynamic Multi-Theme Engine (Executive / Minimalist / Bento)
