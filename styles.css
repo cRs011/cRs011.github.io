@@ -875,7 +875,8 @@ body {
 /* LIVE ACTIVITY TELEMETRY BAR */
 .live-activity-bar {
   margin-top: 20px;
-  text-align: left;
+  display: inline-flex;
+  align-items: center;
   opacity: 0;
   transform: translateY(6px);
   transition: opacity 0.4s ease, transform 0.4s var(--ease);
@@ -1660,7 +1661,11 @@ body {
   }
 
   .live-activity-bar {
-    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    transform: translateY(-10px);
   }
 
   .hero-image-pane {
@@ -1732,8 +1737,16 @@ body {
   }
 
   .hero-links {
-    margin-bottom: 32px;
+    margin-bottom: 14px;
     gap: 14px;
+  }
+
+  .live-activity-bar {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    transform: translateY(-10px);
   }
 
   .status-pill {
