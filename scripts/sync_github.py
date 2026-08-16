@@ -60,6 +60,22 @@ def format_time_ago(iso_timestamp: str) -> str:
         return "recently"
 
 
+def sanitize_commit_message(msg: str) -> str:
+    """Strips local file paths, IPs, emails, and sensitive data from public commit displays."""
+    import re
+    if not msg:
+        return "Updated codebase"
+    # Remove absolute file paths (e.g., /Volumes/..., /Users/...)
+    clean = re.sub(r"/(?:Volumes|Users|home|root|var|etc)/[^\s]+", "[path]", msg)
+    # Remove IP addresses
+    clean = re.sub(r"\b(?:\d{1,3}\.){3}\d{1,3}\b", "[ip]", clean)
+    # Remove email addresses
+    clean = re.sub(r"[\w\.-]+@[\w\.-]+\.\w+", "[email]", clean)
+    # Remove token-like hex hashes
+    clean = re.sub(r"\b[a-f0-9]{24,64}\b", "[hash]", clean, flags=re.I)
+    return clean.strip()
+
+
 def sync():
     token = os.environ.get("GITHUB_TOKEN")
     print(f"Fetching GitHub activity for user: {USERNAME}...")
@@ -79,7 +95,8 @@ def sync():
                 
                 commit_msg = "Updated codebase"
                 if commits and len(commits) > 0:
-                    commit_msg = commits[-1].get("message", "Updated codebase").split("\n")[0]
+                    raw_msg = commits[-1].get("message", "Updated codebase").split("\n")[0]
+                    commit_msg = sanitize_commit_message(raw_msg)
 
                 clean_repo = repo_name.split("/")[-1] if "/" in repo_name else repo_name
                 
