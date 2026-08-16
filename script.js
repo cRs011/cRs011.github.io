@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCardSpotlights();
   initAppleTimelineScroll();
   initLiveTelemetry();
+  initSmartNavbar();
 });
 
 /* =========================================================================
@@ -628,3 +629,44 @@ async function initLiveTelemetry() {
     // Graceful silent fallback
   }
 }
+
+/* =========================================================================
+   10. Smart Fluid Auto-Hide Navbar Controller (Mobile & Desktop UX)
+   ========================================================================= */
+function initSmartNavbar() {
+  const navbarWrapper = document.querySelector('.navbar-wrapper');
+  if (!navbarWrapper) return;
+
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+  const scrollThreshold = 8;
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+        const diff = currentScrollY - lastScrollY;
+
+        // If at the very top, always show
+        if (currentScrollY <= 30) {
+          navbarWrapper.classList.remove('nav-hidden');
+        } 
+        // If scrolling down past threshold, hide
+        else if (diff > scrollThreshold && currentScrollY > 70) {
+          if (!document.body.classList.contains('menu-open')) {
+            navbarWrapper.classList.add('nav-hidden');
+          }
+        } 
+        // If scrolling up, show fluidly
+        else if (diff < -scrollThreshold) {
+          navbarWrapper.classList.remove('nav-hidden');
+        }
+
+        lastScrollY = currentScrollY;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+}
+

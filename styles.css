@@ -398,13 +398,20 @@ body {
 /* NAVBAR & THEME CONTROLS */
 .navbar-wrapper {
   position: fixed;
-  top: 16px;
+  top: max(12px, env(safe-area-inset-top, 12px));
   left: 0;
   width: 100%;
   z-index: 1000;
   display: flex;
   justify-content: center;
   padding: 0 16px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  will-change: transform;
+}
+
+.navbar-wrapper.nav-hidden {
+  transform: translateY(calc(-100% - 24px));
+  pointer-events: none;
 }
 
 .navbar {
@@ -1726,8 +1733,8 @@ body {
   }
 
   .hero-section {
-    padding-top: calc(85px + env(safe-area-inset-top, 0px));
-    padding-bottom: 35px;
+    padding-top: calc(90px + env(safe-area-inset-top, 0px));
+    padding-bottom: calc(35px + env(safe-area-inset-bottom, 0px));
   }
 
   .hero-heading {
