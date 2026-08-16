@@ -874,8 +874,8 @@ body {
 
 /* LIVE ACTIVITY TELEMETRY BAR */
 .live-activity-bar {
-  margin-top: 20px;
-  margin-left: -4px;
+  margin-top: 23px;
+  margin-left: -6px;
   margin-bottom: 0;
   display: inline-flex;
   align-items: center;
@@ -1684,7 +1684,7 @@ body {
   .live-activity-bar {
     margin: 0 auto;
     display: inline-flex;
-    transform: translateY(-3px);
+    transform: translateY(-5px);
   }
 
   .hero-image-pane {
@@ -1756,7 +1756,7 @@ body {
   .live-activity-bar {
     margin: 0 auto;
     display: inline-flex;
-    transform: translateY(-3px);
+    transform: translateY(-5px);
   }
 
   .hero-image-pane {
