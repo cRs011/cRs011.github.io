@@ -874,12 +874,12 @@ body {
 
 /* LIVE ACTIVITY TELEMETRY BAR */
 .live-activity-bar {
-  margin-top: 28px;
+  margin-top: 26px;
   margin-bottom: 0;
   display: flex;
-  justify-content: center;
-  max-width: 420px;
-  width: 100%;
+  justify-content: flex-start;
+  width: max-content;
+  max-width: 100%;
   opacity: 0;
   transform: translateY(6px);
   transition: opacity 0.4s ease, transform 0.4s var(--ease);
@@ -893,8 +893,8 @@ body {
 .live-activity-link {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 6px 13px;
+  gap: 8px;
+  padding: 6px 14px;
   background: rgba(16, 185, 129, 0.04);
   border: 1px solid rgba(16, 185, 129, 0.18);
   border-radius: 999px;
@@ -903,8 +903,10 @@ body {
   font-family: var(--font-mono);
   color: var(--text-muted);
   line-height: 1;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  width: max-content;
   transition: all 0.25s var(--ease);
-  max-width: 100%;
 }
 
 .live-activity-link:hover {
@@ -945,33 +947,38 @@ body {
   letter-spacing: 0.03em;
   text-transform: uppercase;
   line-height: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .live-repo {
   color: var(--color-blue-light);
   font-weight: 500;
   line-height: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .live-sep {
   color: var(--text-dim);
   opacity: 0.6;
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .live-msg {
   color: var(--text-body);
-  max-width: 220px;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .live-time {
   color: var(--text-dim);
   font-size: 0.72rem;
   line-height: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 @media (max-width: 640px) {
