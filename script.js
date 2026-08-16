@@ -2,27 +2,8 @@
  * cRs011 Portfolio — Multi-Theme Engine & High Performance Controller
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-  initConsoleEasterEgg();
-  initThemeEngine();
-  initTypewriter();
-  initProjectFilters();
-  initProjectMediaTouch();
-  initCopyEmail();
-  initMobileDrawer();
-  initLightCanvas();
-  initSmartMediaCulling();
-  initAppleScrollAndMetrics();
-  initCardSpotlights();
-  initAppleTimelineScroll();
-  initLiveTelemetry();
-  initSmartNavbar();
-});
-
-/* =========================================================================
-   Console Easter Egg & Tech Branding
-   ========================================================================= */
-function initConsoleEasterEgg() {
+// Immediate Tech Branding & Console Easter Egg
+(function initConsoleEasterEgg() {
   const brandStyle = "background: #2563eb; color: #ffffff; font-weight: 800; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 12px;";
   const titleStyle = "background: #111622; color: #60a5fa; font-weight: 600; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 12px;";
   const bodyStyle = "color: #94a3b8; font-family: -apple-system, BlinkMacSystemFont, sans-serif; font-size: 11px; line-height: 1.6;";
@@ -37,7 +18,23 @@ function initConsoleEasterEgg() {
     bodyStyle,
     linkStyle
   );
-}
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  initThemeEngine();
+  initTypewriter();
+  initProjectFilters();
+  initProjectMediaTouch();
+  initCopyEmail();
+  initMobileDrawer();
+  initLightCanvas();
+  initSmartMediaCulling();
+  initAppleScrollAndMetrics();
+  initCardSpotlights();
+  initAppleTimelineScroll();
+  initLiveTelemetry();
+  initSmartNavbar();
+});
 
 /* =========================================================================
    0. Dynamic Multi-Theme Engine (Executive / Minimalist / Bento)
