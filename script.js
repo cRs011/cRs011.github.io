@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAppleScrollAndMetrics();
   initCardSpotlights();
   initAppleTimelineScroll();
+  initLiveTelemetry();
 });
 
 /* =========================================================================
@@ -590,4 +591,40 @@ function initSmartMediaCulling() {
       });
     }
   }, { passive: true });
+}
+
+/* =========================================================================
+   9. Live Activity & Telemetry Controller
+   ========================================================================= */
+async function initLiveTelemetry() {
+  const bar = document.getElementById('live-activity-bar');
+  const link = document.getElementById('live-activity-link');
+  const repoEl = document.getElementById('live-repo-name');
+  const msgEl = document.getElementById('live-commit-msg');
+  const timeEl = document.getElementById('live-time-ago');
+
+  if (!bar || !link || !repoEl || !timeEl) return;
+
+  try {
+    const res = await fetch('data/activity.json?v=' + Date.now());
+    if (!res.ok) return;
+
+    const data = await res.json();
+    if (!data || !data.latest_activity) return;
+
+    const act = data.latest_activity;
+
+    if (act.repo) repoEl.textContent = act.repo;
+    if (act.message && msgEl) msgEl.textContent = act.message;
+    if (act.time_ago) timeEl.textContent = act.time_ago;
+    if (act.repo_url) link.href = act.repo_url;
+
+    // Smooth reveal
+    bar.style.display = 'inline-flex';
+    requestAnimationFrame(() => {
+      bar.classList.add('visible');
+    });
+  } catch (e) {
+    // Graceful silent fallback
+  }
 }

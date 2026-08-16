@@ -1,0 +1,40 @@
+name: Nightly Portfolio GitHub Sync
+
+on:
+  schedule:
+    # Runs every day at 03:00 UTC (06:00 EEST)
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  sync-activity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run GitHub Activity Sync
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 scripts/sync_github.py
+
+      - name: Commit and Push Updated Data
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          if [ -n "$(git status --porcelain data/activity.json)" ]; then
+            git add data/activity.json
+            git commit -m "chore(sync): automated nightly github activity update [skip ci]"
+            git push origin main
+          else
+            echo "No activity changes to commit."
+          fi

@@ -872,6 +872,104 @@ body {
   padding: 3px 0;
 }
 
+/* LIVE ACTIVITY TELEMETRY BAR */
+.live-activity-bar {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.4s ease, transform 0.4s var(--ease);
+}
+
+.live-activity-bar.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.live-activity-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  background: rgba(16, 185, 129, 0.04);
+  border: 1px solid rgba(16, 185, 129, 0.16);
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.76rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  transition: all 0.25s var(--ease);
+  max-width: 100%;
+}
+
+.live-activity-link:hover {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.35);
+  color: var(--text-white);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px -4px rgba(16, 185, 129, 0.2);
+}
+
+.live-pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  flex-shrink: 0;
+  animation: liveRadar 2.2s infinite ease-in-out;
+}
+
+@keyframes liveRadar {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+    box-shadow: 0 0 10px #10b981;
+  }
+}
+
+.live-label {
+  color: #10b981;
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.live-repo {
+  color: var(--color-blue-light);
+  font-weight: 500;
+}
+
+.live-sep {
+  color: var(--text-dim);
+}
+
+.live-msg {
+  color: var(--text-body);
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.live-time {
+  color: var(--text-dim);
+  font-size: 0.72rem;
+}
+
+@media (max-width: 640px) {
+  .live-msg,
+  .live-sep {
+    display: none;
+  }
+}
+
 /* HERO PHOTO — 100% Rock-Solid 1:1 True Circle with Smooth Theme Morphing */
 .photo-card {
   width: 100%;
