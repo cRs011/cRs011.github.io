@@ -973,25 +973,6 @@ body {
   .live-sep {
     display: none;
   }
-
-  .live-activity-bar {
-    margin-top: 2px;
-  }
-
-  .live-activity-bar.visible {
-    transform: translateY(-11px);
-  }
-
-  .live-activity-link {
-    padding: 3px 10px;
-    gap: 6px;
-    font-size: 0.72rem;
-  }
-
-  .live-pulse {
-    width: 5px;
-    height: 5px;
-  }
 }
 
 /* HERO PHOTO — 100% Rock-Solid 1:1 True Circle with Smooth Theme Morphing */
@@ -1692,7 +1673,11 @@ body {
   .hero-links {
     justify-content: center;
     gap: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
+  }
+
+  .live-activity-bar {
+    margin-top: 0;
   }
 
   .hero-image-pane {
@@ -1764,8 +1749,27 @@ body {
   }
 
   .hero-links {
-    margin-bottom: 14px;
+    margin-bottom: 4px;
     gap: 14px;
+  }
+
+  .live-activity-bar {
+    margin-top: 0;
+  }
+
+  .live-activity-bar.visible {
+    transform: translateY(-8px);
+  }
+
+  .live-activity-link {
+    padding: 3px 10px;
+    gap: 6px;
+    font-size: 0.72rem;
+  }
+
+  .live-pulse {
+    width: 5px;
+    height: 5px;
   }
 
   .status-pill {
