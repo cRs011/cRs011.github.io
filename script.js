@@ -702,7 +702,9 @@ async function initLiveTelemetry() {
     if (act.repo) repoEl.textContent = act.repo;
     if (act.message && msgEl) msgEl.textContent = act.message;
     if (act.time_ago) timeEl.textContent = act.time_ago;
-    if (act.repo_url) link.href = act.repo_url;
+    if (act.repo_url && typeof act.repo_url === 'string' && act.repo_url.startsWith('https://github.com/')) {
+      link.href = act.repo_url;
+    }
 
     // Smooth reveal
     bar.style.display = 'inline-flex';
