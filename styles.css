@@ -874,12 +874,9 @@ body {
 
 /* LIVE ACTIVITY TELEMETRY BAR */
 .live-activity-bar {
-  margin-top: 26px;
-  margin-bottom: 0;
-  display: flex;
-  justify-content: flex-start;
-  width: max-content;
-  max-width: 100%;
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
   opacity: 0;
   transform: translateY(6px);
   transition: opacity 0.4s ease, transform 0.4s var(--ease);
@@ -894,27 +891,25 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 14px;
+  padding: 5px 12px;
   background: rgba(16, 185, 129, 0.04);
-  border: 1px solid rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(16, 185, 129, 0.16);
   border-radius: 999px;
   text-decoration: none;
   font-size: 0.76rem;
   font-family: var(--font-mono);
   color: var(--text-muted);
-  line-height: 1;
   white-space: nowrap;
-  flex-wrap: nowrap;
-  width: max-content;
   transition: all 0.25s var(--ease);
+  max-width: 100%;
 }
 
 .live-activity-link:hover {
   background: rgba(16, 185, 129, 0.08);
-  border-color: rgba(16, 185, 129, 0.38);
+  border-color: rgba(16, 185, 129, 0.35);
   color: var(--text-white);
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px -4px rgba(16, 185, 129, 0.25);
+  box-shadow: 0 4px 14px -4px rgba(16, 185, 129, 0.2);
 }
 
 .live-pulse {
@@ -924,7 +919,6 @@ body {
   background: #10b981;
   box-shadow: 0 0 8px #10b981;
   flex-shrink: 0;
-  display: inline-block;
   animation: liveRadar 2.2s infinite ease-in-out;
 }
 
@@ -944,46 +938,38 @@ body {
   color: #10b981;
   font-weight: 600;
   font-size: 0.72rem;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  line-height: 1;
   white-space: nowrap;
-  flex-shrink: 0;
 }
 
 .live-repo {
   color: var(--color-blue-light);
   font-weight: 500;
-  line-height: 1;
   white-space: nowrap;
-  flex-shrink: 0;
 }
 
 .live-sep {
   color: var(--text-dim);
-  opacity: 0.6;
-  line-height: 1;
-  flex-shrink: 0;
 }
 
 .live-msg {
   color: var(--text-body);
+  max-width: 240px;
   white-space: nowrap;
-  line-height: 1;
-  flex-shrink: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .live-time {
   color: var(--text-dim);
   font-size: 0.72rem;
-  line-height: 1;
   white-space: nowrap;
-  flex-shrink: 0;
 }
 
 @media (max-width: 640px) {
   .live-msg,
-  .live-sep-msg {
+  .live-sep {
     display: none;
   }
 }
@@ -1686,15 +1672,7 @@ body {
   .hero-links {
     justify-content: center;
     gap: 16px;
-    margin-bottom: 16px;
-  }
-
-  .live-activity-bar {
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    max-width: 100%;
-    transform: translateY(-10px);
+    margin-bottom: 36px;
   }
 
   .hero-image-pane {
@@ -1702,7 +1680,7 @@ body {
     right: auto;
     top: auto;
     transform: none;
-    margin: 22px auto 0;
+    margin: 28px auto 0;
     width: min(240px, 60vw);
     aspect-ratio: 1 / 1;
     height: auto;
@@ -1758,24 +1736,16 @@ body {
     margin-bottom: 16px;
   }
 
-  .hero-links {
-    margin-bottom: 14px;
-    gap: 14px;
-  }
-
-  .live-activity-bar {
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    max-width: 100%;
-    transform: translateY(-10px);
-  }
-
   .hero-image-pane {
-    margin: 22px auto 32px;
+    margin: 0 auto 32px;
     width: min(210px, 56vw);
     aspect-ratio: 1 / 1;
     height: auto;
+  }
+
+  .hero-links {
+    margin-bottom: 32px;
+    gap: 14px;
   }
 
   .status-pill {
