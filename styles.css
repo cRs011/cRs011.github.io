@@ -969,10 +969,24 @@ body {
 }
 
 @media (max-width: 640px) {
-
   .live-msg,
   .live-sep {
     display: none;
+  }
+
+  .live-activity-bar {
+    margin-top: 14px;
+  }
+
+  .live-activity-link {
+    padding: 3px 10px;
+    gap: 6px;
+    font-size: 0.72rem;
+  }
+
+  .live-pulse {
+    width: 5px;
+    height: 5px;
   }
 }
 
