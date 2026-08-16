@@ -24,12 +24,54 @@
   <meta name="twitter:description" content="Autonomous AI Agent Bridges, Python Automation Pipelines, Unix Daemons & Game Systems Architecture.">
   <meta name="twitter:image" content="https://crs011.github.io/assets/cristi_portrait.jpg">
   
+  <link rel="canonical" href="https://crs011.github.io/">
+  <meta name="robots" content="index, follow">
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" href="assets/cristi_portrait.jpg?v=3" as="image">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="styles.css?v=20260816v10">
+  <link rel="stylesheet" href="styles.css?v=20260816v11">
+
+  <!-- Schema.org JSON-LD Structured Data for Google Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Cristian Lăcătuș",
+    "url": "https://crs011.github.io/",
+    "image": "https://crs011.github.io/assets/cristi_portrait.jpg",
+    "sameAs": [
+      "https://github.com/cRs011",
+      "https://www.linkedin.com/in/cristi-lacatus-823696294/"
+    ],
+    "jobTitle": "Software & Automation Engineer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "DeviDevs Technologies",
+      "url": "https://devidevs.com"
+    },
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "Technical University of Civil Engineering of Bucharest",
+      "department": "Automatic Control & Applied Computer Science (AIA)"
+    },
+    "knowsAbout": [
+      "Python",
+      "C#",
+      ".NET",
+      "Unity 2D",
+      "Game AI",
+      "Unix Daemons",
+      "POSIX Concurrency",
+      "Playwright CDP",
+      "ETL Pipelines",
+      "Cloud APIs",
+      "Obsidian Second Brain"
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- Ambient Background Aura -->
@@ -53,9 +95,9 @@
       <div class="nav-controls">
         <!-- Live Theme Switcher -->
         <div class="theme-switcher" aria-label="Theme Switcher">
-          <button class="theme-pill active" data-set-theme="executive" title="Executive Dark Theme">Executive</button>
-          <button class="theme-pill" data-set-theme="minimalist" title="Minimalist Vercel Theme">Minimalist</button>
-          <button class="theme-pill" data-set-theme="bento" title="Bento Grid Theme">Bento</button>
+          <button class="theme-pill active" data-set-theme="executive" title="Executive Dark Theme" aria-label="Switch to Executive Theme">Executive</button>
+          <button class="theme-pill" data-set-theme="minimalist" title="Minimalist Vercel Theme" aria-label="Switch to Minimalist Theme">Minimalist</button>
+          <button class="theme-pill" data-set-theme="bento" title="Bento Grid Theme" aria-label="Switch to Bento Theme">Bento</button>
         </div>
         <a href="assets/CV_Cristian_Lacatus_Software_Engineer.pdf" download class="btn-cv">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -235,9 +277,8 @@
 
             <!-- Second Brain Knowledge Graph Video Representation (Clean 16:9) -->
             <div class="project-media">
-              <video autoplay loop muted playsinline preload="auto" poster="assets/obsidian_graph_interactive.webp" width="960" height="540">
+              <video autoplay loop muted playsinline preload="metadata" poster="assets/obsidian_graph_interactive.webp" width="960" height="540">
                 <source src="assets/obsidian_graph_interactive.mp4" type="video/mp4">
-                <source src="assets/obsidian_graph_interactive.webp" type="image/webp">
                 <img src="assets/obsidian_graph_interactive.gif" alt="Obsidian Knowledge Graph" loading="lazy" width="960" height="540">
               </video>
             </div>
@@ -267,9 +308,8 @@
 
             <!-- Featured Showcase: Live Gameplay Reel (Clean 16:9) -->
             <div class="project-media">
-              <video autoplay loop muted playsinline preload="auto" poster="assets/bettertanks/bettertanks_gameplay_live.webp" width="960" height="540">
+              <video autoplay loop muted playsinline preload="metadata" poster="assets/bettertanks/bettertanks_gameplay_live.webp" width="960" height="540">
                 <source src="assets/bettertanks/bettertanks_gameplay_live.mp4" type="video/mp4">
-                <source src="assets/bettertanks/bettertanks_gameplay_live.webp" type="image/webp">
                 <img src="assets/bettertanks/bettertanks_gameplay_live.gif" alt="BetterTanks Gameplay Reel" loading="lazy" width="960" height="540">
               </video>
             </div>
@@ -298,9 +338,8 @@
 
             <!-- Featured Showcase: Live Terminal CLI Daemon Stream (Clean 16:9 -> 1:1 Hover) -->
             <div class="project-media terminal-media">
-              <video autoplay loop muted playsinline preload="auto" poster="assets/automations/cloud_etl_cdp_stream.webp" width="960" height="540">
+              <video autoplay loop muted playsinline preload="metadata" poster="assets/automations/cloud_etl_cdp_stream.webp" width="960" height="540">
                 <source src="assets/automations/cloud_etl_cdp_stream.mp4" type="video/mp4">
-                <source src="assets/automations/cloud_etl_cdp_stream.webp" type="image/webp">
                 <img src="assets/automations/cloud_etl_cdp_stream.gif" alt="Cloud ETL Daemon Live Stream" loading="lazy" width="960" height="540">
               </video>
             </div>
@@ -459,6 +498,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20260816v10" defer></script>
+  <script src="script.js?v=20260816v11" defer></script>
 </body>
 </html>

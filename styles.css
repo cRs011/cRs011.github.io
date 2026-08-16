@@ -1,4 +1,5 @@
 :root {
+  color-scheme: dark;
   /* Default: Executive Dark */
   --bg-main: #0a0d14;
   --bg-card: #111622;
@@ -160,6 +161,16 @@
   margin: 0;
   padding: 0;
   -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-blue-light);
+  outline-offset: 3px;
+}
+
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
 }
 
 html {
@@ -1846,42 +1857,38 @@ body {
     padding: 16px 14px;
   }
 
-  .timeline-title {
+  .role-title {
     font-size: 1.05rem;
   }
 
-  .timeline-desc {
-    font-size: 0.86rem;
+  .contact-cta {
+    padding: 32px 20px;
   }
 
-  .contact-box {
-    padding: 28px 18px;
-  }
-
-  .contact-title {
+  .cta-heading {
     font-size: 1.6rem;
   }
 
-  .contact-subtitle {
+  .cta-desc {
     font-size: 0.92rem;
     margin-bottom: 24px;
   }
 
-  .contact-actions {
+  .cta-actions {
     flex-direction: column;
     width: 100%;
     gap: 12px;
   }
 
-  .contact-actions .btn {
+  .cta-actions .btn {
     width: 100%;
   }
 
-  .footer {
+  .site-footer {
     padding: 32px 0 calc(32px + env(safe-area-inset-bottom, 0px));
   }
 
-  .footer-inner {
+  .footer-layout {
     flex-direction: column;
     text-align: center;
     gap: 16px;
@@ -1913,7 +1920,7 @@ body {
     gap: 10px;
   }
 
-  .metric-card {
+  .metric-box {
     padding: 16px 14px;
   }
 
@@ -1921,9 +1928,9 @@ body {
     gap: 10px;
   }
 
-  .hero-link {
-    padding: 6px 12px;
-    font-size: 0.78rem;
+  .link-item {
+    padding: 6px 10px;
+    font-size: 0.8rem;
   }
 }
 

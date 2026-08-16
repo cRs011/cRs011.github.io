@@ -149,10 +149,11 @@ function initLightCanvas() {
 }
 
 /* =========================================================================
-   2. Dynamic Typewriter
+   2. Dynamic Typewriter (Auto-pauses off-screen for zero battery/CPU drain)
    ========================================================================= */
 function initTypewriter() {
   const el = document.getElementById('typing-text');
+  const hero = document.getElementById('hero');
   if (!el) return;
 
   const words = [
@@ -166,8 +167,11 @@ function initTypewriter() {
   let charIndex = 0;
   let isDeleting = false;
   let typingSpeed = 65;
+  let timerId = null;
+  let isHeroVisible = true;
 
   function type() {
+    if (!isHeroVisible) return;
     const currentWord = words[wordIndex];
     if (isDeleting) {
       el.textContent = currentWord.substring(0, charIndex - 1);
@@ -188,8 +192,27 @@ function initTypewriter() {
       typingSpeed = 350;
     }
 
-    setTimeout(type, typingSpeed);
+    timerId = setTimeout(type, typingSpeed);
   }
+
+  if (hero && 'IntersectionObserver' in window) {
+    const heroObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (!isHeroVisible) {
+            isHeroVisible = true;
+            clearTimeout(timerId);
+            timerId = setTimeout(type, 80);
+          }
+        } else {
+          isHeroVisible = false;
+          clearTimeout(timerId);
+        }
+      });
+    }, { threshold: 0.05 });
+    heroObserver.observe(hero);
+  }
+
   type();
 }
 
