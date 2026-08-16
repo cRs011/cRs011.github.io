@@ -600,7 +600,6 @@ async function initLiveTelemetry() {
   const bar = document.getElementById('live-activity-bar');
   const link = document.getElementById('live-activity-link');
   const repoEl = document.getElementById('live-repo-name');
-  const msgEl = document.getElementById('live-commit-msg');
   const timeEl = document.getElementById('live-time-ago');
 
   if (!bar || !link || !repoEl || !timeEl) return;
@@ -615,7 +614,6 @@ async function initLiveTelemetry() {
     const act = data.latest_activity;
 
     if (act.repo) repoEl.textContent = act.repo;
-    if (act.message && msgEl) msgEl.textContent = act.message;
     if (act.time_ago) timeEl.textContent = act.time_ago;
     if (act.repo_url) link.href = act.repo_url;
 
