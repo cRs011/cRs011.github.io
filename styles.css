@@ -546,7 +546,7 @@ body {
   height: 2px;
   background: var(--text-white);
   transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.25s ease;
+    opacity 0.25s ease;
   border-radius: 999px;
   margin: 0 auto;
   transform-origin: center;
@@ -621,7 +621,7 @@ body {
     transform: translateY(-8px) scale(0.99);
     pointer-events: none;
     transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     padding: calc(95px + env(safe-area-inset-top, 0px)) 24px 40px;
   }
 
@@ -871,6 +871,7 @@ body {
   cursor: pointer;
   padding: 3px 0;
 }
+
 /* LIVE ACTIVITY TELEMETRY BAR */
 .live-activity-bar {
   margin-top: 20px;
@@ -890,7 +891,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 12px;
+  padding: 3px 12px;
   background: rgba(16, 185, 129, 0.04);
   border: 1px solid rgba(16, 185, 129, 0.16);
   border-radius: 999px;
@@ -922,10 +923,13 @@ body {
 }
 
 @keyframes liveRadar {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
     opacity: 0.75;
   }
+
   50% {
     transform: scale(1.4);
     opacity: 1;
@@ -964,6 +968,7 @@ body {
 }
 
 @media (max-width: 640px) {
+
   .live-msg,
   .live-sep {
     display: none;
@@ -988,9 +993,9 @@ body {
   align-items: center;
   justify-content: center;
   transition: border-radius 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              background 0.45s ease,
-              border-color 0.45s ease,
-              box-shadow 0.5s ease;
+    background 0.45s ease,
+    border-color 0.45s ease,
+    box-shadow 0.5s ease;
   will-change: border-radius, background, box-shadow;
 }
 
@@ -1014,8 +1019,8 @@ body {
   transform: translateY(32px) scale(0.975);
   filter: blur(4px);
   transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform, filter;
 }
 
@@ -1178,7 +1183,7 @@ body {
   margin-bottom: 14px;
 }
 
-.project-top > .link-icon:only-child {
+.project-top>.link-icon:only-child {
   margin-left: auto;
 }
 
