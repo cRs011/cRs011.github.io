@@ -702,14 +702,6 @@ body {
   align-items: center;
 }
 
-.hero-status-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 22px;
-}
-
 .status-pill {
   display: inline-flex;
   align-items: center;
@@ -720,7 +712,7 @@ body {
   border: 1px solid var(--border-card);
   padding: 6px 14px;
   border-radius: 999px;
-  margin-bottom: 0;
+  margin-bottom: 20px;
   line-height: 1.35;
   text-align: center;
   max-width: 100%;
@@ -882,7 +874,8 @@ body {
 
 /* LIVE ACTIVITY TELEMETRY BAR */
 .live-activity-bar {
-  margin-top: 0;
+  margin-top: 18px;
+  margin-left: -3px;
   margin-bottom: 0;
   display: inline-flex;
   align-items: center;
@@ -1663,26 +1656,6 @@ body {
     text-align: center;
   }
 
-  .hero-status-row {
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 20px;
-  }
-
-  .hero-image-pane {
-    position: relative;
-    right: auto;
-    top: auto;
-    transform: none;
-    margin: 12px auto 36px;
-    width: min(240px, 60vw);
-    aspect-ratio: 1 / 1;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
   .hero-bio {
     margin: 0 auto 24px;
     max-width: 580px;
@@ -1705,7 +1678,27 @@ body {
   .hero-links {
     justify-content: center;
     gap: 16px;
-    margin-bottom: 32px;
+    margin-bottom: 16px;
+  }
+
+  .live-activity-bar {
+    margin: 0 auto;
+    display: inline-flex;
+    transform: translateY(-3px);
+  }
+
+  .hero-image-pane {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    margin: 22px auto 0;
+    width: min(240px, 60vw);
+    aspect-ratio: 1 / 1;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .metrics-flex {
@@ -1744,12 +1737,6 @@ body {
     padding-bottom: 35px;
   }
 
-  .hero-status-row {
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 18px;
-  }
-
   .hero-heading {
     font-size: clamp(2.0rem, 7.5vw, 2.7rem);
     letter-spacing: -0.03em;
@@ -1761,21 +1748,27 @@ body {
     margin-bottom: 16px;
   }
 
+  .hero-links {
+    margin-bottom: 14px;
+    gap: 14px;
+  }
+
+  .live-activity-bar {
+    margin: 0 auto;
+    display: inline-flex;
+    transform: translateY(-3px);
+  }
+
   .hero-image-pane {
-    margin: 8px auto 32px;
+    margin: 22px auto 32px;
     width: min(210px, 56vw);
     aspect-ratio: 1 / 1;
     height: auto;
   }
 
-  .hero-links {
-    margin-bottom: 28px;
-    gap: 14px;
-  }
-
   .status-pill {
     max-width: 100%;
-    margin-bottom: 0;
+    margin-bottom: 16px;
   }
 
   .filter-tabs {
