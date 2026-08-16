@@ -875,8 +875,7 @@ body {
 /* LIVE ACTIVITY TELEMETRY BAR */
 .live-activity-bar {
   margin-top: 20px;
-  display: inline-flex;
-  align-items: center;
+  text-align: left;
   opacity: 0;
   transform: translateY(6px);
   transition: opacity 0.4s ease, transform 0.4s var(--ease);
@@ -1658,6 +1657,10 @@ body {
     justify-content: center;
     gap: 16px;
     margin-bottom: 36px;
+  }
+
+  .live-activity-bar {
+    text-align: center;
   }
 
   .hero-image-pane {
