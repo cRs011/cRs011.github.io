@@ -891,7 +891,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 3px 12px;
+  padding: 4px 12px;
   background: rgba(16, 185, 129, 0.04);
   border: 1px solid rgba(16, 185, 129, 0.16);
   border-radius: 999px;
