@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Guardrails for AI coding agents · Cristian Lăcătuș</title>
+
+  <meta name="description" content="I run AI coding agents on real work. The useful part is not the prompting — it is the gates: what an agent may touch, how its output gets checked, and the three times it was confidently wrong.">
+  <meta name="theme-color" content="#fbf9f5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d111c" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://crs011.github.io/projects/ai-agents.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.min.css?v=20260817">
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <a href="../" class="wordmark">cRs</a>
+      <nav aria-label="Sections">
+        <ul>
+          <li><a href="../#work">Work</a></li>
+          <li><a href="../#about">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap case">
+    <div class="case-head">
+      <a class="back-link" href="../#work">← back to work</a>
+      <h1>Guardrails for AI coding agents</h1>
+      <p class="lede">
+        Everyone can get an agent to write code. The part that took me months was working out what
+        to do when it writes something confident and wrong — which it does, and not rarely.
+      </p>
+
+      <dl class="case-facts">
+        <div>
+          <dt>Context</dt>
+          <dd>Daily work at DeviDevs, 2026</dd>
+        </div>
+        <div>
+          <dt>Stack</dt>
+          <dd>Python, lifecycle hooks, git</dd>
+        </div>
+        <div>
+          <dt>Status</dt>
+          <dd>In use, still changing</dd>
+        </div>
+        <div>
+          <dt>Code</dt>
+          <dd>Internal — described, not published</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="case-body">
+      <p>
+        Most of my work now goes through AI coding agents. They are genuinely fast, and they are
+        wrong in a specific way: fluently. A wrong function looks exactly like a right one. So the
+        engineering moved somewhere I did not expect — away from writing every line, towards building
+        the gates that catch the lines I did not write.
+      </p>
+
+      <h2>Three gates that run whether I remember them or not</h2>
+      <p>
+        A rule an agent is asked to follow is a suggestion. A rule the harness enforces is a rule.
+        Everything below runs automatically, because the version that depended on me remembering did
+        not survive contact with a long session.
+      </p>
+
+      <h3>What it may touch</h3>
+      <p>
+        Agents extend themselves by loading skill files, and a skill file is code. Anything installed
+        goes to quarantine first, gets fingerprinted at approval, and is checked against that
+        fingerprint before it runs again. An early version compared paths with a string prefix, which
+        meant a directory called <code>binEVIL</code> passed as the authorised <code>bin</code>. That
+        is not a hypothetical: I exploited it on my own system to confirm it, and it answered
+        <code>AUTHORIZED</code>.
+      </p>
+
+      <h3>Read the whole file before changing it</h3>
+      <p>
+        The most expensive agent mistake I have seen is not a bad edit — it is an edit made after
+        reading 40 lines of a 600-line file. A hook runs at the end of every turn and blocks
+        completion if a file was modified after only a partial read. Cheap to enforce, and it removes
+        a whole category of confidently broken changes.
+      </p>
+
+      <h3>Verify the claims, not the vibes</h3>
+      <p>
+        A script walks the documentation and checks every path it mentions against what is actually on
+        disk — currently <strong>536 references</strong> per run — plus a set of capabilities tested by
+        executing them rather than asserting them. It exists because every real defect I found in that
+        system was a false statement, not a bad structure.
+      </p>
+      <p>
+        There is also a red-team suite, 23 assertions, that tries to break the security boundaries on
+        purpose. It went from finding real holes to passing, which is the only version of "secure" I
+        trust.
+      </p>
+
+      <h2>Three times an agent was confidently wrong</h2>
+
+      <h3>A health check that could not fail</h3>
+      <p>
+        A vault health checker had been generated, reviewed, and used for weeks. It printed
+        <code>[PASS]</code> on every line — as a literal, not as a result of comparing anything. The
+        changelog proudly recorded a "90/90 PASS audit" produced by a script that was structurally
+        incapable of reporting a failure. Nobody had read it closely because it always said what we
+        hoped.
+      </p>
+
+      <h3>Statistics invented to be round</h3>
+      <p>
+        A summary of an exported chat archive claimed 1,744 conversations and 22,598 messages.
+        Counted at the source: <strong>1,553</strong> and <strong>18,910</strong>. A third figure was
+        exactly double the truth, because every entry had been counted twice. The numbers were not
+        random — they were plausible, which is worse. Now every figure in that system carries the
+        command that reproduces it.
+      </p>
+
+      <h3>A delete that followed a symlink</h3>
+      <p>
+        A cleanup command with a trailing slash on a path followed a symlink into the real directory
+        and removed a file that existed in no repository, because that folder was globally ignored.
+        Recovered by rebuilding it from the sources that survived. The lesson was not "be careful" —
+        it was that anything worth keeping has to be in version control before an agent is pointed
+        anywhere near it.
+      </p>
+
+      <div class="honest">
+        <h3>What I would fix</h3>
+        <ul>
+          <li>
+            <strong>The gates are Python scripts held together by config.</strong> They work on my
+            machine and on the harnesses I use. Making them portable would mean a real interface
+            rather than three files that know about each other.
+          </li>
+          <li>
+            <strong>A verifier that cries wolf gets ignored.</strong> The claim auditor reported a
+            failure last week on the one sentence that said a file <em>never existed</em> — it matched
+            the path and missed the negation. I widened the rule, but the general problem stands: a
+            checker with false positives trains you to skip its output, which is worse than not having
+            it.
+          </li>
+          <li>
+            <strong>None of this catches subtly wrong logic.</strong> It catches unread files, false
+            claims, and broken boundaries. An agent writing an off-by-one in a scoring function walks
+            straight through every gate I have. For that there is still only reading the code.
+          </li>
+        </ul>
+      </div>
+
+      <h2>What I took from it</h2>
+      <p>
+        Working with agents made me a more suspicious engineer, not a lazier one. The habit that
+        transferred to everything else: <strong>separate what I verified from what I assumed</strong>,
+        and say which is which. Most of the bad calls I have made came from a sentence that sounded
+        checked and was not — whether an agent wrote it or I did.
+      </p>
+
+      <p><a class="back-link" href="../#work">← back to work</a></p>
+    </div>
+  </main>
+
+  <footer class="wrap site-footer">
+    <p>© 2026 Cristian Lăcătuș · Bucharest</p>
+    <p class="footer-links"><a href="../">Home</a></p>
+  </footer>
+</body>
+</html>
