@@ -233,6 +233,40 @@ h4 {
 .intro {
   padding-top: clamp(48px, 9vw, 92px);
   padding-bottom: clamp(40px, 7vw, 72px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(28px, 6vw, 64px);
+  align-items: start;
+}
+
+/* Doua tratamente ale aceleiasi fotografii, fiindca dimensiunile cer incadrari
+   diferite. Pe ecran larg, planşa montata din dreapta. Pe telefon, unde planşa ar
+   impinge continutul in jos, o semnatura de 64 de pixeli langa rol — cu un decupaj
+   propriu, cap si umeri, fiindca incadrarea larga ar lasa fata ilizibila.
+   Se afiseaza mereu doar una; sursa ascunsa nu e anuntata de cititoarele de ecran. */
+.portrait-plate {
+  margin: 0;
+  width: clamp(150px, 21vw, 214px);
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+  padding: 9px 9px 7px;
+}
+
+.portrait-plate img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  border: 1px solid var(--rule);
+}
+
+.portrait-plate figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--ink-muted);
+  text-align: right;
+  margin-top: 7px;
 }
 
 .intro h1 {
@@ -240,8 +274,6 @@ h4 {
   margin-bottom: 6px;
 }
 
-/* Portretul stă ca semnătură de autor lângă rol: mic, cu chenar de o linie.
-   La 64 de pixeli un passepartout ar fi doar zgomot, iar o legendă n-ar încăpea. */
 .byline {
   display: flex;
   align-items: center;
@@ -249,11 +281,12 @@ h4 {
   margin-bottom: 26px;
 }
 
+/* Ascunsa pe ecran larg: acolo se vede planşa. Apare sub 860 de pixeli. */
 .byline-photo {
+  display: none;
   width: 64px;
   height: 80px;
   object-fit: cover;
-  object-position: center 22%;
   border: 1px solid var(--rule);
   flex-shrink: 0;
 }
@@ -762,6 +795,19 @@ blockquote {
    ========================================================================= */
 
 @media (max-width: 860px) {
+  /* Planşa iese, semnatura intra. */
+  .intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .portrait-plate {
+    display: none;
+  }
+
+  .byline-photo {
+    display: block;
+  }
+
   .two-col,
   .stack-grid {
     grid-template-columns: minmax(0, 1fr);
