@@ -168,6 +168,42 @@ def sync():
     print(f"Successfully synced activity to {OUTPUT_FILE}")
     print(f"Latest activity: {latest_activity['repo']} — \"{latest_activity['message']}\" ({latest_activity['time_ago']})")
 
+    report_unlisted_repos(active_repos)
+
+
+def report_unlisted_repos(active_repos):
+    """Numeste depozitele publice care nu apar in data/projects.json.
+
+    Nu le publica singur, intentionat: portofoliul e o selectie, nu o oglinda a
+    contului de GitHub, iar majoritatea depozitelor noi sunt incercari. Rolul aici
+    e doar sa nu uiti unul care merita o pagina.
+    """
+    projects_file = os.path.join(os.path.dirname(OUTPUT_DIR), "data", "projects.json")
+    if not os.path.exists(projects_file):
+        return
+
+    try:
+        with open(projects_file, encoding="utf-8") as handle:
+            projects = json.load(handle)
+    except (json.JSONDecodeError, OSError):
+        return
+
+    listed = " ".join(
+        str(project.get("repo") or "") + " " + str(project.get("id") or "")
+        for project in projects
+    ).lower()
+
+    unlisted = [
+        repo["name"] for repo in active_repos
+        if repo.get("name")
+        and repo["name"].lower() not in listed
+        and repo["name"].lower() not in (USERNAME.lower(), f"{USERNAME.lower()}.github.io")
+    ]
+
+    if unlisted:
+        print("Depozite publice care nu apar pe site: " + ", ".join(unlisted))
+        print("  Daca vreunul merita o pagina: python3 scripts/new_project.py <id> \"<titlu>\"")
+
 
 if __name__ == "__main__":
     sync()

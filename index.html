@@ -150,17 +150,13 @@
         <h2>Selected work</h2>
       </div>
 
+      <!-- projects:start — generat de scripts/render_site.py din data/projects.json. Nu edita intre marcaje. -->
       <div class="work-list">
         <article class="work-item">
           <div class="work-body">
             <h3><a href="projects/bettertanks.html">BetterTanks — enemy AI for a 2D tank game</a></h3>
             <p class="work-meta">Unity 2D · C# · academic practice at DeviDevs, May–Jul 2026</p>
-            <p>
-              A five-state enemy tank: patrol, chase, shoot, take cover, run. The interesting part is
-              cover selection — for every destructible wall it scores four candidate positions taken
-              from the collider bounds, and strongly prefers the side facing away from the player. It
-              also has to handle the wall being destroyed while it is hiding behind it.
-            </p>
+            <p>A five-state enemy tank: patrol, chase, shoot, take cover, run. The interesting part is cover selection — for every destructible wall it scores four candidate positions taken from the collider bounds, and strongly prefers the side facing away from the player. It also has to handle the wall being destroyed while it is hiding behind it.</p>
             <ul class="tags">
               <li>Unity 2D</li>
               <li>C#</li>
@@ -176,21 +172,15 @@
           <div class="work-media">
             <video autoplay loop muted playsinline preload="metadata" poster="assets/bettertanks/bettertanks_gameplay_live.webp" width="960" height="540">
               <source src="assets/bettertanks/bettertanks_gameplay_live.mp4" type="video/mp4">
-              <img src="assets/bettertanks/bettertanks_gameplay_live.gif" alt="Gameplay clip: tanks fighting on a desert map" loading="lazy" width="960" height="540">
+            <img src="assets/bettertanks/bettertanks_gameplay_live.gif" alt="Gameplay clip: tanks fighting on a desert map" loading="lazy" width="960" height="540">
             </video>
           </div>
         </article>
-
         <article class="work-item">
           <div class="work-body">
             <h3><a href="projects/agent-bridge.html">A bridge between my phone and a coding agent</a></h3>
             <p class="work-meta">Python 3 · Unix daemons · in daily use</p>
-            <p>
-              A daemon that lets me approve or redirect a long-running coding agent from Telegram, so
-              I am not tied to the laptop while it works. Behind it sits a Markdown knowledge vault
-              that both I and the agent write to — which is exactly why it needed a real lock rather
-              than hoping the writes do not collide.
-            </p>
+            <p>A daemon that lets me approve or redirect a long-running coding agent from Telegram, so I am not tied to the laptop while it works. Behind it sits a Markdown knowledge vault that both I and the agent write to — which is exactly why it needed a real lock rather than hoping the writes do not collide.</p>
             <ul class="tags">
               <li>Python 3</li>
               <li>fcntl.flock</li>
@@ -205,21 +195,15 @@
           <div class="work-media">
             <video autoplay loop muted playsinline preload="metadata" poster="assets/obsidian_graph_interactive.webp" width="960" height="540">
               <source src="assets/obsidian_graph_interactive.mp4" type="video/mp4">
-              <img src="assets/obsidian_graph_interactive.gif" alt="The knowledge vault rendered as a graph of linked notes" loading="lazy" width="960" height="540">
+            <img src="assets/obsidian_graph_interactive.gif" alt="The knowledge vault rendered as a graph of linked notes" loading="lazy" width="960" height="540">
             </video>
           </div>
         </article>
-
         <article class="work-item no-media">
           <div class="work-body">
             <h3><a href="projects/automation.html">Scheduled Google Workspace automation</a></h3>
             <p class="work-meta">Python · Google Cloud APIs · Playwright · at DeviDevs</p>
-            <p>
-              Internal tooling: scheduled jobs that keep a spreadsheet tracker in sync with Drive and
-              Sheets, and a browser controller driving Chrome over the DevTools protocol for the web
-              apps that have no usable API. Read-only credentials, and a sanitiser that strips local
-              paths and addresses out of anything published.
-            </p>
+            <p>Internal tooling: scheduled jobs that keep a spreadsheet tracker in sync with Drive and Sheets, and a browser controller driving Chrome over the DevTools protocol for the web apps that have no usable API. Read-only credentials, and a sanitiser that strips local paths and addresses out of anything published.</p>
             <ul class="tags">
               <li>Python</li>
               <li>Google Drive &amp; Sheets API</li>
@@ -233,6 +217,7 @@
           </div>
         </article>
       </div>
+      <!-- projects:end -->
     </section>
 
     <section class="wrap section" id="stack">

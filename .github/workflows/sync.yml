@@ -1,46 +1,63 @@
-name: Nightly Portfolio GitHub Sync
+name: Nightly sync and build
 
 on:
   schedule:
-    # Runs every day at 03:00 UTC (06:00 EEST)
+    # 03:00 UTC, adica 06:00 in Bucuresti vara.
     - cron: '0 3 * * *'
-  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+  workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  # O singura rulare o data. Doua joburi care fac push pe main se calca in picioare.
+  group: nightly-sync
+  cancel-in-progress: false
+
 jobs:
-  sync-activity:
+  sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
+      - name: Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Set up Node.js 20
+      - name: Node 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Run GitHub Activity Sync & Production Build
+      # sync_github.py rescrie data/activity.json si semnaleaza depozitele publice
+      # care nu apar in data/projects.json. build_prod.py randeaza lista de proiecte
+      # in index.html, regenereaza sitemap.xml si minifica. Randarea pica build-ul
+      # daca projects.json trimite catre un fisier inexistent.
+      - name: Sync activity and build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python3 scripts/sync_github.py
           python3 scripts/build_prod.py
 
-      - name: Commit and Push Updated Data & Bundles
+      - name: Commit generated files
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          if [ -n "$(git status --porcelain data/ styles.min.css script.min.js)" ]; then
-            git add data/ styles.min.css script.min.js
-            git commit -m "chore(sync): automated nightly github activity & bundle update [skip ci]"
-            git push origin main
-          else
-            echo "No changes to commit."
+
+          TRACKED="data/ index.html sitemap.xml styles.min.css script.min.js"
+
+          if [ -z "$(git status --porcelain -- $TRACKED)" ]; then
+            echo "Nimic de comis."
+            exit 0
           fi
+
+          git add -- $TRACKED
+          git commit -m "chore(sync): activitate GitHub si fisiere generate [skip ci]"
+
+          # Cineva poate impinge pe main intre checkout si push. Rebase si o singura
+          # reincercare, ca jobul sa nu pice pe o cursa previzibila.
+          git pull --rebase origin main || exit 1
+          git push origin main || (sleep 10 && git pull --rebase origin main && git push origin main)
