@@ -182,14 +182,15 @@
         </article>
         <article class="work-item no-media">
           <div class="work-body">
-            <h3><a href="projects/agent-bridge.html">A bridge between my phone and a coding agent</a></h3>
-            <p class="work-meta">Python 3 · Unix daemons · in daily use</p>
-            <p>A daemon that lets me approve or redirect a long-running coding agent from Telegram, so I am not tied to the laptop while it works. Behind it sits a Markdown knowledge vault that both I and the agent write to — which is exactly why it needed a real lock rather than hoping the writes do not collide.</p>
+            <h3><a href="projects/agent-bridge.html">Answering a coding agent from my watch</a></h3>
+            <p class="work-meta">Python 3 · Unix daemons · Telegram on iOS and watchOS · in daily use</p>
+            <p>A daemon that lets me approve or redirect a long-running coding agent from my wrist. Telegram was picked as the transport because it already ships a native watchOS app, which turned the problem into the interesting one: summarising verbose agent output into a line that fits a watch notification and a question answerable in one word. Underneath sits a Markdown vault that both the agent and I write to, which is why it needed a real kernel lock rather than hope.</p>
             <ul class="tags">
               <li>Python 3</li>
               <li>fcntl.flock</li>
               <li>launchd</li>
               <li>Telegram Bot API</li>
+              <li>watchOS</li>
               <li>Markdown vault</li>
             </ul>
             <div class="work-links">

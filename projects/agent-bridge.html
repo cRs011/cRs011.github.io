@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>A bridge between my phone and a coding agent · Cristian Lăcătuș</title>
+  <title>Answering a coding agent from my watch · Cristian Lăcătuș</title>
 
-  <meta name="description" content="A Python daemon that lets me supervise a long-running coding agent from Telegram, and the file lock underneath it that stops two writers from corrupting a shared Markdown vault.">
+  <meta name="description" content="A Python daemon that lets me approve or redirect a long-running coding agent from an Apple Watch, why Telegram was the right transport, and the kernel file lock underneath it.">
   <meta name="theme-color" content="#fbf9f5" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0d111c" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://crs011.github.io/projects/agent-bridge.html">
@@ -35,10 +35,11 @@
   <main id="main" class="wrap case">
     <div class="case-head">
       <a class="back-link" href="../#work">← back to work</a>
-      <h1>A bridge between my phone and a coding agent</h1>
+      <h1>Answering a coding agent from my watch</h1>
       <p class="lede">
-        The interesting problem was not the chat bot. It was that two processes wanted to write to
-        the same folder, and one of them was not me.
+        The goal was a tap on the wrist and a one-word reply. The hard part turned out to be
+        somewhere else entirely: two processes wanted to write to the same folder, and one of them
+        was not me.
       </p>
 
       <dl class="case-facts">
@@ -48,7 +49,7 @@
         </div>
         <div>
           <dt>Stack</dt>
-          <dd>Python 3, <code>fcntl</code>, launchd, Telegram Bot API</dd>
+          <dd>Python 3, <code>fcntl</code>, launchd, Telegram Bot API (iOS + watchOS)</dd>
         </div>
         <div>
           <dt>Status</dt>
@@ -77,8 +78,25 @@
         from the desk meant losing the run.
       </p>
       <p>
-        So: a small daemon that forwards what the agent is doing to Telegram, and takes replies back.
-        Notifications land on a watch, which is enough to say "yes, continue" while walking.
+        The actual goal was narrower than "remote control": I wanted to answer from my wrist. Getting
+        a tap on the watch, reading one line, and sending back "yes, continue" without taking the
+        phone out is the difference between a twenty-minute pause and a five-second one.
+      </p>
+
+      <h3>Why Telegram, and not a web dashboard</h3>
+      <p>
+        A dashboard would have meant building and hosting a client, then building a second one for
+        the watch, then dealing with push notifications on both. Telegram already ships a native app
+        on iOS <em>and</em> watchOS, so notifications, replies and quick actions work on the wrist for
+        free. Choosing the transport for the client it already has was the whole trick — the bot API
+        is the boring part.
+      </p>
+      <p>
+        That decision moved the work to where it belonged: making the messages readable on a screen
+        the size of a stamp. Agent output is verbose and full of paths, diffs and stack traces, none
+        of which survive a watch notification. So the bridge summarises before it sends — one line of
+        what happened, one line of what it needs, and the question phrased so the answer can be a
+        single word. The full detail stays in the chat for when I am back at the laptop.
       </p>
 
       <h2>The part that was actually hard</h2>
@@ -144,6 +162,15 @@ kw.sh status                          # who holds it, or "free"</code></pre>
           <li>
             <strong>It is tied to macOS.</strong> <code>launchd</code> and Keychain assumptions run
             through it. Porting to Linux means replacing the scheduling layer.
+          </li>
+          <li>
+            <strong>The messages are not end-to-end encrypted, and they should be.</strong> Traffic
+            between the three endpoints — laptop, phone, watch — goes through Telegram's
+            infrastructure in ordinary bot messages, which means the transport can read them. For
+            what I send today that is a nuisance rather than a breach, but the content is repository
+            names, file paths and occasionally a diff, and none of that belongs to a third party.
+            Encrypting the payload before it is handed to the bot API, so Telegram carries ciphertext
+            it cannot read, is the next thing on this project and is not built yet.
           </li>
         </ul>
       </div>

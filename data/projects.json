@@ -22,14 +22,15 @@
   },
   {
     "id": "agent-bridge",
-    "title": "A bridge between my phone and a coding agent",
-    "meta": "Python 3 · Unix daemons · in daily use",
-    "blurb": "A daemon that lets me approve or redirect a long-running coding agent from Telegram, so I am not tied to the laptop while it works. Behind it sits a Markdown knowledge vault that both I and the agent write to — which is exactly why it needed a real lock rather than hoping the writes do not collide.",
+    "title": "Answering a coding agent from my watch",
+    "meta": "Python 3 · Unix daemons · Telegram on iOS and watchOS · in daily use",
+    "blurb": "A daemon that lets me approve or redirect a long-running coding agent from my wrist. Telegram was picked as the transport because it already ships a native watchOS app, which turned the problem into the interesting one: summarising verbose agent output into a line that fits a watch notification and a question answerable in one word. Underneath sits a Markdown vault that both the agent and I write to, which is why it needed a real kernel lock rather than hope.",
     "tags": [
       "Python 3",
       "fcntl.flock",
       "launchd",
       "Telegram Bot API",
+      "watchOS",
       "Markdown vault"
     ],
     "case": "projects/agent-bridge.html",

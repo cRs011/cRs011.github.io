@@ -109,7 +109,9 @@ code {
   background: var(--accent-wash);
   padding: 0.1em 0.35em;
   border-radius: 3px;
-  overflow-wrap: break-word;
+  /* „anywhere", nu „break-word": identificatori ca FindObjectsByType<DestructibleWall>
+     nu au unde sa se rupa natural si altfel latesc randul pe ecrane inguste. */
+  overflow-wrap: anywhere;
 }
 
 strong {
@@ -365,6 +367,16 @@ h4 {
   display: grid;
   gap: 18px;
   max-width: var(--measure);
+}
+
+/* Elementele de grid au implicit min-width: auto, deci refuza sa coboare sub
+   latimea lor minima si impung randul in afara ecranului. Se aplica la fiecare
+   lista pusa pe grid in foaia asta. */
+.principles li,
+.stack-grid li,
+.case-body ul li,
+.case-body ol li {
+  min-width: 0;
 }
 
 .principles li {
@@ -768,8 +780,13 @@ blockquote {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .portrait {
+  /* Pe telefon planşa urcă deasupra numelui: chipul întâi, apoi textul.
+     Selectorul trebuie să fie .portrait-plate — .portrait a rămas fără element
+     după ce poza a primit ramă, iar regula nu mai prindea nimic. */
+  .portrait-plate {
     order: -1;
+    width: clamp(128px, 34vw, 168px);
+    margin-bottom: 4px;
   }
 
   .two-col,
