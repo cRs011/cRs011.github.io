@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>BetterTanks — enemy AI and cover selection · Cristian Lăcătuș</title>
+
+  <meta name="description" content="How the enemy tank in BetterTanks decides where to hide: five states, four candidate cover points per wall, and the oscillation problems that took longer than the state machine.">
+  <meta name="theme-color" content="#fbf9f5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#16151b" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://crs011.github.io/projects/bettertanks.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.min.css?v=20260817">
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <a href="../" class="wordmark">cRs</a>
+      <nav aria-label="Sections">
+        <ul>
+          <li><a href="../#work">Work</a></li>
+          <li><a href="../#about">About</a></li>
+          <li><a href="https://github.com/cRs011/proiectul-Unity-2D">Source</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap case">
+    <div class="case-head">
+      <a class="back-link" href="../#work">← back to work</a>
+      <h1>BetterTanks: teaching a tank where to hide</h1>
+      <p class="lede">
+        The state machine took an afternoon. Getting the enemy to stop flickering between two hiding
+        spots took most of the rest.
+      </p>
+
+      <dl class="case-facts">
+        <div>
+          <dt>Context</dt>
+          <dd>Academic practice at DeviDevs, May–Jul 2026</dd>
+        </div>
+        <div>
+          <dt>Stack</dt>
+          <dd>Unity 2D, C#, Physics2D</dd>
+        </div>
+        <div>
+          <dt>Tracked</dt>
+          <dd>~87 h across 10+ Jira epics</dd>
+        </div>
+        <div>
+          <dt>Code</dt>
+          <dd><a href="https://github.com/cRs011/proiectul-Unity-2D">proiectul-Unity-2D</a></dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="case-body">
+      <figure>
+        <video autoplay loop muted playsinline preload="metadata" poster="../assets/bettertanks/bettertanks_gameplay_live.webp" width="960" height="540">
+          <source src="../assets/bettertanks/bettertanks_gameplay_live.mp4" type="video/mp4">
+          <img src="../assets/bettertanks/bettertanks_gameplay_live.gif" alt="Gameplay: two tanks exchanging fire around destructible walls" loading="lazy">
+        </video>
+        <figcaption>Recorded in the editor. The enemy tanks are running the AI described below.</figcaption>
+      </figure>
+
+      <h2>What it had to do</h2>
+      <p>
+        A top-down 2D tank game with destructible walls. The enemy tank needed to feel like it was
+        making decisions rather than driving at you in a straight line: patrol when alone, engage
+        when it sees you, and back off into cover when it is losing.
+      </p>
+
+      <h2>Five states, driven by health</h2>
+      <p>
+        <code>EnemyAI.cs</code> is a plain state machine — an enum, a <code>switch</code> in
+        <code>Update()</code>, and one function that decides which state should be active:
+      </p>
+      <pre><code>public enum State { Patrol, Chase, Shoot, Defensive, Flee }</code></pre>
+      <p>
+        What makes it behave less mechanically is that the transitions are driven by health rather
+        than only by distance. <code>GetDesiredState()</code> checks, in order: below 25% health it
+        flees, below 50% it goes defensive and looks for cover, otherwise it patrols or engages
+        depending on whether it has detected you.
+      </p>
+      <p>
+        There is also a rule pointing the other way. If <em>your</em> health drops below 25%, the
+        enemy gets more aggressive instead of more careful — it moves at 1.4× speed and its fire
+        cooldowns are multiplied by 0.6 and 0.75. It presses the advantage.
+      </p>
+      <p>
+        Aggro is sticky and slightly unfair on purpose. Getting hit sets a provoked flag, and the
+        enemy keeps chasing for six seconds after losing sight of you — except that it refuses to
+        drop aggro at all while it is below the defensive threshold, because a wounded tank calmly
+        going back to its patrol route looked absurd.
+      </p>
+
+      <h2>Choosing a cover position</h2>
+      <p>
+        This is the part I would want to be asked about. There are no hand-placed cover markers. For
+        every destructible wall still standing, the AI derives four candidate positions from the
+        collider's bounding box — one off each face:
+      </p>
+      <pre><code>Bounds b = col.bounds;
+Vector2[] candidates = {
+    new Vector2(b.center.x, b.max.y + coverOffset),
+    new Vector2(b.center.x, b.min.y - coverOffset),
+    new Vector2(b.min.x - coverOffset, b.center.y),
+    new Vector2(b.max.x + coverOffset, b.center.y),
+};</code></pre>
+      <p>
+        Each candidate is scored. Being close to the enemy is worth ten times more than being far
+        from the player, so it does not sprint across the map for a marginally better wall. Then the
+        rule that actually matters: take the direction from the wall's centre to the player, and the
+        direction from the wall's centre to the candidate, and compare them with a dot product. If
+        the candidate is on the opposite side from the player (dot below −0.7), it gets a bonus of
+        1000 — large enough that geometry beats distance every time. A partially covered side
+        (below −0.3) gets 300.
+      </p>
+      <p>
+        In other words: it does not know what "cover" is. It knows that the far side of a solid thing
+        is worth a great deal more than the near side, and that falls out as hiding.
+      </p>
+
+      <h2>The three bugs that took the time</h2>
+
+      <h3>It vibrated between two walls</h3>
+      <p>
+        Re-scoring every frame meant two nearly equal walls would swap the top spot constantly and
+        the tank would twitch in place. The fix is one line in the scoring loop: the wall it is
+        currently using gets +50 before comparison. Hysteresis — it takes a meaningfully better
+        option to justify moving.
+      </p>
+
+      <h3>It drove through the wall it was hiding behind</h3>
+      <p>
+        When you flank, the best position moves to the other side of the wall. The tank would head
+        straight for it, which means straight into the wall it is standing against. So before
+        switching sides it compares the current side and the target side; if they are opposed, it
+        first sets a backoff target away from the wall centre, moves there, and only then goes around.
+      </p>
+
+      <h3>Its cover got destroyed mid-fight</h3>
+      <p>
+        Walls are destructible, so the thing it was hiding behind can disappear while it is using it.
+        It now detects that, picks a retreat point away from the player, and reverses for a fixed
+        1.25 s while still shooting, instead of standing in the open re-running the search.
+      </p>
+
+      <h2>Obstacle avoidance</h2>
+      <p>
+        Movement goes through one helper. It raycasts along the desired direction; if that is blocked
+        it tries the perpendicular, then the opposite perpendicular. If all three are blocked it
+        flips the current dodge direction and returns zero, letting the caller stop rather than
+        grind against geometry. Not a pathfinder — the maps are small and open enough that three
+        raycasts are honest value for the cost.
+      </p>
+
+      <div class="honest">
+        <h3>What I would fix</h3>
+        <p>Reading the code back now, three things are wrong with it:</p>
+        <ul>
+          <li>
+            <strong>Projectile hits are detected by name.</strong>
+            <code>CheckForProjectileHit</code> does <code>name.Contains("Bullet")</code> and then
+            excludes names containing "Muzzle" or "Flash". It works, and it breaks the moment someone
+            renames a prefab. A layer or a component check is the right answer.
+          </li>
+          <li>
+            <strong>Cover search scans the whole scene.</strong> Every re-evaluation calls
+            <code>FindObjectsByType&lt;DestructibleWall&gt;</code>. Fine at this map size, wrong as a
+            habit — the walls should register themselves in a list once.
+          </li>
+          <li>
+            <strong>The object pool exists and the AI does not use it.</strong> There is an
+            <code>ObjectPool</code> and a <code>BulletPoolManager</code> in the project, but
+            <code>EnemyAI.SpawnProjectile</code> still calls <code>Instantiate</code> and
+            <code>Destroy</code> on a timer. That was on my list when the practice period ended, and
+            I would rather say so than claim the allocation problem is solved.
+          </li>
+        </ul>
+      </div>
+
+      <h2>What I took from it</h2>
+      <p>
+        Behaviour that reads as intelligent came from scoring functions and hysteresis, not from
+        anything clever. Almost every hour went into the transitions between states — leaving cover,
+        losing cover, switching sides — rather than into the states themselves. And a debug line
+        printing the current state and health percentage on every change was worth more than any
+        amount of reading the code.
+      </p>
+
+      <p><a class="back-link" href="../#work">← back to work</a></p>
+    </div>
+  </main>
+
+  <footer class="wrap site-footer">
+    <p>© 2026 Cristian Lăcătuș · Bucharest</p>
+    <p class="footer-links"><a href="../">Home</a></p>
+  </footer>
+</body>
+</html>

@@ -1,41 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="executive">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Cristian Lăcătuș — Software & Automation Engineer</title>
-  
-  <meta name="theme-color" content="#0a0d14">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  
-  <meta name="description" content="Portfolio of Cristian Lăcătuș — Software Engineer Intern at DeviDevs. Final-year Automation & Applied Informatics student, Faculty of Hydrotechnics, UTCB Bucharest.">
-  <meta name="keywords" content="Cristian Lacatus, Software Engineer, Automation Engineer, DeviDevs, Python, Unity, C#, DevOps, UTCB">
+  <title>Cristian Lăcătuș — software & automation engineer</title>
+
+  <meta name="description" content="Cristian Lăcătuș — Software Engineer Intern at DeviDevs. Final-year Automation & Applied Informatics student, Faculty of Hydrotechnics, UTCB Bucharest. Python daemons, Unity 2D enemy AI, Google Cloud automation.">
   <meta name="author" content="Cristian Lăcătuș">
-  
-  <meta property="og:title" content="Cristian Lăcătuș — Software & Automation Engineer">
-  <meta property="og:description" content="Autonomous AI Agent Bridges, Python Automation Pipelines, Unix Daemons & Game Systems Architecture.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://crs011.github.io">
+  <meta name="theme-color" content="#fbf9f5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#16151b" media="(prefers-color-scheme: dark)">
+
+  <meta property="og:title" content="Cristian Lăcătuș — software & automation engineer">
+  <meta property="og:description" content="Python daemons and file-locking, Unity 2D enemy AI, Google Cloud automation. Final-year student at UTCB, intern at DeviDevs.">
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://crs011.github.io/">
   <meta property="og:image" content="https://crs011.github.io/assets/cristi_portrait.jpg">
-  
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Cristian Lăcătuș — Software & Automation Engineer">
-  <meta name="twitter:description" content="Autonomous AI Agent Bridges, Python Automation Pipelines, Unix Daemons & Game Systems Architecture.">
-  <meta name="twitter:image" content="https://crs011.github.io/assets/cristi_portrait.jpg">
-  
+
   <link rel="canonical" href="https://crs011.github.io/">
-  <meta name="robots" content="index, follow">
-  
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preload" href="assets/cristi_portrait.jpg?v=3" as="image">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="styles.min.css?v=20260816v20">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.min.css?v=20260817">
 
-  <!-- Schema.org JSON-LD Structured Data for Google Rich Snippets -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -58,416 +47,306 @@
       "name": "Technical University of Civil Engineering of Bucharest (UTCB)",
       "department": "Faculty of Hydrotechnics — Automation & Applied Informatics"
     },
-    "knowsAbout": [
-      "Python",
-      "C#",
-      ".NET",
-      "Unity 2D",
-      "Game AI",
-      "Unix Daemons",
-      "POSIX Concurrency",
-      "Playwright CDP",
-      "ETL Pipelines",
-      "Cloud APIs",
-      "Obsidian Second Brain"
-    ]
+    "knowsAbout": ["Python", "C#", "Unity 2D", "Game AI", "Unix daemons", "File locking", "Playwright", "ETL pipelines", "Google Cloud APIs"]
   }
   </script>
 </head>
-<body>
-  <!-- Ambient Background Aura -->
-  <div class="ambient-aura aura-1"></div>
-  <div class="ambient-aura aura-2"></div>
-  <canvas id="bg-canvas"></canvas>
 
-  <!-- Floating Navigation -->
-  <header class="navbar-wrapper">
-    <nav class="navbar" id="navbar" aria-label="Main Navigation">
-      <a href="#hero" class="nav-brand" aria-label="Home">
-        <span class="brand-name">cRs</span><span class="brand-dot">.dev</span>
-      </a>
-      <ul class="nav-menu" id="nav-menu">
-        <li><a href="#about" class="nav-item">About</a></li>
-        <li><a href="#projects" class="nav-item">Projects</a></li>
-        <li><a href="#skills" class="nav-item">Tech Stack</a></li>
-        <li><a href="#experience" class="nav-item">Experience</a></li>
-        <li><a href="#contact" class="nav-item">Contact</a></li>
-      </ul>
-      <div class="nav-controls">
-        <!-- Live Theme Switcher -->
-        <div class="theme-switcher" aria-label="Theme Switcher">
-          <button class="theme-pill active" data-set-theme="executive" title="Executive Dark Theme" aria-label="Switch to Executive Theme">Executive</button>
-          <button class="theme-pill" data-set-theme="minimalist" title="Minimalist Vercel Theme" aria-label="Switch to Minimalist Theme">Minimalist</button>
-          <button class="theme-pill" data-set-theme="bento" title="Bento Grid Theme" aria-label="Switch to Bento Theme">Bento</button>
-        </div>
-        <a href="assets/CV_Cristian_Lacatus_Software_Engineer.pdf" download class="btn-cv">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span>CV PDF</span>
-        </a>
-      </div>
-      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </button>
-    </nav>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <a href="/" class="wordmark">cRs</a>
+      <nav aria-label="Sections">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#stack">Stack</a></li>
+          <li><a href="#background">Background</a></li>
+          <li><a href="assets/CV_Cristian_Lacatus_Software_Engineer.pdf">CV</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <!-- Mobile Drawer -->
-  <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
-    <div class="mobile-drawer-inner">
-      <ul class="mobile-menu">
-        <li><a href="#about" class="mobile-item">About</a></li>
-        <li><a href="#projects" class="mobile-item">Projects</a></li>
-        <li><a href="#skills" class="mobile-item">Tech Stack</a></li>
-        <li><a href="#experience" class="mobile-item">Experience</a></li>
-        <li><a href="#contact" class="mobile-item">Contact</a></li>
-      </ul>
-      <div class="mobile-cta">
-        <a href="assets/CV_Cristian_Lacatus_Software_Engineer.pdf" download class="btn btn-primary btn-block">
-          Download CV PDF
+  <main id="main">
+    <section class="wrap intro">
+      <div>
+        <h1>Cristian Lăcătuș</h1>
+        <p class="intro-role">
+          Software engineer intern at DeviDevs · Bucharest<br>
+          Final year, Automation &amp; Applied Informatics — Faculty of Hydrotechnics, UTCB
+        </p>
+
+        <p class="lede">
+          I write Python that runs unattended — background daemons, file locking that survives two
+          processes writing at once, scheduled jobs that talk to Google APIs. Before that I spent a
+          summer building enemy AI for a 2D tank game in Unity, which is where I learned that a state
+          machine is easy and making it behave is not.
+        </p>
+
+        <div class="contact-row">
+          <a href="https://github.com/cRs011" rel="me">GitHub</a>
+          <a href="https://www.linkedin.com/in/cristi-lacatus-823696294/" rel="me">LinkedIn</a>
+          <button type="button" id="copy-email" data-email="lacatuscristian8@gmail.com">lacatuscristian8@gmail.com</button>
+          <a href="assets/CV_Cristian_Lacatus_Software_Engineer.pdf">CV (PDF)</a>
+        </div>
+
+        <a class="last-commit" id="last-commit" href="https://github.com/cRs011" hidden>
+          <span id="commit-repo"></span><span class="sep">·</span><span id="commit-msg"></span><span class="sep">·</span><span id="commit-age"></span>
         </a>
       </div>
-    </div>
-  </div>
 
-  <main>
-    <!-- HERO SECTION -->
-    <section class="hero-section" id="hero">
-      <div class="container hero-layout">
-        <div class="hero-text">
-          <div class="status-pill">
-            <span class="status-indicator"></span>
-            <span class="status-text">
-              <span class="pill-part">Automation &amp; Applied Informatics&nbsp;@&nbsp;UTCB</span>
-              <span class="pill-sep">·</span>
-              <span class="pill-part">Software Engineer Intern&nbsp;@&nbsp;DeviDevs</span>
-            </span>
-          </div>
-          <h1 class="hero-heading">
-            Hi, I'm <span class="text-white">Cristian Lăcătuș</span>
-          </h1>
-          <h2 class="hero-typing">I engineer <span class="typing-dynamic" id="typing-text"></span><span class="cursor">|</span></h2>
-          <p class="hero-bio">
-            I build background daemons, POSIX atomic concurrency locking systems, and automated agent workflows in <strong>Python</strong>, alongside tactical combat mechanics and enemy state machine AI in <strong>Unity / C#</strong>.
+      <img class="portrait" src="assets/cristi_portrait.jpg?v=3" alt="Cristian Lăcătuș" width="200" height="250" loading="eager">
+    </section>
+
+    <section class="wrap section" id="about">
+      <div class="section-head">
+        <span class="eyebrow">01</span>
+        <h2>About</h2>
+      </div>
+      <div class="two-col">
+        <div class="prose">
+          <p>
+            I am in my final year of <strong>Automation &amp; Applied Informatics</strong> at the
+            Faculty of Hydrotechnics, UTCB Bucharest — the faculty name is misleading, the programme
+            is control systems and software. Since July 2026 I work at
+            <strong>DeviDevs Technologies</strong> as a software engineer intern, on automation and
+            integrations.
           </p>
-          <div class="hero-buttons">
-            <a href="#projects" class="btn btn-primary" id="hero-projects-btn">
-              Explore Projects
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </a>
-            <a href="assets/CV_Cristian_Lacatus_Software_Engineer.pdf" download class="btn btn-secondary" id="hero-cv-btn">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download CV
-            </a>
-          </div>
-          <div class="hero-links">
-            <a href="https://github.com/cRs011" target="_blank" rel="noopener noreferrer" class="link-item" aria-label="GitHub Profile">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-              <span>GitHub</span>
-            </a>
-            <a href="https://www.linkedin.com/in/cristi-lacatus-823696294/" target="_blank" rel="noopener noreferrer" class="link-item" aria-label="LinkedIn Profile">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              <span>LinkedIn</span>
-            </a>
-            <button class="link-item btn-copy-link" id="copy-email-btn" title="Click to copy email" aria-label="Copy Email">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              <span id="email-label">lacatuscristian8@gmail.com</span>
-            </button>
-          </div>
-          <div class="live-activity-bar" id="live-activity-bar" style="display: none;">
-            <a href="https://github.com/cRs011" target="_blank" rel="noopener noreferrer" class="live-activity-link" id="live-activity-link" aria-label="Latest GitHub Activity">
-              <span class="live-label">Last commit</span>
-              <span class="live-repo" id="live-repo-name">cRs011.github.io</span>
-              <span class="live-sep">·</span>
-              <span class="live-msg" id="live-commit-msg">Updated codebase</span>
-              <span class="live-sep">·</span>
-              <span class="live-time" id="live-time-ago">recently</span>
-            </a>
-          </div>
+          <p>
+            Most of what I build has no interface. It runs on a schedule, holds a lock, retries when
+            an API is slow, and writes to a file that something else is also reading. That is the
+            part I find interesting: not the feature, but what happens on the second Tuesday when two
+            things run at the same time.
+          </p>
         </div>
-        <div class="hero-image-pane">
-          <div class="photo-card">
-            <img src="assets/cristi_portrait.jpg?v=3" alt="Cristian Lăcătuș" class="photo-img" width="270" height="270" loading="eager" decoding="async" fetchpriority="high">
-          </div>
+        <div>
+          <ul class="principles">
+            <li>
+              <strong>One writer at a time.</strong> Concurrency handled with kernel file locks
+              (<code>fcntl.flock</code>) and explicit signal handlers, so an interactive session and a
+              headless job never corrupt the same file.
+            </li>
+            <li>
+              <strong>Scheduled, not supervised.</strong> Jobs run under macOS <code>launchd</code>,
+              cache with conditional HTTP requests, and are expected to fail quietly and recover
+              rather than need a human.
+            </li>
+            <li>
+              <strong>Behaviour over structure.</strong> In game AI the state machine took an
+              afternoon; the weeks went into making the enemy stop oscillating between two hiding
+              spots.
+            </li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT SECTION -->
-    <section class="section" id="about">
-      <div class="container">
-        <div class="section-title-wrap">
-          <span class="badge-label">About</span>
-          <h2 class="title-main">Engineering Focus & Systems Thinking</h2>
-        </div>
-        <div class="about-flex">
-          <div class="box-card">
-            <h3 class="card-heading">Who I Am</h3>
-            <p class="card-text">
-              I am a final-year student in <strong>Automation & Applied Informatics</strong> at the Faculty of Hydrotechnics, UTCB Bucharest, and a <strong>Software Engineer Intern at DeviDevs Technologies</strong>.
+    <section class="wrap section" id="work">
+      <div class="section-head">
+        <span class="eyebrow">02</span>
+        <h2>Selected work</h2>
+      </div>
+
+      <div class="work-list">
+        <article class="work-item">
+          <div class="work-body">
+            <h3><a href="projects/bettertanks.html">BetterTanks — enemy AI for a 2D tank game</a></h3>
+            <p class="work-meta">Unity 2D · C# · academic practice at DeviDevs, May–Jul 2026</p>
+            <p>
+              A five-state enemy tank: patrol, chase, shoot, take cover, run. The interesting part is
+              cover selection — for every destructible wall it scores four candidate positions taken
+              from the collider bounds, and strongly prefers the side facing away from the player. It
+              also has to handle the wall being destroyed while it is hiding behind it.
             </p>
-            <p class="card-text">
-              I specialize in robust background daemons, atomic file synchronization, cloud API pipelines in Python, and tactical combat gameplay systems in Unity / C#.
-            </p>
-          </div>
-          <div class="box-card">
-            <h3 class="card-heading">Core Principles</h3>
-            <ul class="clean-list">
-              <li>
-                <strong>Deterministic Concurrency:</strong> Kernel-level <code>fcntl.flock</code> file locking and explicit signal handlers to guarantee single-writer safety across daemon execution loops.
-              </li>
-              <li>
-                <strong>Zero-Allocation Performance:</strong> Object pooling and bounding-box raycasts in Unity / C# to eliminate garbage collection stutter and lock framerate.
-              </li>
-              <li>
-                <strong>Resilient Automation:</strong> Scheduled macOS <code>launchd</code> daemons with HTTP ETag 304 conditional caching and Playwright CDP automation.
-              </li>
+            <ul class="tags">
+              <li>Unity 2D</li>
+              <li>C#</li>
+              <li>Physics2D</li>
+              <li>state machine</li>
+              <li>Jira</li>
             </ul>
+            <div class="work-links">
+              <a href="projects/bettertanks.html">Read the write-up</a>
+              <a href="https://github.com/cRs011/proiectul-Unity-2D">Source on GitHub</a>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
+          <div class="work-media">
+            <video autoplay loop muted playsinline preload="metadata" poster="assets/bettertanks/bettertanks_gameplay_live.webp" width="960" height="540">
+              <source src="assets/bettertanks/bettertanks_gameplay_live.mp4" type="video/mp4">
+              <img src="assets/bettertanks/bettertanks_gameplay_live.gif" alt="Gameplay clip: tanks fighting on a desert map" loading="lazy" width="960" height="540">
+            </video>
+          </div>
+        </article>
 
-    <!-- PROJECTS SECTION -->
-    <section class="section" id="projects">
-      <div class="container">
-        <div class="section-title-wrap">
-          <span class="badge-label">Portfolio</span>
-          <h2 class="title-main">Featured Engineering Work</h2>
-          <p class="title-sub">Production-grade tools, game AI engines, and autonomous pipelines.</p>
-        </div>
-
-        <div class="filter-pills">
-          <button class="filter-tab active" data-filter="all">All Systems</button>
-          <button class="filter-tab" data-filter="automation">Automation & AI</button>
-          <button class="filter-tab" data-filter="game">Game AI & C#</button>
-        </div>
-
-        <div class="projects-grid">
-          <!-- Project 1: Multi-Agent Bridge -->
-          <article class="project-entry box-card" data-category="automation">
-            <div class="project-top">
-              <span class="status-badge">Production · Active</span>
-            </div>
-
-            <!-- Second Brain Knowledge Graph Video Representation (Clean 16:9) -->
-            <div class="project-media">
-              <video autoplay loop muted playsinline preload="metadata" poster="assets/obsidian_graph_interactive.webp" width="960" height="540">
-                <source src="assets/obsidian_graph_interactive.mp4" type="video/mp4">
-                <img src="assets/obsidian_graph_interactive.gif" alt="Obsidian Knowledge Graph" loading="lazy" width="960" height="540">
-              </video>
-            </div>
-
-            <h3 class="entry-title">Autonomous Multi-Agent Bridge & Second Brain</h3>
-            <p class="entry-desc">
-              Engineered a Human-in-the-Loop bridge daemon connecting autonomous AI coding harnesses with Telegram & Apple Watch push triggers, live action streaming, and a persistent FIFO task queue. Integrated with an Obsidian Second Brain knowledge graph (Three-Spaces model) and an OS-level atomic file locking daemon (<code>fcntl.flock</code>) to guarantee transactional safety.
+        <article class="work-item">
+          <div class="work-body">
+            <h3><a href="projects/agent-bridge.html">A bridge between my phone and a coding agent</a></h3>
+            <p class="work-meta">Python 3 · Unix daemons · in daily use</p>
+            <p>
+              A daemon that lets me approve or redirect a long-running coding agent from Telegram, so
+              I am not tied to the laptop while it works. Behind it sits a Markdown knowledge vault
+              that both I and the agent write to — which is exactly why it needed a real lock rather
+              than hoping the writes do not collide.
             </p>
-            <div class="entry-tags">
-              <span class="pill-tag">Python 3</span>
-              <span class="pill-tag">Unix Daemons</span>
-              <span class="pill-tag">fcntl.flock</span>
-              <span class="pill-tag">Telegram API</span>
-              <span class="pill-tag">Obsidian Vault</span>
-              <span class="pill-tag">Knowledge Graph</span>
+            <ul class="tags">
+              <li>Python 3</li>
+              <li>fcntl.flock</li>
+              <li>launchd</li>
+              <li>Telegram Bot API</li>
+              <li>Markdown vault</li>
+            </ul>
+            <div class="work-links">
+              <a href="projects/agent-bridge.html">Read the write-up</a>
             </div>
-          </article>
+          </div>
+          <div class="work-media">
+            <video autoplay loop muted playsinline preload="metadata" poster="assets/obsidian_graph_interactive.webp" width="960" height="540">
+              <source src="assets/obsidian_graph_interactive.mp4" type="video/mp4">
+              <img src="assets/obsidian_graph_interactive.gif" alt="The knowledge vault rendered as a graph of linked notes" loading="lazy" width="960" height="540">
+            </video>
+          </div>
+        </article>
 
-          <!-- Project 2: 2D Tactical Combat Game -->
-          <article class="project-entry box-card" data-category="game">
-            <div class="project-top">
-              <span class="status-badge">Academic Practice · Unity 2D</span>
-              <a href="https://github.com/cRs011/proiectul-Unity-2D" target="_blank" rel="noopener noreferrer" class="link-icon" title="GitHub Repository" aria-label="View Unity Project Repository">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-              </a>
-            </div>
-
-            <!-- Featured Showcase: Live Gameplay Reel (Clean 16:9) -->
-            <div class="project-media">
-              <video autoplay loop muted playsinline preload="metadata" poster="assets/bettertanks/bettertanks_gameplay_live.webp" width="960" height="540">
-                <source src="assets/bettertanks/bettertanks_gameplay_live.mp4" type="video/mp4">
-                <img src="assets/bettertanks/bettertanks_gameplay_live.gif" alt="BetterTanks Gameplay Reel" loading="lazy" width="960" height="540">
-              </video>
-            </div>
-
-            <h3 class="entry-title">BetterTanks — 2D Tactical Combat & Enemy AI</h3>
-            <p class="entry-desc">
-              Architected an autonomous 4-state Finite State Machine (Patrol, Chase, Raycast2D LOS Shooting, Low-HP Dynamic Cover/Flee) with aggro mechanics in Unity 2D / C#. Engineered an orbit-based cover avoidance algorithm from <code>Collider2D.bounds</code> and decoupled subsystems with Object Pooling. Logged ~87.4h across 10+ Jira epics.
+        <article class="work-item no-media">
+          <div class="work-body">
+            <h3><a href="projects/automation.html">Scheduled Google Workspace automation</a></h3>
+            <p class="work-meta">Python · Google Cloud APIs · Playwright · at DeviDevs</p>
+            <p>
+              Internal tooling: scheduled jobs that keep a spreadsheet tracker in sync with Drive and
+              Sheets, and a browser controller driving Chrome over the DevTools protocol for the web
+              apps that have no usable API. Read-only credentials, and a sanitiser that strips local
+              paths and addresses out of anything published.
             </p>
-            <div class="entry-tags">
-              <span class="pill-tag">Unity 2D</span>
-              <span class="pill-tag">C# (.NET)</span>
-              <span class="pill-tag">FSM Enemy AI</span>
-              <span class="pill-tag">Physics2D</span>
-              <span class="pill-tag">WebGL</span>
-              <span class="pill-tag">Jira Agile</span>
+            <ul class="tags">
+              <li>Python</li>
+              <li>Google Drive &amp; Sheets API</li>
+              <li>OAuth</li>
+              <li>Playwright CDP</li>
+              <li>launchd</li>
+            </ul>
+            <div class="work-links">
+              <a href="projects/automation.html">Read the write-up</a>
             </div>
-          </article>
+          </div>
+        </article>
+      </div>
+    </section>
 
-          <!-- Project 3: Cloud & Browser Automations -->
-          <article class="project-entry box-card" data-category="automation">
-            <div class="project-top">
-              <span class="status-badge">Production · Active</span>
-              <a href="https://github.com/cRs011" target="_blank" rel="noopener noreferrer" class="link-icon" title="Overview" aria-label="View Automation Overview">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              </a>
-            </div>
+    <section class="wrap section" id="stack">
+      <div class="section-head">
+        <span class="eyebrow">03</span>
+        <h2>Stack</h2>
+      </div>
+      <div class="stack-grid">
+        <div>
+          <h3>Languages</h3>
+          <ul>
+            <li class="primary">Python</li>
+            <li class="primary">C# (.NET)</li>
+            <li>Bash / Zsh</li>
+            <li>SQL</li>
+            <li>C / C++</li>
+            <li>HTML, CSS, JavaScript</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Systems</h3>
+          <ul>
+            <li class="primary">Unix daemons, launchd</li>
+            <li class="primary">POSIX file locking</li>
+            <li class="primary">Git, branching, pull requests</li>
+            <li>REST APIs, OAuth</li>
+            <li>Docker</li>
+            <li>Jira, sprint work</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Tools</h3>
+          <ul>
+            <li class="primary">Unity 2D</li>
+            <li class="primary">Playwright / CDP</li>
+            <li class="primary">Google Cloud APIs</li>
+            <li>Obsidian</li>
+            <li>AI coding agents</li>
+            <li>VS Code</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-            <h3 class="entry-title">Cloud ETL Pipelines & Browser CDP Engine</h3>
-            <p class="entry-desc">
-              Developed automated Python synchronization pipelines connecting Google Drive (real-time XLSX trackers), Sheets, and Gmail APIs with scheduled macOS <code>launchd</code> daemons. Built an autonomous browser automation controller using Playwright CDP to manipulate modern rich-text DOMs with zero manual friction.
+    <section class="wrap section" id="background">
+      <div class="section-head">
+        <span class="eyebrow">04</span>
+        <h2>Background</h2>
+      </div>
+      <div class="timeline">
+        <article>
+          <time datetime="2026-07">Jul 2026 — present</time>
+          <div>
+            <h3>Software Engineer Intern — Automation &amp; Integrations</h3>
+            <p class="org">DeviDevs Technologies · Bucharest (hybrid)</p>
+            <p>
+              Python automation against Google Workspace APIs, scheduled jobs under
+              <code>launchd</code>, a file-locking layer for a shared Markdown vault, and a
+              Telegram bridge for supervising long-running coding agents.
             </p>
-            <div class="entry-tags">
-              <span class="pill-tag">Python</span>
-              <span class="pill-tag">Google Cloud APIs</span>
-              <span class="pill-tag">Playwright CDP</span>
-              <span class="pill-tag">macOS launchd</span>
-              <span class="pill-tag">ETL Pipelines</span>
-            </div>
-          </article>
-        </div>
+          </div>
+        </article>
+
+        <article>
+          <time datetime="2026-05">May — Jul 2026</time>
+          <div>
+            <h3>Academic practice — game systems and enemy AI</h3>
+            <p class="org">DeviDevs Technologies / UTCB</p>
+            <p>
+              Built the enemy AI and cover system for a 2D tank game in Unity and C#, tracked across
+              10+ epics and roughly 87 logged hours in Jira, on a normal branch-and-review workflow.
+              Continued as an intern afterwards.
+            </p>
+          </div>
+        </article>
+
+        <article>
+          <time datetime="2023">2023 — 2027</time>
+          <div>
+            <h3>BSc, Automation &amp; Applied Informatics</h3>
+            <p class="org">Faculty of Hydrotechnics, Technical University of Civil Engineering of Bucharest</p>
+            <p>
+              Control systems, differential equations, signal analysis, instrumentation, industrial
+              automation, software engineering. Final year, graduating 2027.
+            </p>
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- TECH STACK SECTION -->
-    <section class="section" id="skills">
-      <div class="container">
-        <div class="section-title-wrap">
-          <span class="badge-label">Competencies</span>
-          <h2 class="title-main">Technical Stack & Systems</h2>
-        </div>
-        <div class="stack-grid">
-          <div class="box-card">
-            <h3 class="card-heading">Languages</h3>
-            <div class="chip-container">
-              <div class="chip chip-focus">Python</div>
-              <div class="chip chip-focus">C# (.NET)</div>
-              <div class="chip">SQL</div>
-              <div class="chip">Bash / Zsh</div>
-              <div class="chip">C / C++</div>
-              <div class="chip">HTML / CSS / JS</div>
-            </div>
-          </div>
-          <div class="box-card">
-            <h3 class="card-heading">Systems & DevOps</h3>
-            <div class="chip-container">
-              <div class="chip chip-focus">macOS / Unix Daemons</div>
-              <div class="chip chip-focus">Git Flow & PRs</div>
-              <div class="chip chip-focus">Jira Agile / Sprints</div>
-              <div class="chip">Docker</div>
-              <div class="chip">REST APIs & IPC</div>
-              <div class="chip">POSIX fcntl Locking</div>
-            </div>
-          </div>
-          <div class="box-card">
-            <h3 class="card-heading">Frameworks & Tools</h3>
-            <div class="chip-container">
-              <div class="chip chip-focus">Unity 2D / 3D</div>
-              <div class="chip chip-focus">Playwright CDP</div>
-              <div class="chip chip-focus">Google Cloud APIs</div>
-              <div class="chip">Obsidian Vault</div>
-              <div class="chip">AI Agent Harnesses</div>
-              <div class="chip">VS Code / Antigravity</div>
-            </div>
-          </div>
-        </div>
+    <section class="wrap section closing">
+      <div class="section-head">
+        <span class="eyebrow">05</span>
+        <h2>Get in touch</h2>
       </div>
-    </section>
-
-    <!-- EXPERIENCE SECTION -->
-    <section class="section" id="experience">
-      <div class="container">
-        <div class="section-title-wrap">
-          <span class="badge-label">Timeline</span>
-          <h2 class="title-main">Experience & Education</h2>
-        </div>
-        <div class="timeline-tree">
-          <div class="timeline-row">
-            <div class="tree-dot current"></div>
-            <div class="box-card timeline-card">
-              <div class="row-header">
-                <span class="date-badge">Jul 2026 – Present</span>
-                <span class="role-type">Current Role</span>
-              </div>
-              <h3 class="role-title">Software Engineer Intern — Automation & Integrations</h3>
-              <h4 class="role-org">DeviDevs Technologies · Bucharest, Romania (Hybrid)</h4>
-              <p class="card-text">
-                Designing autonomous Second Brain knowledge vaults (Three-Spaces model), real-time Telegram / Apple Watch multi-agent bridges, atomic file locking daemons, and Google Cloud ETL automations in Python.
-              </p>
-            </div>
-          </div>
-
-          <div class="timeline-row">
-            <div class="tree-dot"></div>
-            <div class="box-card timeline-card">
-              <div class="row-header">
-                <span class="date-badge">May 2026 – Jul 2026</span>
-                <span class="role-type">Academic Practice</span>
-              </div>
-              <h3 class="role-title">Game Development & AI Systems (Academic Practice)</h3>
-              <h4 class="role-org">DeviDevs Technologies / UTCB</h4>
-              <p class="card-text">
-                Built an autonomous 4-state Finite State Machine (FSM) Enemy AI and geometric cover engine in Unity 2D / C#. Managed 10+ epics across ~87.4 tracked hours in Jira under enterprise Git Flow. Promoted to Software Engineer Intern following technical results.
-              </p>
-            </div>
-          </div>
-
-          <div class="timeline-row">
-            <div class="tree-dot"></div>
-            <div class="box-card timeline-card">
-              <div class="row-header">
-                <span class="date-badge">2023 – 2027 (Final Year)</span>
-                <span class="role-type">University</span>
-              </div>
-              <h3 class="role-title">Bachelor of Science — Automation & Applied Informatics</h3>
-              <h4 class="role-org">Faculty of Hydrotechnics, Technical University of Civil Engineering of Bucharest (UTCB)</h4>
-              <p class="card-text">
-                Specializing in control systems, differential equations, Fourier analysis, instrumentation, industrial automation, and software engineering.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section class="section" id="contact">
-      <div class="container">
-        <div class="box-card contact-cta">
-          <span class="badge-label">Get In Touch</span>
-          <h2 class="cta-heading">Get in Touch</h2>
-          <p class="cta-desc">
-            Open for software engineering roles, backend systems architecture, and automation pipelines.
-          </p>
-          <div class="cta-actions">
-            <a href="mailto:lacatuscristian8@gmail.com" class="btn btn-primary btn-lg" id="contact-mail-btn">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              Send an Email
-            </a>
-            <a href="https://www.linkedin.com/in/cristi-lacatus-823696294/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-lg" id="contact-linkedin-btn">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-              Connect on LinkedIn
-            </a>
-          </div>
-        </div>
+      <p>
+        I am looking for a junior software engineering role — backend, automation, or tooling. Happy
+        to walk through any of the code above, including the parts that are not finished.
+      </p>
+      <div class="contact-row">
+        <a href="mailto:lacatuscristian8@gmail.com">lacatuscristian8@gmail.com</a>
+        <a href="https://www.linkedin.com/in/cristi-lacatus-823696294/">LinkedIn</a>
+        <a href="https://github.com/cRs011">GitHub</a>
       </div>
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container footer-layout">
-      <div class="footer-note">
-        © 2026 Cristian Lăcătuș. Built with modern Vanilla JS/CSS. Hosted on GitHub Pages.
-      </div>
-      <div class="footer-links-row">
-        <a href="https://github.com/cRs011" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://www.linkedin.com/in/cristi-lacatus-823696294/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="assets/CV_Cristian_Lacatus_Software_Engineer.pdf" download>CV PDF</a>
-      </div>
-    </div>
+  <footer class="wrap site-footer">
+    <p>© 2026 Cristian Lăcătuș · Bucharest</p>
+    <p class="footer-links">
+      <a href="https://github.com/cRs011/cRs011.github.io">Source of this site</a>
+    </p>
   </footer>
 
-  <script src="script.min.js?v=20260816v20" defer></script>
+  <script src="script.min.js?v=20260817" defer></script>
 </body>
 </html>

@@ -12,7 +12,8 @@ Găzduit pe GitHub Pages. Un workflow GitHub Actions rulează în fiecare noapte
 
 | Cale | Ce conține |
 | :--- | :--- |
-| `index.html` | Pagina, cu datele structurate schema.org |
+| `index.html` | Pagina principală, cu datele structurate schema.org |
+| `projects/` | Câte o pagină de prezentare per proiect, pe aceeași foaie de stil |
 | `styles.css` / `script.js` | Sursele editabile |
 | `styles.min.css` / `script.min.js` | Bundle-urile servite în producție, generate de build |
 | `data/` | Proiectele și activitatea GitHub sincronizată |

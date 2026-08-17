@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>A bridge between my phone and a coding agent · Cristian Lăcătuș</title>
+
+  <meta name="description" content="A Python daemon that lets me supervise a long-running coding agent from Telegram, and the file lock underneath it that stops two writers from corrupting a shared Markdown vault.">
+  <meta name="theme-color" content="#fbf9f5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#16151b" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://crs011.github.io/projects/agent-bridge.html">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.min.css?v=20260817">
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <a href="../" class="wordmark">cRs</a>
+      <nav aria-label="Sections">
+        <ul>
+          <li><a href="../#work">Work</a></li>
+          <li><a href="../#about">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap case">
+    <div class="case-head">
+      <a class="back-link" href="../#work">← back to work</a>
+      <h1>A bridge between my phone and a coding agent</h1>
+      <p class="lede">
+        The interesting problem was not the chat bot. It was that two processes wanted to write to
+        the same folder, and one of them was not me.
+      </p>
+
+      <dl class="case-facts">
+        <div>
+          <dt>Context</dt>
+          <dd>Personal tooling, used daily at DeviDevs</dd>
+        </div>
+        <div>
+          <dt>Stack</dt>
+          <dd>Python 3, <code>fcntl</code>, launchd, Telegram Bot API</dd>
+        </div>
+        <div>
+          <dt>Status</dt>
+          <dd>In use, still changing</dd>
+        </div>
+        <div>
+          <dt>Code</dt>
+          <dd>Private — happy to walk through it</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="case-body">
+      <figure>
+        <video autoplay loop muted playsinline preload="metadata" poster="../assets/obsidian_graph_interactive.webp" width="960" height="540">
+          <source src="../assets/obsidian_graph_interactive.mp4" type="video/mp4">
+          <img src="../assets/obsidian_graph_interactive.gif" alt="The knowledge vault drawn as a graph of linked Markdown notes" loading="lazy">
+        </video>
+        <figcaption>The vault the agent and I share, rendered as a link graph.</figcaption>
+      </figure>
+
+      <h2>Why</h2>
+      <p>
+        I run coding agents on long tasks — refactors, audits, migrations. They work for twenty
+        minutes and then stop to ask something, and until you answer, nothing happens. Being away
+        from the desk meant losing the run.
+      </p>
+      <p>
+        So: a small daemon that forwards what the agent is doing to Telegram, and takes replies back.
+        Notifications land on a watch, which is enough to say "yes, continue" while walking.
+      </p>
+
+      <h2>The part that was actually hard</h2>
+      <p>
+        Underneath sits a plain folder of Markdown notes that both the agent and I write to — notes,
+        session logs, decisions, all versioned with git. Two writers, no database. The failure was
+        immediate and ugly: the headless bot would commit at the same moment my interactive session
+        did, and git would fail on <code>index.lock</code>. Worse than a crash, sometimes a note was
+        half-written by one process while the other was reading it.
+      </p>
+      <p>
+        The fix is a single-writer lock around every write. Not a lock file that a process creates
+        and deletes — that leaks the moment something is killed — but a kernel advisory lock:
+      </p>
+      <pre><code>kw.sh with "&lt;holder&gt;" &lt;command...&gt;   # run command holding the lock
+kw.sh commit -m "&lt;message&gt;"          # git commit under the lock
+kw.sh status                          # who holds it, or "free"</code></pre>
+      <p>
+        Three properties made this worth doing properly:
+      </p>
+      <ul>
+        <li>
+          <strong>The lock cannot leak.</strong> It is held on an open file descriptor, so the kernel
+          releases it when the process exits — crash, <code>kill -9</code>, closed laptop, does not
+          matter. No stale lock file to clean up by hand.
+        </li>
+        <li>
+          <strong>Waiting is bounded.</strong> A caller waits a configurable timeout (60 s by
+          default) and can also ask for a non-blocking attempt, so a scheduled job that cannot get
+          the lock gives up rather than piling up.
+        </li>
+        <li>
+          <strong>Readers are never blocked.</strong> Only writes serialise. Reading a note while
+          something else is writing was never the problem worth solving.
+        </li>
+      </ul>
+      <p>
+        One implementation detail I did not expect: macOS ships no <code>flock</code> command-line
+        utility, so the shell wrapper delegates to a short Python script that uses
+        <code>fcntl.flock</code> directly. The shell script is the interface; Python does the actual
+        locking.
+      </p>
+
+      <h2>Scheduling</h2>
+      <p>
+        The bot and the bridge run as <code>launchd</code> agents rather than under a terminal I
+        might close. Background jobs sync on an interval and notify on completion. Everything that
+        writes goes through the same lock, including the jobs — that was the point.
+      </p>
+
+      <div class="honest">
+        <h3>Where it is rough</h3>
+        <ul>
+          <li>
+            <strong>One lock for the whole vault.</strong> Coarse. Two writes touching unrelated
+            folders still serialise. It is the right trade for a single-user system and it would not
+            survive real concurrency.
+          </li>
+          <li>
+            <strong>The recovery story is git, not the daemon.</strong> If a write is interrupted
+            between the file and the commit, I fix it by hand. There is no transaction spanning both.
+          </li>
+          <li>
+            <strong>It is tied to macOS.</strong> <code>launchd</code> and Keychain assumptions run
+            through it. Porting to Linux means replacing the scheduling layer.
+          </li>
+        </ul>
+      </div>
+
+      <h2>What I took from it</h2>
+      <p>
+        I had read about advisory locks in a course. Using one to fix a bug I actually caused taught
+        me the thing the course did not: the value is not the lock, it is that the kernel releases it
+        for you when your process dies. Every lock scheme I had written before that was a file I
+        created and hoped to delete.
+      </p>
+
+      <p><a class="back-link" href="../#work">← back to work</a></p>
+    </div>
+  </main>
+
+  <footer class="wrap site-footer">
+    <p>© 2026 Cristian Lăcătuș · Bucharest</p>
+    <p class="footer-links"><a href="../">Home</a></p>
+  </footer>
+</body>
+</html>
