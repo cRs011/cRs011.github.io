@@ -34,7 +34,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 
   <meta name="description" content="TODO: one sentence describing what this is.">
   <meta name="theme-color" content="#fbf9f5" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#16151b" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#0d111c" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://crs011.github.io/projects/{slug}.html">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 

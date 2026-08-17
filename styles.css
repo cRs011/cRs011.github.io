@@ -13,20 +13,24 @@
 :root {
   color-scheme: light dark;
 
+  /* Cerneala e bleumarin, nu negru. Culoarea vine de la Cristi si e aceeasi
+     care devine fundal in varianta inchisa, ca sa fie prezenta in ambele.
+     Contrastele pe hartie: 16.88, 9.15, 5.26, 7.32 — AAA peste tot in afara
+     de textul secundar, care trece AA. */
   --paper: #fbf9f5;
   --paper-raised: #ffffff;
-  --paper-sunken: #f2efe8;
+  --paper-sunken: #f1eee7;
 
-  --ink: #191720;
-  --ink-soft: #4b4855;
-  --ink-muted: #7a7684;
+  --ink: #101828;
+  --ink-soft: #3b4460;
+  --ink-muted: #5f6884;
 
-  --rule: rgba(25, 23, 32, 0.14);
-  --rule-strong: rgba(25, 23, 32, 0.28);
+  --rule: rgba(16, 24, 40, 0.14);
+  --rule-strong: rgba(16, 24, 40, 0.30);
 
-  --accent: #1d3f96;
-  --accent-hover: #16307a;
-  --accent-wash: rgba(29, 63, 150, 0.08);
+  --accent: #27509e;
+  --accent-hover: #1a3c7d;
+  --accent-wash: rgba(39, 80, 158, 0.08);
 
   --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -38,20 +42,21 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #16151b;
-    --paper-raised: #1d1c24;
-    --paper-sunken: #121118;
+    /* Fundalul e exact culoarea trimisa de Cristi. */
+    --paper: #0d111c;
+    --paper-raised: #151b2a;
+    --paper-sunken: #0a0e17;
 
-    --ink: #f3f0ea;
-    --ink-soft: #b8b3ab;
-    --ink-muted: #8b867e;
+    --ink: #eef1f7;
+    --ink-soft: #aab3c6;
+    --ink-muted: #828b9f;
 
-    --rule: rgba(243, 240, 234, 0.16);
-    --rule-strong: rgba(243, 240, 234, 0.32);
+    --rule: rgba(238, 241, 247, 0.16);
+    --rule-strong: rgba(238, 241, 247, 0.32);
 
-    --accent: #9db6f2;
-    --accent-hover: #bccdf8;
-    --accent-wash: rgba(157, 182, 242, 0.12);
+    --accent: #93b0f5;
+    --accent-hover: #b4c7f9;
+    --accent-wash: rgba(147, 176, 245, 0.14);
   }
 }
 
@@ -663,6 +668,63 @@ blockquote {
   color: var(--ink-muted);
   font-family: var(--font-display);
   font-size: 1.06rem;
+}
+
+/* Desene explicative. Culorile vin din variabile, deci urmeaza tema paginii. */
+.diagram svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: var(--paper-sunken);
+  border: 1px solid var(--rule);
+  padding: 8px 0;
+}
+
+.d-wall {
+  fill: var(--rule);
+  stroke: var(--ink-soft);
+  stroke-width: 1.5;
+}
+
+.d-ray {
+  stroke: var(--ink-muted);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 5;
+}
+
+.d-player {
+  fill: var(--ink);
+}
+
+.d-pick {
+  fill: var(--accent);
+}
+
+.d-alt {
+  fill: none;
+  stroke: var(--ink-muted);
+  stroke-width: 1.5;
+}
+
+.d-label,
+.d-num {
+  font-family: var(--font-mono);
+  fill: var(--ink-muted);
+  font-size: 13px;
+}
+
+.d-label {
+  font-size: 14px;
+  fill: var(--ink-soft);
+}
+
+.d-strong {
+  fill: var(--accent);
+  font-weight: 600;
+}
+
+.d-center {
+  text-anchor: middle;
 }
 
 .honest {

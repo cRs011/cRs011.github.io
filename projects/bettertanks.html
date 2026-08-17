@@ -7,7 +7,7 @@
 
   <meta name="description" content="How the enemy tank in BetterTanks decides where to hide: five states, four candidate cover points per wall, and the oscillation problems that took longer than the state machine.">
   <meta name="theme-color" content="#fbf9f5" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#16151b" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#0d111c" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://crs011.github.io/projects/bettertanks.html">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 
@@ -124,6 +124,49 @@ Vector2[] candidates = {
         1000 — large enough that geometry beats distance every time. A partially covered side
         (below −0.3) gets 300.
       </p>
+      <figure class="diagram">
+        <svg viewBox="0 0 640 300" role="img" aria-labelledby="cover-diagram-title">
+          <title id="cover-diagram-title">
+            One wall, four candidate positions. The candidate on the far side from the player scores
+            a bonus of 1000; the one on the near side scores nothing.
+          </title>
+
+          <!-- Razele pleaca din centrul zidului, dar se deseneaza doar in afara lui,
+               ca sa nu treaca peste dreptunghi si peste eticheta. -->
+          <line x1="340" y1="150" x2="520" y2="150" class="d-ray"/>
+          <line x1="248" y1="150" x2="212" y2="150" class="d-ray"/>
+
+          <!-- zidul -->
+          <rect x="256" y="112" width="76" height="76" class="d-wall"/>
+          <text x="294" y="156" class="d-label d-center">wall</text>
+
+          <circle cx="540" cy="150" r="9" class="d-player"/>
+          <text x="540" y="184" class="d-label d-center">player</text>
+
+          <!-- candidatul castigator, pe partea opusa -->
+          <circle cx="196" cy="150" r="9" class="d-pick"/>
+          <text x="196" y="124" class="d-label d-strong d-center">chosen</text>
+          <text x="196" y="184" class="d-num d-center">dot −1.0</text>
+          <text x="196" y="200" class="d-num d-center">+1000</text>
+
+          <!-- candidatii laterali -->
+          <circle cx="294" cy="80" r="7" class="d-alt"/>
+          <text x="294" y="62" class="d-num d-center">dot 0 · +0</text>
+
+          <circle cx="294" cy="220" r="7" class="d-alt"/>
+          <text x="294" y="244" class="d-num d-center">dot 0 · +0</text>
+
+          <!-- candidatul respins, pe partea jucatorului -->
+          <circle cx="392" cy="150" r="7" class="d-alt"/>
+          <text x="400" y="126" class="d-num">dot +1.0 · +0</text>
+        </svg>
+        <figcaption>
+          The four candidates come from the collider bounds. The dot product between “wall centre →
+          player” and “wall centre → candidate” decides which one is cover: −1 means directly
+          opposite, +1 means standing in front of the wall in full view.
+        </figcaption>
+      </figure>
+
       <p>
         In other words: it does not know what "cover" is. It knows that the far side of a solid thing
         is worth a great deal more than the near side, and that falls out as hiding.
