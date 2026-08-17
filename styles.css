@@ -931,37 +931,11 @@ body {
   box-shadow: 0 4px 14px -4px rgba(16, 185, 129, 0.2);
 }
 
-.live-pulse {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 8px #10b981;
-  flex-shrink: 0;
-  animation: liveRadar 2.2s infinite ease-in-out;
-}
-
-@keyframes liveRadar {
-
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.75;
-  }
-
-  50% {
-    transform: scale(1.4);
-    opacity: 1;
-    box-shadow: 0 0 10px #10b981;
-  }
-}
-
 .live-label {
-  color: #10b981;
+  color: var(--text-muted);
   font-weight: 600;
   font-size: 0.72rem;
   letter-spacing: 0.02em;
-  text-transform: uppercase;
 }
 
 .live-repo {
@@ -970,7 +944,7 @@ body {
 }
 
 .live-sep {
-  color: var(--text-dim);
+  color: var(--text-muted);
 }
 
 .live-msg {
@@ -982,7 +956,7 @@ body {
 }
 
 .live-time {
-  color: var(--text-dim);
+  color: var(--text-muted);
   font-size: 0.72rem;
 }
 
@@ -1068,44 +1042,6 @@ body {
   background: linear-gradient(180deg, #FFFFFF 25%, rgba(255, 255, 255, 0.65) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-/* METRICS STRIP */
-.metrics-strip {
-  padding: 20px 0 40px;
-}
-
-.metrics-flex {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-
-.metric-box {
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
-  border-radius: var(--card-radius);
-  padding: 18px 14px;
-  text-align: center;
-  transition: all 0.3s;
-}
-
-.metric-num {
-  font-size: 1.9rem;
-  font-weight: 800;
-  color: var(--text-white);
-  font-family: var(--font-mono);
-}
-
-.metric-sub {
-  color: var(--color-blue-light);
-  font-size: 0.7em;
-}
-
-.metric-desc {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 2px;
 }
 
 /* ABOUT SECTION */
@@ -1313,13 +1249,6 @@ body {
   -webkit-touch-callout: none;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
 }
-
-.terminal-media img,
-.terminal-media video {
-  object-position: top center;
-}
-
-
 
 .entry-title {
   font-size: 1.18rem;
@@ -1734,11 +1663,6 @@ body {
     margin-top: 0;
   }
 
-  .metrics-flex {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-  }
-
   .about-flex {
     grid-template-columns: 1fr;
     gap: 24px;
@@ -1817,11 +1741,6 @@ body {
     padding: 3px 10px;
     gap: 6px;
     font-size: 0.72rem;
-  }
-
-  .live-pulse {
-    width: 5px;
-    height: 5px;
   }
 
   .status-pill {
@@ -1946,15 +1865,6 @@ body {
     width: 100%;
     min-height: 48px;
     justify-content: center;
-  }
-
-  .metrics-flex {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .metric-box {
-    padding: 16px 14px;
   }
 
   .hero-links {

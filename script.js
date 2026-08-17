@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileDrawer();
   initLightCanvas();
   initSmartMediaCulling();
-  initAppleScrollAndMetrics();
+  initScrollReveal();
   initCardSpotlights();
   initAppleTimelineScroll();
   initLiveTelemetry();
@@ -475,11 +475,11 @@ function initProjectMediaTouch() {
 }
 
 /* =========================================================================
-   6. Apple-Inspired Scroll Reveal & Dynamic Metric Counters
+   6. Scroll Reveal
    ========================================================================= */
-function initAppleScrollAndMetrics() {
+function initScrollReveal() {
   const elementsToReveal = document.querySelectorAll(
-    '.section-title-wrap, .project-entry, .project-card, .metric-box, .skill-card, .tree-node, .contact-card, .bento-item, .about-card'
+    '.section-title-wrap, .project-entry, .project-card, .skill-card, .tree-node, .contact-card, .bento-item, .about-card'
   );
 
   elementsToReveal.forEach((el, index) => {
@@ -501,63 +501,13 @@ function initAppleScrollAndMetrics() {
   });
 
   document.querySelectorAll('.apple-reveal').forEach(el => observer.observe(el));
-
-  // Dynamic Metric Number Counters
-  const metricBoxes = document.querySelectorAll('.metric-box');
-  let metricsAnimated = false;
-
-  const metricsObserver = new IntersectionObserver((entries) => {
-    if (entries.some(e => e.isIntersecting) && !metricsAnimated) {
-      metricsAnimated = true;
-      animateMetrics();
-    }
-  }, { threshold: 0.3 });
-
-  const metricsStrip = document.querySelector('.metrics-strip');
-  if (metricsStrip) metricsObserver.observe(metricsStrip);
-
-  function animateMetrics() {
-    const targets = [
-      { id: 0, val: 87.4, decimals: 1, suffix: 'h' },
-      { id: 1, val: 10, decimals: 0, suffix: '+' },
-      { id: 2, val: 4, decimals: 0, suffix: '-State' },
-      { id: 3, val: 2027, decimals: 0, suffix: '' }
-    ];
-
-    metricBoxes.forEach((box, i) => {
-      const numEl = box.querySelector('.metric-num');
-      if (!numEl || !targets[i]) return;
-      const t = targets[i];
-      const duration = 1400;
-      const startTime = performance.now();
-
-      function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        // Apple ease-out curve
-        const easeProgress = 1 - Math.pow(1 - progress, 3);
-        const currentVal = t.decimals > 0 
-          ? (easeProgress * t.val).toFixed(t.decimals) 
-          : Math.floor(easeProgress * t.val);
-
-        numEl.innerHTML = `${currentVal}<span class="metric-sub">${t.suffix}</span>`;
-
-        if (progress < 1) {
-          requestAnimationFrame(update);
-        } else {
-          numEl.innerHTML = `${t.val}<span class="metric-sub">${t.suffix}</span>`;
-        }
-      }
-      requestAnimationFrame(update);
-    });
-  }
 }
 
 /* =========================================================================
    7. Apple-Inspired Card Spotlight Mouse-Tracking (RAF Throttled)
    ========================================================================= */
 function initCardSpotlights() {
-  const cards = document.querySelectorAll('.project-card, .metric-box, .skill-card, .bento-item, .contact-card, .about-card, .timeline-card');
+  const cards = document.querySelectorAll('.project-card, .skill-card, .bento-item, .contact-card, .about-card, .timeline-card');
   let ticking = false;
 
   cards.forEach(card => {
@@ -681,6 +631,35 @@ function initSmartMediaCulling() {
 /* =========================================================================
    9. Live Activity & Telemetry Controller
    ========================================================================= */
+function formatAge(isoTimestamp) {
+  if (!isoTimestamp) return null;
+  const then = new Date(isoTimestamp);
+  if (isNaN(then)) return null;
+
+  const seconds = Math.floor((Date.now() - then.getTime()) / 1000);
+  if (seconds < 0) return null;
+  if (seconds < 90) return 'just now';
+
+  const units = [
+    ['minute', 60],
+    ['hour', 3600],
+    ['day', 86400],
+    ['month', 2592000],
+    ['year', 31536000]
+  ];
+
+  let label = 'minute';
+  let size = 60;
+  for (const [unitLabel, unitSize] of units) {
+    if (seconds < unitSize) break;
+    label = unitLabel;
+    size = unitSize;
+  }
+
+  const value = Math.floor(seconds / size);
+  return `${value} ${label}${value === 1 ? '' : 's'} ago`;
+}
+
 async function initLiveTelemetry() {
   const bar = document.getElementById('live-activity-bar');
   const link = document.getElementById('live-activity-link');
@@ -701,7 +680,11 @@ async function initLiveTelemetry() {
 
     if (act.repo) repoEl.textContent = act.repo;
     if (act.message && msgEl) msgEl.textContent = act.message;
-    if (act.time_ago) timeEl.textContent = act.time_ago;
+
+    // Age is computed at render time from the commit timestamp. The `time_ago`
+    // string baked into activity.json is only correct at the moment the nightly
+    // sync writes it, so relying on it would show "5m ago" for a whole day.
+    timeEl.textContent = formatAge(act.timestamp) || act.time_ago || 'recently';
     if (act.repo_url && typeof act.repo_url === 'string' && act.repo_url.startsWith('https://github.com/')) {
       link.href = act.repo_url;
     }
