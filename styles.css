@@ -233,10 +233,6 @@ h4 {
 .intro {
   padding-top: clamp(48px, 9vw, 92px);
   padding-bottom: clamp(40px, 7vw, 72px);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: clamp(28px, 6vw, 64px);
-  align-items: start;
 }
 
 .intro h1 {
@@ -244,11 +240,28 @@ h4 {
   margin-bottom: 6px;
 }
 
+/* Portretul stă ca semnătură de autor lângă rol: mic, cu chenar de o linie.
+   La 64 de pixeli un passepartout ar fi doar zgomot, iar o legendă n-ar încăpea. */
+.byline {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.byline-photo {
+  width: 64px;
+  height: 80px;
+  object-fit: cover;
+  object-position: center 22%;
+  border: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+
 .intro-role {
   font-family: var(--font-mono);
   font-size: 0.86rem;
   color: var(--ink-muted);
-  margin-bottom: 26px;
   line-height: 1.6;
 }
 
@@ -298,33 +311,6 @@ h4 {
 .last-commit .sep {
   opacity: 0.5;
   padding: 0 4px;
-}
-
-/* Portretul stă montat ca o planşă dintr-o carte: passepartout de hârtie,
-   chenar subţire, legenda dedesubt. Fără ramă arăta ca o imagine lăsată acolo. */
-.portrait-plate {
-  margin: 0;
-  width: clamp(150px, 21vw, 214px);
-  background: var(--paper-raised);
-  border: 1px solid var(--rule);
-  padding: 9px 9px 7px;
-}
-
-.portrait-plate img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  display: block;
-  border: 1px solid var(--rule);
-}
-
-.portrait-plate figcaption {
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  color: var(--ink-muted);
-  text-align: right;
-  margin-top: 7px;
 }
 
 /* Sectiuni
@@ -776,19 +762,6 @@ blockquote {
    ========================================================================= */
 
 @media (max-width: 860px) {
-  .intro {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  /* Pe telefon planşa urcă deasupra numelui: chipul întâi, apoi textul.
-     Selectorul trebuie să fie .portrait-plate — .portrait a rămas fără element
-     după ce poza a primit ramă, iar regula nu mai prindea nimic. */
-  .portrait-plate {
-    order: -1;
-    width: clamp(128px, 34vw, 168px);
-    margin-bottom: 4px;
-  }
-
   .two-col,
   .stack-grid {
     grid-template-columns: minmax(0, 1fr);
