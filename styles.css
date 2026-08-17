@@ -999,8 +999,6 @@ body {
   object-fit: cover;
   object-position: center 15%;
   display: block;
-  pointer-events: none;
-  user-select: none;
   transition: border-radius 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: border-radius;
 }
@@ -1124,9 +1122,6 @@ body {
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -1195,9 +1190,6 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
   transition: aspect-ratio 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
@@ -1243,10 +1235,8 @@ body {
   object-position: center;
   background: #1a1a1a;
   display: block;
+  /* Clicks pass through to the card, which toggles the media aspect ratio. */
   pointer-events: none;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
 }
 
