@@ -34,12 +34,7 @@
     ],
     "case": "projects/agent-bridge.html",
     "repo": null,
-    "media": {
-      "mp4": "assets/obsidian_graph_interactive.mp4",
-      "poster": "assets/obsidian_graph_interactive.webp",
-      "gif": "assets/obsidian_graph_interactive.gif",
-      "alt": "The knowledge vault rendered as a graph of linked notes"
-    }
+    "media": null
   },
   {
     "id": "automation",

@@ -80,10 +80,10 @@
         </p>
 
         <p class="lede">
-          I write Python that runs unattended — background daemons, file locking that survives two
-          processes writing at once, scheduled jobs that talk to Google APIs. Before that I spent a
-          summer building enemy AI for a 2D tank game in Unity, which is where I learned that a state
-          machine is easy and making it behave is not.
+          I build things end to end — Python that runs unattended, the interfaces on top of it, and
+          increasingly the AI agents doing part of the work. Before that I spent a summer on enemy AI
+          for a 2D tank game in Unity, which is where I learned that a state machine is easy and
+          making it behave is not.
         </p>
 
         <div class="contact-row">
@@ -98,7 +98,10 @@
         </a>
       </div>
 
-      <img class="portrait" src="assets/portrait.jpg" alt="Cristian Lăcătuș" width="600" height="750" loading="eager">
+      <figure class="portrait-plate">
+        <img src="assets/portrait.jpg" alt="Cristian Lăcătuș" width="600" height="750" loading="eager">
+        <figcaption>Chambord, 2025</figcaption>
+      </figure>
     </section>
 
     <section class="wrap section" id="about">
@@ -116,10 +119,11 @@
             integrations.
           </p>
           <p>
-            Most of what I build has no interface. It runs on a schedule, holds a lock, retries when
-            an API is slow, and writes to a file that something else is also reading. That is the
+            A lot of what I build has no interface — it runs on a schedule, holds a lock, retries
+            when an API is slow, and writes to a file something else is also reading. That is the
             part I find interesting: not the feature, but what happens on the second Tuesday when two
-            things run at the same time.
+            things run at once. The rest of the time I am on the other end, building the interface,
+            which I enjoy for the opposite reason: there is a person on the other side of it.
           </p>
         </div>
         <div>
@@ -176,7 +180,7 @@
             </video>
           </div>
         </article>
-        <article class="work-item">
+        <article class="work-item no-media">
           <div class="work-body">
             <h3><a href="projects/agent-bridge.html">A bridge between my phone and a coding agent</a></h3>
             <p class="work-meta">Python 3 · Unix daemons · in daily use</p>
@@ -191,12 +195,6 @@
             <div class="work-links">
               <a href="projects/agent-bridge.html">Read the write-up</a>
             </div>
-          </div>
-          <div class="work-media">
-            <video autoplay loop muted playsinline preload="metadata" poster="assets/obsidian_graph_interactive.webp" width="960" height="540">
-              <source src="assets/obsidian_graph_interactive.mp4" type="video/mp4">
-            <img src="assets/obsidian_graph_interactive.gif" alt="The knowledge vault rendered as a graph of linked notes" loading="lazy" width="960" height="540">
-            </video>
           </div>
         </article>
         <article class="work-item no-media">
@@ -231,10 +229,10 @@
           <ul>
             <li class="primary">Python</li>
             <li class="primary">C# (.NET)</li>
+            <li class="primary">JavaScript, HTML, CSS</li>
             <li>Bash / Zsh</li>
             <li>SQL</li>
             <li>C / C++</li>
-            <li>HTML, CSS, JavaScript</li>
           </ul>
         </div>
         <div>
@@ -274,9 +272,12 @@
             <h3>Software Engineer Intern — Automation &amp; Integrations</h3>
             <p class="org">DeviDevs Technologies · Bucharest (hybrid)</p>
             <p>
-              Python automation against Google Workspace APIs, scheduled jobs under
-              <code>launchd</code>, a file-locking layer for a shared Markdown vault, and a
-              Telegram bridge for supervising long-running coding agents.
+              Project work and internal tooling, most of it with AI coding agents in the loop. That
+              turns out to mean writing the guardrails as much as the code: the file lock that keeps
+              an agent and a person from corrupting the same vault, the Telegram bridge for
+              supervising a long run from away from the desk, the rules that decide what an agent is
+              allowed to touch. Alongside it, Python automation over Google Workspace APIs and
+              scheduled jobs under <code>launchd</code>.
             </p>
           </div>
         </article>
@@ -314,8 +315,10 @@
         <h2>Get in touch</h2>
       </div>
       <p>
-        I am looking for a junior software engineering role — backend, automation, or tooling. Happy
-        to walk through any of the code above, including the parts that are not finished.
+        I am looking for a junior full-stack role. I lean backend — automation, tooling, things that
+        run without me — but I like front-end work too and would rather keep doing both than pick a
+        side this early. Happy to walk through any of the code above, including the parts that are
+        not finished.
       </p>
       <div class="contact-row">
         <a href="mailto:lacatuscristian8@gmail.com">lacatuscristian8@gmail.com</a>
